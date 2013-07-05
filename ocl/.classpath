@@ -61,5 +61,6 @@
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.transformation.pivot2sql_3.0.0.201101171054.jar"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/jaxen-1.1-beta-6.jar"/>
+	<classpathentry exported="true" kind="lib" path="EOS-0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
