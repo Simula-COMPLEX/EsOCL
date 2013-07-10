@@ -25,9 +25,6 @@ public class BranchDistanceCaculation {
 	/** singleton instance */
 	private static BranchDistanceCaculation instance;
 
-	/**
-	 * Returns the single instance of the {@link StandaloneFacade}.
-	 */
 	public static BranchDistanceCaculation INSTANCE = instance();
 
 	private Utility utility = Utility.INSTANCE;
@@ -486,7 +483,7 @@ public class BranchDistanceCaculation {
 		}
 		int iteratorSize = iterators.size();
 		double temp = 0, min_value = 1;
-		// 可重复组合
+		// Composition with replication
 		int[][] envComb = utility.combInArrayDup(input, iteratorSize);
 		for (int i = 0; i < envComb.length; i++) {
 			for (int j = 0; j < iteratorSize; j++) {

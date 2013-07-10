@@ -15,7 +15,7 @@ public class SearchEngineDriver {
 
 	public void runSearch() throws Exception {
 
-		String inputModelPath = "resources/model/royalsandloyals.uml";
+		String inputModelPath = "resources/model/royalsandloyals-simple.uml";
 		String inputOclConstraintsPath = "resources/constraints/test.ocl";
 		// Search[] s = new Search[]{new simula.oclga.AVM(), new
 		// simula.oclga.SSGA(100,0.75), new simula.oclga.OpOEA(), new

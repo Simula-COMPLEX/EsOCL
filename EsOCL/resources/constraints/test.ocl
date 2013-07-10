@@ -3,7 +3,14 @@ package tudresden::ocl20::pivot::examples::royalsandloyals
 -- Invariant 1:
 context Customer
 
-inv ofAge: age >= 18
+inv ofAge: self.cards->size() = 1 and self.isMale = false
+
+-- Invariant 1:
+---context CustomerCard
+
+--inv ofColor: self.color = Color::gold
+
+--inv ofValid: self.valid = true
 
 
 endpackage

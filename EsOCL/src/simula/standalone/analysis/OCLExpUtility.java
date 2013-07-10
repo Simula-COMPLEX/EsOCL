@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.uml2.uml.Enumeration;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 
 import tudresden.ocl20.pivot.essentialocl.expressions.OclExpression;
 import tudresden.ocl20.pivot.essentialocl.expressions.impl.IterateExpImpl;
@@ -12,6 +14,9 @@ import tudresden.ocl20.pivot.essentialocl.expressions.impl.OperationCallExpImpl;
 import tudresden.ocl20.pivot.essentialocl.standardlibrary.OclAny;
 import tudresden.ocl20.pivot.essentialocl.standardlibrary.OclCollection;
 import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceElement;
+import tudresden.ocl20.pivot.standardlibrary.java.internal.library.JavaOclBoolean;
+import tudresden.ocl20.pivot.standardlibrary.java.internal.library.JavaOclEnumLiteral;
+import tudresden.ocl20.pivot.standardlibrary.java.internal.library.JavaOclInteger;
 
 public class OCLExpUtility {
 
@@ -45,7 +50,27 @@ public class OCLExpUtility {
 	}
 
 	public double getResultNumericValue(OclAny oclAny) {
-		return Double.valueOf(oclAny.getModelInstanceElement().toString());
+		if (oclAny instanceof JavaOclInteger) {
+			return Double.valueOf(oclAny.getModelInstanceElement().toString());
+		} else if (oclAny instanceof JavaOclBoolean) {
+			if (((JavaOclBoolean) oclAny).isTrue())
+				return 1;
+			else
+				return 0;
+		} else if (oclAny instanceof JavaOclEnumLiteral) {
+			Enumeration enumType = UMLModelInsGenerator.INSTANCE
+					.getEnumeration(((JavaOclEnumLiteral) oclAny)
+							.getModelInstanceEnumerationLiteral().getType()
+							.getName());
+			for (EnumerationLiteral el : enumType.getOwnedLiterals()) {
+				if (el.getName().equals(
+						((JavaOclEnumLiteral) oclAny)
+								.getModelInstanceEnumerationLiteral()
+								.getLiteral().getName()))
+					return enumType.getOwnedLiterals().indexOf(el);
+			}
+		}
+		return -1;
 	}
 
 	private void printChild(EObject pObject, int depth) {

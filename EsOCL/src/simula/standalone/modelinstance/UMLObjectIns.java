@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-public class UMLObjectInstance extends AbstractUMLModelInstance {
+public class UMLObjectIns extends AbstUMLModelIns {
 
-	public UMLObjectInstance(String name, String value) {
+	public UMLObjectIns(String name, String value) {
 		super(name, value);
 		// TODO Auto-generated constructor stub
 	}
@@ -24,12 +24,12 @@ public class UMLObjectInstance extends AbstractUMLModelInstance {
 		propertyMap.put(propertyName, umlProperty);
 	}
 	
-	public Collection<UMLPrimitivePropertyInstance> getPrimitivePropertyCollection(){
+	public Collection<UMLNonAssPropIns> getPrimitivePropertyCollection(){
 		Collection<Object> properties = propertyMap.values();
-		Collection<UMLPrimitivePropertyInstance> primitiveProperties = new HashSet<UMLPrimitivePropertyInstance>();
+		Collection<UMLNonAssPropIns> primitiveProperties = new HashSet<UMLNonAssPropIns>();
 		for (Object object : properties) {
-			if (object instanceof UMLPrimitivePropertyInstance){
-				primitiveProperties.add((UMLPrimitivePropertyInstance)object);
+			if (object instanceof UMLNonAssPropIns){
+				primitiveProperties.add((UMLNonAssPropIns)object);
 			}
 		}
 		return primitiveProperties;
