@@ -6,6 +6,9 @@ import java.util.*;
 
 import org.eclipse.emf.ecore.EObject;
 
+import simula.standalone.analysis.BDC4BooleanOp;
+import simula.standalone.analysis.BDC4CheckOp;
+import simula.standalone.analysis.BDC4IterateOp;
 import simula.standalone.analysis.BranchDistanceCaculation;
 import simula.standalone.analysis.OCLExpUtility;
 import simula.standalone.analysis.UMLModelInsGenerator;
@@ -66,47 +69,6 @@ public class XiangProblem implements simula.oclga.Problem {
 		}
 	}
 
-	/**
-	 * Identify the different kind of expressions and calculate the distance
-	 * 
-	 * @param exp
-	 *            OCL expression
-	 * @param imiObject
-	 *            model instance
-	 * @param bdc
-	 */
-	private static double classifyExp(Expression exp,
-			IModelInstanceObject imiObject, BranchDistanceCaculation bdc) {
-		EObject e = exp.eContents().get(0);
-		if (e instanceof OperationCallExpImpl) {
-			// Get the operator name
-			String opName = ((OperationCallExpImpl) e).getReferredOperation()
-					.getName();
-			// "includes", "excludes", "includesAll","excludesAll", "isEmpty"
-			if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
-					OCLExpUtility.OP_CHECK)) {
-				return bdc.handleCheckOp(imiObject, (OperationCallExpImpl) e);
-			} // end if
-				// "=", "<>", "<", "<=", ">", ">=", "implies", "not", "and",
-				// "or", "xor"
-			else if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
-					OCLExpUtility.OP_COMPARE)
-					|| OCLExpUtility.INSTANCE.isBelongToOp(opName,
-							OCLExpUtility.OP_BOOLEAN)) {
-				return bdc.handleBooleanOp(imiObject, (OperationCallExpImpl) e);
-			}// end else if
-				// "forAll", "exists", "isUnique", "one","select", "reject",
-				// "collect"
-			else if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
-					OCLExpUtility.OP_ITERATE)
-					|| OCLExpUtility.INSTANCE.isBelongToOp(opName,
-							OCLExpUtility.OP_SELECT)) {
-				return bdc.handleIteratorOp(imiObject, (IteratorExpImpl) e);
-			}
-		}
-		return -1;
-	}
-
 	public void setValues(int[][] values) {
 		this.values = values;
 
@@ -131,8 +93,12 @@ public class XiangProblem implements simula.oclga.Problem {
 	}
 
 	public double getFitness(int[] value) {
+		System.err.print((++i) + ":::");
+		for (int i = 0; i < value.length; i++) {
+			System.err.print(" " + value[i]);
 
-		System.err.println((++i) + ":::" + value[0]);
+		}
+		System.err.println();
 		try {
 
 			System.out.println("---Generate the concreate model instance---");
@@ -181,6 +147,55 @@ public class XiangProblem implements simula.oclga.Problem {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	/**
+	 * Identify the different kind of expressions and calculate the distance
+	 * 
+	 * @param exp
+	 *            OCL expression
+	 * @param imiObject
+	 *            model instance
+	 * @param bdc
+	 */
+	private static double classifyExp(Expression exp,
+			IModelInstanceObject imiObject, BranchDistanceCaculation bdc) {
+		EObject e = exp.eContents().get(0);
+		if (e instanceof OperationCallExpImpl) {
+			// Get the operator name
+			String opName = ((OperationCallExpImpl) e).getReferredOperation()
+					.getName();
+			// "includes", "excludes", "includesAll","excludesAll", "isEmpty"
+			if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
+					OCLExpUtility.OP_CHECK)) {
+				BDC4CheckOp bdc4CheckOp = new BDC4CheckOp(bdc.getInterpreter());
+				return bdc4CheckOp.handleCheckOp(imiObject,
+						(OperationCallExpImpl) e);
+			} // end if
+				// "=", "<>", "<", "<=", ">", ">=", "implies", "not", "and",
+				// "or", "xor"
+			else if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
+					OCLExpUtility.OP_COMPARE)
+					|| OCLExpUtility.INSTANCE.isBelongToOp(opName,
+							OCLExpUtility.OP_BOOLEAN)) {
+				BDC4BooleanOp bdc4BoolOp = new BDC4BooleanOp(
+						bdc.getInterpreter());
+				return bdc4BoolOp.handleBooleanOp(imiObject,
+						(OperationCallExpImpl) e);
+			}// end else if
+				// "forAll", "exists", "isUnique", "one","select", "reject",
+				// "collect"
+			else if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
+					OCLExpUtility.OP_ITERATE)
+					|| OCLExpUtility.INSTANCE.isBelongToOp(opName,
+							OCLExpUtility.OP_SELECT)) {
+				BDC4IterateOp bdc4IterOp = new BDC4IterateOp(
+						bdc.getInterpreter());
+				return bdc4IterOp.handleIteratorOp(imiObject,
+						(IteratorExpImpl) e);
+			}
 		}
 		return -1;
 	}

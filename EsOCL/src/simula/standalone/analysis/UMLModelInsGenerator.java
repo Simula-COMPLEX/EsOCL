@@ -63,8 +63,8 @@ public class UMLModelInsGenerator {
 							.get(values[i]).getName();
 					array_properties[i].setValue(lieralName);
 				}
-
 			}
+			System.out.println(array_properties[i].getName() + "::" + array_properties[i].getValue());
 		}
 		return objects;
 	}
@@ -210,7 +210,6 @@ public class UMLModelInsGenerator {
 
 					break;
 				}
-				System.out.println(pp.getName() + "::" + uppi);
 				uoi.addProperty(pp.getName(), uppi);
 			}
 		}
