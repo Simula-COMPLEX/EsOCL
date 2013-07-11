@@ -27,7 +27,8 @@ public class BDC4BooleanOp {
 	 * Handle the boolean expression and comparison expression
 	 * 
 	 * @param env
-	 * @param opCallexp the whole expression
+	 * @param opCallexp
+	 *            the whole expression
 	 * @return
 	 */
 	public double handleBooleanOp(IModelInstanceObject env,
@@ -35,17 +36,23 @@ public class BDC4BooleanOp {
 		this.interpreter.setEnviromentVariable("self", env);
 		String opName = opCallexp.getReferredOperation().getName();
 		EList<EObject> contents = opCallexp.eContents();
-		//divide the whole expression into the left and right part
+		// divide the whole expression into the left and right part
 		OclExpression A_exp = (OclExpression) contents.get(0);
+		if (opName.equals("not")) {
+			return notOp(env, (OperationCallExpImpl) A_exp);
+		}
 		OclExpression B_exp = (OclExpression) contents.get(1);
 		return classifyValue(env, A_exp, B_exp, opName);
 	}
 
 	/**
 	 * classify the expression into the Comparison or Boolean type
+	 * 
 	 * @param env
-	 * @param A_exp leftpart of operator
-	 * @param B_exp rightpart of operator
+	 * @param A_exp
+	 *            leftpart of operator
+	 * @param B_exp
+	 *            rightpart of operator
 	 * @param opName
 	 * @return
 	 */
@@ -59,9 +66,7 @@ public class BDC4BooleanOp {
 			OperationCallExpImpl A_opCallExp = (OperationCallExpImpl) A_exp;
 			OperationCallExpImpl B_opCallExp = (OperationCallExpImpl) B_exp;
 			// one evaluation part in the "not" expression
-			if (opName.equals("not")) {
-				return notOp(env, A_opCallExp);
-			} else if (opName.equals("and")) {
+			if (opName.equals("and")) {
 				return andOp(env, A_opCallExp, B_opCallExp);
 			} else if (opName.equals("or")) {
 				return orOp(env, A_opCallExp, B_opCallExp);
