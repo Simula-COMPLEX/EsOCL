@@ -16,25 +16,25 @@ import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceElement;
 import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceObject;
 import tudresden.ocl20.pivot.pivotmodel.Expression;
 
-public class BranchDistanceCaculation {
+public class BDCManager {
 
 	OclInterpreter interpreter;
 
 	List<IModelInstanceObject> modelInstanceObjects;
 
 	/** singleton instance */
-	private static BranchDistanceCaculation instance;
+	private static BDCManager instance;
 
-	public static BranchDistanceCaculation INSTANCE = instance();
+	public static BDCManager INSTANCE = instance();
 
 	private Utility utility = Utility.INSTANCE;
 
 	private OCLExpUtility oclExpUtility = OCLExpUtility.INSTANCE;
 
-	private static BranchDistanceCaculation instance() {
+	private static BDCManager instance() {
 
 		if (instance == null) {
-			instance = new BranchDistanceCaculation();
+			instance = new BDCManager();
 		}
 		return instance;
 	}

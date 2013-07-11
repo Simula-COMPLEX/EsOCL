@@ -31,6 +31,7 @@ public class BDC4CompareOp {
 		OclAny left = this.interpreter.doSwitch(leftExp);
 		OclAny right = this.interpreter.doSwitch(rightExp);
 		Double leftResult = 0.0, rightResult = 0.0;
+		//obtain the int value based on the different types of evaluated results
 		leftResult = oclExpUtility.getResultNumericValue(left);
 		rightResult = oclExpUtility.getResultNumericValue(right);
 		if (left.oclIsUndefined().isTrue() || right.oclIsUndefined().isTrue()) {
@@ -110,6 +111,7 @@ public class BDC4CompareOp {
 				return sourceSize - leftResult + Utility.K
 						+ utility.normalize(temp);
 		} // end else if
+		
 		return -1;
 	}
 

@@ -1,0 +1,11 @@
+package tudresden::ocl20::pivot::examples::royalsandloyals
+
+-- Invariant 1:
+context Customer
+
+--inv ofAge: self.cards->forAll(valid=true)
+--inv ofAge: self.cards->exists(valid=true)
+--inv ofAge: self.cards->isUnique(valid=true)
+inv ofAge: self.cards->one(valid=true)
+
+endpackage

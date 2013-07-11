@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
+import tudresden.ocl20.pivot.essentialocl.expressions.OclExpression;
 import tudresden.ocl20.pivot.essentialocl.expressions.Variable;
 import tudresden.ocl20.pivot.essentialocl.expressions.impl.IteratorExpImpl;
 import tudresden.ocl20.pivot.essentialocl.expressions.impl.OperationCallExpImpl;
@@ -34,27 +35,36 @@ public class BDC4IterateOp {
 		EList<EObject> contents = iteratorExp.eContents();
 		Collection<IModelInstanceElement> envCol = oclExpUtility
 				.getResultCollection(this.interpreter.doSwitch(contents.get(0)));
-		IModelInstanceElement[] envArray = (IModelInstanceElement[]) envCol
-				.toArray();
 		int envColsize = envCol.size();
+		int envArray_index = 0;
+		IModelInstanceElement[] envArray = new IModelInstanceElement[envColsize];
+		for (IModelInstanceElement temp_env : envCol) {
+			envArray[envArray_index++] = temp_env;
+		}
+
 		int[] input = new int[envColsize];
-		for (int i = 0; i < envColsize; i++) {
-			input[i] = i;
+		for (int input_index = 0; input_index < envColsize; input_index++) {
+			input[input_index] = input_index;
 		}
 		List<Variable> iterators = iteratorExp.getIterator();
+		String complexType = oclExpUtility.isComplexType(iteratorExp);
 		// handle the complex situation
-		if (oclExpUtility.isComplexType(iteratorExp).equals(
-				OCLExpUtility.OP_COMPLEX_SELECT_ITERATE)) {
+		if (complexType != null
+				&& complexType.equals(OCLExpUtility.OP_COMPLEX_SELECT_ITERATE)) {
 			handleComplexSelectIterateOp(env, iteratorExp);
 		}
 
+		// operation expression for each iteration
 		OperationCallExpImpl oce = (OperationCallExpImpl) contents.get(1);
-		OperationCallExpImpl p1 = (OperationCallExpImpl) oce.eContents().get(0);
-		OperationCallExpImpl p2 = (OperationCallExpImpl) oce.eContents().get(1);
 		String oceOpName = oce.getReferredOperation().getName();
+		// left part of operator
+		OclExpression p1 = (OclExpression) oce.eContents().get(0);
+		// right part of operator
+		OclExpression p2 = (OclExpression) oce.eContents().get(1);
+
 		if (opName.equals("forAll")) {
 			if (oclExpUtility.isBelongToOp(oceOpName, OCLExpUtility.OP_COMPARE)) {
-				return forAllOp(env, envArray, iterators, oce, null, oceOpName);
+				return forAllOp(env, envArray, iterators, p1, p2, oceOpName);
 			} else if (oclExpUtility.isBelongToOp(opName,
 					OCLExpUtility.OP_BOOLEAN)) {
 				if (opName.equals("not")) {
@@ -67,7 +77,7 @@ public class BDC4IterateOp {
 
 		} else if (opName.equals("exists")) {
 			if (oclExpUtility.isBelongToOp(oceOpName, OCLExpUtility.OP_COMPARE)) {
-				return existsOp(env, envArray, iterators, oce, null, oceOpName);
+				return existsOp(env, envArray, iterators, p1, p2, oceOpName);
 			} else if (oclExpUtility.isBelongToOp(opName,
 					OCLExpUtility.OP_BOOLEAN)) {
 				if (opName.equals("not")) {
@@ -98,9 +108,13 @@ public class BDC4IterateOp {
 					/ (envColsize * (envColsize - 1)));
 		} else if (opName.equals("one")) {
 			int count = 0;
-			OclAny result = this.interpreter.doSwitch(contents.get(1));
-			if (((OclBoolean) result).isTrue())
-				count++;
+			for (int i = 0; i < envArray.length; i++) {
+				this.interpreter.setEnviromentVariable(iterators.get(0)
+						.getName(), envArray[i]);
+				OclAny result = this.interpreter.doSwitch(contents.get(1));
+				if (((OclBoolean) result).isTrue())
+					count++;
+			}
 			return bdc4CompOp.compareOp4Numeric(count, 1, "=");
 		}
 
@@ -133,7 +147,7 @@ public class BDC4IterateOp {
 
 	private double forAllOp(IModelInstanceObject env,
 			IModelInstanceElement[] envArray, List<Variable> iterators,
-			OperationCallExpImpl p1, OperationCallExpImpl p2, String opName) {
+			OclExpression p1, OclExpression p2, String opName) {
 		int envColsize = envArray.length;
 		int[] input = new int[envColsize];
 		for (int i = 0; i < envColsize; i++) {
@@ -160,7 +174,7 @@ public class BDC4IterateOp {
 
 	private double existsOp(IModelInstanceObject env,
 			IModelInstanceElement[] envArray, List<Variable> iterators,
-			OperationCallExpImpl p1, OperationCallExpImpl p2, String opName) {
+			OclExpression p1, OclExpression p2, String opName) {
 		int envColsize = envArray.length;
 		int[] input = new int[envColsize];
 		for (int i = 0; i < envColsize; i++) {

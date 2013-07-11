@@ -26,10 +26,13 @@ import simula.standalone.modelinstance.UMLNonAssPropIns;
 
 public class UMLModelInsGenerator {
 
+	//property array
 	UMLNonAssPropIns[] array_properties;
 
+	//generated class instances
 	List<UMLObjectIns> objects;
 
+	//enumeration types in the .uml file
 	List<Enumeration> enumTypes;
 
 	/** singleton instance */
@@ -45,9 +48,14 @@ public class UMLModelInsGenerator {
 		return instance;
 	}
 
+	/**
+	 * reassign the value of each instance
+	 * @param values
+	 * @return
+	 */
 	public List<UMLObjectIns> getModelInstance(int[] values) {
 		for (int i = 0; i < array_properties.length; i++) {
-			// only deal with the int number
+			/**transfer the int value to each instance*/
 			if (array_properties[i].getType() == 0) {
 				array_properties[i].setValue("" + values[i]);
 			} else if (array_properties[i].getType() == 1) {
@@ -70,7 +78,7 @@ public class UMLModelInsGenerator {
 	}
 
 	public UMLNonAssPropIns[] getProperties(String inputModelPath) {
-		// initial the model instance list
+		/**initial the model instance list*/
 		objects = new ArrayList<UMLObjectIns>();
 
 		/******** parse the .uml model for generating the instances automatically ***/
@@ -112,6 +120,7 @@ public class UMLModelInsGenerator {
 		enumTypes = new ArrayList<Enumeration>();
 		EList<org.eclipse.uml2.uml.Element> pElements = rootObject
 				.allOwnedElements();
+		//identify the CLASS, ASSOCIATION and ENUMERATION
 		for (org.eclipse.uml2.uml.Element element : pElements) {
 			if (element instanceof org.eclipse.uml2.uml.Class) {
 				classList.add((org.eclipse.uml2.uml.Class) element);
@@ -122,9 +131,11 @@ public class UMLModelInsGenerator {
 			}
 		}
 
+		//build the class instances based on the associations
 		for (Association ass : assList) {
 			List<UMLObjectIns> uoiList_2 = new ArrayList<UMLObjectIns>();
 			List<org.eclipse.uml2.uml.Property> ends = ass.getMemberEnds();
+			//two ends of ass
 			String endType_1 = ((Class) ends.get(0).getType()).getName();
 			String endType_2 = ((Class) ends.get(1).getType()).getName();
 			Class cla_1 = getClass(classList, endType_1);
@@ -133,6 +144,7 @@ public class UMLModelInsGenerator {
 			// Please modify the iteration time!!!!!!!
 			for (int i = 0; i < 1; i++) {
 				UMLObjectIns uoi_2 = buildUMLObjectInstance(cla_2);
+				//add the ass property
 				uoi_2.addProperty(ends.get(0).getName(), uoi_1);
 				uoiList_2.add(uoi_2);
 			}
@@ -141,6 +153,11 @@ public class UMLModelInsGenerator {
 		}
 	}
 
+	/**
+	 * obtain the int label of each type
+	 * @param type
+	 * @return
+	 */
 	public int value4PPType(org.eclipse.uml2.uml.Type type) {
 		if (type instanceof PrimitiveType) {
 			String[] tempStrs = type.toString().split("#");
@@ -155,15 +172,6 @@ public class UMLModelInsGenerator {
 			return 1;
 		}
 		return -1;
-	}
-
-	public List<UMLObjectIns> getUMLObjectInstances(String className) {
-		List<UMLObjectIns> classList = new ArrayList<UMLObjectIns>();
-		for (UMLObjectIns uoi : objects) {
-			if (uoi.getName().equals(className))
-				classList.add(uoi);
-		}
-		return classList;
 	}
 
 	public Class getClass(List<org.eclipse.uml2.uml.Class> classList,
@@ -183,16 +191,24 @@ public class UMLModelInsGenerator {
 		return null;
 	}
 
+	/**
+	 * build the class instance based on the class of .uml file
+	 * @param cla
+	 * @return
+	 */
 	public UMLObjectIns buildUMLObjectInstance(Class cla) {
 		UMLObjectIns uoi = new UMLObjectIns(cla.getName(), null);
 		for (org.eclipse.uml2.uml.Property pp : cla.getAllAttributes()) {
 			if (pp.getType() instanceof PrimitiveType
 					|| pp.getType() instanceof Enumeration) {
+				//build the property instance
 				UMLNonAssPropIns uppi = new UMLNonAssPropIns(pp.getName(), "",
 						value4PPType(pp.getType()));
+				// if the type of property is Enumeration, we should configure the type name.
 				if (pp.getType() instanceof Enumeration) {
 					uppi.setEnumType(((Enumeration) pp.getType()).getName());
 				}
+				//configure the min or max value of each type
 				switch (value4PPType(pp.getType())) {
 				case 0:
 					uppi.setMinValue(-100);

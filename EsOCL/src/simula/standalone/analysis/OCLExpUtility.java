@@ -128,19 +128,17 @@ public class OCLExpUtility {
 				}
 			}
 		}
-		if (exp instanceof IterateExpImpl) {
-			String opName = ((IterateExpImpl) exp).getName();
-			if (isBelongToOp(opName, OP_ITERATE)) {
-				EObject select_iterate_Exp = ((IterateExpImpl) exp).eContents()
-						.get(0);
-				if (select_iterate_Exp instanceof IteratorExpImpl) {
-					String select_iterate_Exp_opName = ((IteratorExpImpl) select_iterate_Exp)
-							.getName();
-					if (isBelongToOp(select_iterate_Exp_opName, OP_SELECT)) {
-						return OP_COMPLEX_SELECT_ITERATE;
-					}// end if
+		if (exp instanceof IteratorExpImpl) {
+			EObject select_iterate_Exp = ((IteratorExpImpl) exp).eContents()
+					.get(0);
+			if (select_iterate_Exp instanceof IteratorExpImpl) {
+				String select_iterate_Exp_opName = ((IteratorExpImpl) select_iterate_Exp)
+						.getName();
+				if (isBelongToOp(select_iterate_Exp_opName, OP_SELECT)) {
+					return OP_COMPLEX_SELECT_ITERATE;
 				}// end if
-			}
+			}// end if
+
 		}
 		return null;
 	}
