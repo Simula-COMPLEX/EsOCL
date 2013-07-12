@@ -55,7 +55,7 @@ public class BDC4IterateOp {
 		}
 
 		// iterator expression for each iteration
-		OclExpression paraExp = (OperationCallExpImpl) contents.get(1);
+		OclExpression paraExp = (OclExpression) contents.get(1);
 		if (opName.equals("forAll")) {
 			return forAllOp(env, envArray, iterators, paraExp, null, null);
 

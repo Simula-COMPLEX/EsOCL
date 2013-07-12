@@ -139,8 +139,7 @@ public class XiangProblem implements simula.oclga.Problem {
 						}
 					} catch (Exception e) {
 						// TODO: handle exception
-						System.err.println(constraint.getSpecification()
-								.getBody() + "--------------" + e.getMessage());
+						e.printStackTrace();
 					}
 
 				}
