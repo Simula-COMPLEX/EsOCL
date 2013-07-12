@@ -26,14 +26,13 @@ public class BDC4BooleanOp {
 
 	/**
 	 * Handle the boolean expression and comparison expression
-	 * 
 	 * @param env
-	 * @param opCallexp
-	 *            the whole expression
+	 * @param exp boolean expression
 	 * @return
 	 */
 	public double handleBooleanOp(IModelInstanceObject env, OclExpression exp) {
 		this.interpreter.setEnviromentVariable("self", env);
+		// this expression may be a property call expression
 		if (exp instanceof PropertyCallExpImpl) {
 			OclAny result = this.interpreter.doSwitch(exp);
 			if (result.oclIsUndefined().isTrue())
@@ -43,7 +42,9 @@ public class BDC4BooleanOp {
 			else
 				// d(exp) >0 && d(exp) < k
 				return Utility.K - 0.1;
-		} else if (exp instanceof OperationCallExpImpl) {
+		} 
+		// this expression may be a operation call expression
+		else if (exp instanceof OperationCallExpImpl) {
 			OperationCallExpImpl opCallexp = (OperationCallExpImpl) exp;
 			String opName = opCallexp.getReferredOperation().getName();
 			EList<EObject> contents = opCallexp.eContents();

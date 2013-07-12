@@ -3,7 +3,7 @@ package tudresden::ocl20::pivot::examples::royalsandloyals
 -- Invariant 1:
 context Customer
 
--- inv ofAge: self.cards->size() = 1 and self.isMale = false
+ inv ofAge: self.cards->size() = 1 and self.isMale = false
 
 -- inv ofAge: not (self.isMale = false)
 
@@ -11,6 +11,6 @@ context Customer
 
 -- inv ofAge: self.cards->size() = 1 or self.isMale = false
 
- inv ofAge: self.cards->size() = 1 implies self.isMale = false
+-- inv ofAge: self.cards->size() = 1 implies self.isMale = false
 
 endpackage
