@@ -4,18 +4,18 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.XMIResource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 
-import simula.standalone.analysis.BranchDistanceCaculation;
+import simula.standalone.analysis.BDC4BooleanOp;
+import simula.standalone.analysis.BDC4CheckOp;
+import simula.standalone.analysis.BDC4IterateOp;
+import simula.standalone.analysis.BDCManager;
 import simula.standalone.analysis.OCLExpUtility;
-import simula.standalone.analysis.UMLModelAnalysis;
-import simula.standalone.modelinstance.RuntimeModelInstance;
-import simula.standalone.modelinstance.UMLObjectInstance;
-import simula.standalone.modelinstance.UMLPrimitivePropertyInstance;
+import simula.standalone.analysis.UMLModelInsGenerator;
+
+import simula.standalone.modelinstance.RModelIns;
+
+import simula.standalone.modelinstance.UMLNonAssPropIns;
 import tudresden.ocl20.pivot.essentialocl.expressions.impl.IteratorExpImpl;
 import tudresden.ocl20.pivot.essentialocl.expressions.impl.OperationCallExpImpl;
 import tudresden.ocl20.pivot.interpreter.IInterpretationResult;
@@ -23,21 +23,26 @@ import tudresden.ocl20.pivot.interpreter.IOclInterpreter;
 import tudresden.ocl20.pivot.interpreter.OclInterpreterPlugin;
 import tudresden.ocl20.pivot.interpreter.internal.OclInterpreter;
 import tudresden.ocl20.pivot.model.IModel;
-import tudresden.ocl20.pivot.model.ModelAccessException;
+
 import tudresden.ocl20.pivot.modelinstance.IModelInstance;
 import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceObject;
-import tudresden.ocl20.pivot.parser.ParseException;
+
 import tudresden.ocl20.pivot.pivotmodel.Constraint;
 import tudresden.ocl20.pivot.pivotmodel.Expression;
 import tudresden.ocl20.pivot.standalone.facade.StandaloneFacade;
-import tudresden.ocl20.pivot.tools.template.exception.TemplateException;
 
 public class XiangProblem implements simula.oclga.Problem {
 
+	// the input model
 	File inputModel;
+
+	// the input ocl constraints
 	File inputOclConstraints;
 
+	// after loading the model file, it is the loaded model
 	IModel model;
+
+	// the parsed ocl constraints
 	List<Constraint> constraintList;
 
 	int values[][];
@@ -50,8 +55,10 @@ public class XiangProblem implements simula.oclga.Problem {
 		try {
 			StandaloneFacade.INSTANCE.initialize(new URL("file:"
 					+ new File("log4j.properties").getAbsolutePath()));
+			// obtain the uml model from the .uml file
 			model = StandaloneFacade.INSTANCE.loadUMLModel(inputModel,
 					getUMLResources());
+			// obtain the ocl constraints based on the model
 			System.out.println("---Parse the input ocl constraint---");
 			constraintList = StandaloneFacade.INSTANCE.parseOclConstraints(
 					model, inputOclConstraints);
@@ -62,65 +69,23 @@ public class XiangProblem implements simula.oclga.Problem {
 		}
 	}
 
-	/**
-	 * Identify the different kind of expressions and calculate the distance
-	 * 
-	 * @param exp
-	 *            OCL expression
-	 * @param imiObject
-	 *            model instance
-	 * @param bdc
-	 */
-	private static double classifyExp(Expression exp,
-			IModelInstanceObject imiObject, BranchDistanceCaculation bdc) {
-		EObject e = exp.eContents().get(0);
-		if (e instanceof OperationCallExpImpl) {
-			// Get the operator name
-			String opName = ((OperationCallExpImpl) e).getReferredOperation()
-					.getName();
-			// "includes", "excludes", "includesAll","excludesAll", "isEmpty"
-			if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
-					OCLExpUtility.OP_CHECK)) {
-				return bdc.handleCheckOp(imiObject, (OperationCallExpImpl) e);
-			} // end if
-				// "=", "<>", "<", "<=", ">", ">="
-			else if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
-					OCLExpUtility.OP_COMPARE)) {
-				return bdc.handleBooleanOp(imiObject, (OperationCallExpImpl) e);
-			}// end else if
-				// "forAll", "exists", "isUnique", "one","select", "reject",
-				// "collect"
-			else if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
-					OCLExpUtility.OP_ITERATE)
-					|| OCLExpUtility.INSTANCE.isBelongToOp(opName,
-							OCLExpUtility.OP_SELECT)) {
-				return bdc.handleIteratorOp(imiObject, (IteratorExpImpl) e);
-			}
-		}
-		return -1;
-	}
-
 	public void setValues(int[][] values) {
 		this.values = values;
 
 	}
 
 	public void processProblem() {
-		UMLModelAnalysis uma = UMLModelAnalysis.INSTANCE;
-		UMLPrimitivePropertyInstance[] array_properties = uma
-				.getProperties(inputModel.getAbsolutePath());
+		System.out.println("---Initial the property array---");
+		UMLModelInsGenerator uma = UMLModelInsGenerator.INSTANCE;
+		// obtain the property array
+		UMLNonAssPropIns[] array_properties = uma.getProperties(inputModel
+				.getAbsolutePath());
 		int valuesOfConstraints[][] = new int[array_properties.length][3];
 
 		for (int i = 0; i < array_properties.length; i++) {
-			if (array_properties[i].getType() == 0) {
-				valuesOfConstraints[i][0] = -100;
-				valuesOfConstraints[i][1] = 100;
-				valuesOfConstraints[i][2] = 0;
-			} else if (array_properties[i].getType() == 1) {
-				valuesOfConstraints[i][0] = 0;
-				valuesOfConstraints[i][1] = 1;
-				valuesOfConstraints[i][2] = 1;
-			}
+			valuesOfConstraints[i][0] = array_properties[i].getMinValue();
+			valuesOfConstraints[i][1] = array_properties[i].getMaxVlaue();
+			valuesOfConstraints[i][2] = array_properties[i].getType();
 		}
 
 		this.values = valuesOfConstraints;
@@ -128,19 +93,24 @@ public class XiangProblem implements simula.oclga.Problem {
 	}
 
 	public double getFitness(int[] value) {
-		System.err.println((++i) + ":::" + value[0]);
+		System.err.print((++i) + ":::");
+		for (int i = 0; i < value.length; i++) {
+			System.err.print(" " + value[i]);
+
+		}
+		System.err.println();
 		try {
 
-			System.out.println("---Generate the model instance---");
-			IModelInstance modelInstance = new RuntimeModelInstance(model,
-					UMLModelAnalysis.INSTANCE.getModelInstance(value));
+			System.out.println("---Generate the concreate model instance---");
+			IModelInstance modelInstance = new RModelIns(model,
+					UMLModelInsGenerator.INSTANCE.getModelInstance(value));
 			List<IInterpretationResult> resultList = new LinkedList<IInterpretationResult>();
 
 			// Create OCL Constraints Interpreter
 			IOclInterpreter interpreter = new OclInterpreter(modelInstance);
 
 			// Initial the calculator
-			BranchDistanceCaculation bdc = BranchDistanceCaculation.INSTANCE;
+			BDCManager bdc = BDCManager.INSTANCE;
 			bdc.setOclInterpreter((OclInterpreter) interpreter);
 			bdc.setModelInstanceObjects(modelInstance
 					.getAllModelInstanceObjects());
@@ -161,24 +131,65 @@ public class XiangProblem implements simula.oclga.Problem {
 									.getSpecification().getBody()
 									+ ": " + result.getResult());
 							resultList.add(result);
-							// set the "self" with current instance
-							interpreter
-									.setEnviromentVariable("self", imiObject);
 							// Get the OCL expression
 							Expression exp = constraint.getSpecification();
 							// Classify the OCL expression
+							System.out.println("---Caculate the fitness---");
 							return classifyExp(exp, imiObject, bdc);
 						}
 					} catch (Exception e) {
 						// TODO: handle exception
-						System.err.println(constraint.getSpecification()
-								.getBody() + "--------------" + e.getMessage());
+						e.printStackTrace();
 					}
 
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	/**
+	 * Identify the different kind of expressions and calculate the distance
+	 * 
+	 * @param exp
+	 *            OCL expression
+	 * @param imiObject
+	 *            model instance
+	 * @param bdc
+	 */
+	private static double classifyExp(Expression exp,
+			IModelInstanceObject imiObject, BDCManager bdc) {
+		EObject e = exp.eContents().get(0);
+		if (e instanceof OperationCallExpImpl) {
+			// Get the operator name
+			String opName = ((OperationCallExpImpl) e).getReferredOperation()
+					.getName();
+			// "includes", "excludes", "includesAll","excludesAll", "isEmpty"
+			if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
+					OCLExpUtility.OP_CHECK)) {
+				BDC4CheckOp bdc4CheckOp = new BDC4CheckOp(bdc.getInterpreter());
+				return bdc4CheckOp.handleCheckOp(imiObject,
+						(OperationCallExpImpl) e);
+			} // end if
+				// "=", "<>", "<", "<=", ">", ">=", "implies", "not", "and",
+				// "or", "xor"
+			else if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
+					OCLExpUtility.OP_COMPARE)
+					|| OCLExpUtility.INSTANCE.isBelongToOp(opName,
+							OCLExpUtility.OP_BOOLEAN)) {
+				BDC4BooleanOp bdc4BoolOp = new BDC4BooleanOp(
+						bdc.getInterpreter());
+				return bdc4BoolOp.handleBooleanOp(imiObject,
+						(OperationCallExpImpl) e);
+			}// end else if
+
+		} else if (e instanceof IteratorExpImpl) {
+			// "forAll", "exists", "isUnique", "one","select", "reject",
+			// "collect"
+			BDC4IterateOp bdc4IterOp = new BDC4IterateOp(bdc.getInterpreter());
+			return bdc4IterOp.handleIteratorOp(imiObject, (IteratorExpImpl) e);
 		}
 		return -1;
 	}

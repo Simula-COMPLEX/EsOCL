@@ -16,25 +16,25 @@ import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceObject;
 import tudresden.ocl20.pivot.pivotmodel.Operation;
 import tudresden.ocl20.pivot.pivotmodel.Property;
 
-public class RuntimeModelInstance extends AbstractModelInstance {
+public class RModelIns extends AbstractModelInstance {
 
 	private static int nameCounter = 0;
 
-	public RuntimeModelInstance(IModel model, List<UMLObjectInstance> umis) {
+	public RModelIns(IModel model, List<UMLObjectIns> umis) {
 
 		/* Initialize the instance. */
 		this.myModel = model;
 
 		this.myName = model.getDisplayName() + "_XMLInstance" + (++nameCounter);
 
-		this.myModelInstanceFactory = new RuntimeModelingInstanceFactory(
+		this.myModelInstanceFactory = new RModelInsFactory(
 				this.myModel);
 		addObjects(umis);
 
 	}
 
-	private void addObjects(List<UMLObjectInstance> umis) {
-		for (UMLObjectInstance umi : umis) {
+	private void addObjects(List<UMLObjectIns> umis) {
+		for (UMLObjectIns umi : umis) {
 			try {
 				this.addModelInstanceElement(umi);
 			} catch (TypeNotFoundInModelException e) {
@@ -56,7 +56,7 @@ public class RuntimeModelInstance extends AbstractModelInstance {
 
 		IModelInstanceElement result;
 
-		result = this.myModelInstanceFactory.createModelInstanceElement((UMLObjectInstance)object);
+		result = this.myModelInstanceFactory.createModelInstanceElement((UMLObjectIns)object);
 
 		if (result instanceof IModelInstanceObject) {
 			this.addModelInstanceObject((IModelInstanceObject) result);

@@ -24,7 +24,7 @@ import tudresden.ocl20.pivot.pivotmodel.EnumerationLiteral;
 import tudresden.ocl20.pivot.pivotmodel.PrimitiveType;
 import tudresden.ocl20.pivot.pivotmodel.Type;
 
-public class RuntimeModelingInstanceFactory extends
+public class RModelInsFactory extends
 		BasisJavaModelInstanceFactory {
 
 	/**
@@ -35,7 +35,7 @@ public class RuntimeModelingInstanceFactory extends
 
 	private Map<Object, IModelInstanceObject> cacheModelInstanceObjects = new WeakHashMap<Object, IModelInstanceObject>();
 
-	public RuntimeModelingInstanceFactory(IModel model) {
+	public RModelInsFactory(IModel model) {
 
 		if (model == null) {
 			throw new IllegalArgumentException(
@@ -52,7 +52,7 @@ public class RuntimeModelingInstanceFactory extends
 		// TODO Auto-generated method stub
 		IModelInstanceElement result = null;
 
-		UMLObjectInstance auoi = (UMLObjectInstance) adapted;
+		UMLObjectIns auoi = (UMLObjectIns) adapted;
 		List<String> pathname = new ArrayList<String>();
 		pathname.add(auoi.getName());
 		Type type = null;
@@ -68,10 +68,10 @@ public class RuntimeModelingInstanceFactory extends
 		return result;
 	}
 
-	private RuntimeModelInstanceObject createModelInstanceObject(
-			AbstractUMLModelInstance auoi, Type type) {
+	private RModelInsObject createModelInstanceObject(
+			AbstUMLModelIns auoi, Type type) {
 
-		RuntimeModelInstanceObject result = new RuntimeModelInstanceObject(
+		RModelInsObject result = new RModelInsObject(
 				auoi, type, type, this);
 		return result;
 	}
@@ -89,7 +89,7 @@ public class RuntimeModelingInstanceFactory extends
 			Type type) {
 
 		IModelInstanceElement result = null;
-		if (adapted == null || adapted instanceof AbstractUMLModelInstance) {
+		if (adapted == null || adapted instanceof AbstUMLModelIns) {
 
 			Object temp = null;
 
@@ -101,7 +101,7 @@ public class RuntimeModelingInstanceFactory extends
 			if (type instanceof Enumeration) {
 
 				result = this.createModelInstanceEnumerationLiteral(
-						(UMLPrimitivePropertyInstance) temp,
+						(UMLNonAssPropIns) temp,
 						(Enumeration) type);
 			}
 
@@ -112,22 +112,22 @@ public class RuntimeModelingInstanceFactory extends
 
 				case BOOLEAN:
 					result = this.createModelInstanceBoolean(
-							(UMLPrimitivePropertyInstance) temp, type);
+							(UMLNonAssPropIns) temp, type);
 					break;
 
 				case INTEGER:
 					result = this.createModelInstanceInteger(
-							(UMLPrimitivePropertyInstance) temp, type);
+							(UMLNonAssPropIns) temp, type);
 					break;
 
 				case REAL:
 					result = this.createModelInstanceReal(
-							(UMLPrimitivePropertyInstance) temp, type);
+							(UMLNonAssPropIns) temp, type);
 					break;
 
 				case STRING:
 					result = this.createModelInstanceString(
-							(UMLPrimitivePropertyInstance) temp, type);
+							(UMLNonAssPropIns) temp, type);
 					break;
 				}
 				// end select.
@@ -141,7 +141,7 @@ public class RuntimeModelingInstanceFactory extends
 
 				else {
 					result = this.createModelInstanceObject(
-							(AbstractUMLModelInstance) temp, type);
+							(AbstUMLModelIns) temp, type);
 
 					/* Add the result to the cache. */
 					this.cacheModelInstanceObjects.put(temp,
@@ -174,7 +174,7 @@ public class RuntimeModelingInstanceFactory extends
 	 * @return The created {@link IModelInstanceBoolean}.
 	 */
 	private IModelInstanceBoolean createModelInstanceBoolean(
-			UMLPrimitivePropertyInstance uppe, Type type) {
+			UMLNonAssPropIns uppe, Type type) {
 
 		IModelInstanceBoolean result;
 
@@ -218,7 +218,7 @@ public class RuntimeModelingInstanceFactory extends
 	 * @return The created {@link IModelInstanceEnumerationLiteral}.
 	 */
 	private IModelInstanceEnumerationLiteral createModelInstanceEnumerationLiteral(
-			UMLPrimitivePropertyInstance uppe, Enumeration enumeration) {
+			UMLNonAssPropIns uppe, Enumeration enumeration) {
 
 		IModelInstanceEnumerationLiteral result;
 
@@ -259,7 +259,7 @@ public class RuntimeModelingInstanceFactory extends
 	 * @return The created {@link IModelInstanceInteger}.
 	 */
 	private IModelInstanceInteger createModelInstanceInteger(
-			UMLPrimitivePropertyInstance uppe, Type type) {
+			UMLNonAssPropIns uppe, Type type) {
 
 		IModelInstanceInteger result;
 
@@ -303,7 +303,7 @@ public class RuntimeModelingInstanceFactory extends
 	 * @return The created {@link IModelInstanceReal}.
 	 */
 	private IModelInstanceReal createModelInstanceReal(
-			UMLPrimitivePropertyInstance uppe, Type type) {
+			UMLNonAssPropIns uppe, Type type) {
 
 		IModelInstanceReal result;
 
@@ -347,7 +347,7 @@ public class RuntimeModelingInstanceFactory extends
 	 * @return The created {@link IModelInstanceString}.
 	 */
 	private IModelInstanceString createModelInstanceString(
-			UMLPrimitivePropertyInstance uppe, Type type) {
+			UMLNonAssPropIns uppe, Type type) {
 
 		IModelInstanceString result;
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_6pUsMMHhEd2UNuYhQ_ApoA" name="tudresden">
+  <packagedElement xmi:type="uml:Package" xmi:id="_AsKYYMHiEd2UNuYhQ_ApoA" name="ocl20">
+    <packagedElement xmi:type="uml:Package" xmi:id="_BlraUMHiEd2UNuYhQ_ApoA" name="pivot">
+      <packagedElement xmi:type="uml:Package" xmi:id="_Cff-QMHiEd2UNuYhQ_ApoA" name="examples">
+        <packagedElement xmi:type="uml:Package" xmi:id="_DmIPIMHiEd2UNuYhQ_ApoA" name="royalsandloyals">
+          <elementImport xmi:id="_F_itgGvLEd6ofs5w8Takvg">
+            <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+          </elementImport>
+          <elementImport xmi:id="_F_lw0GvLEd6ofs5w8Takvg">
+            <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          </elementImport>
+          <elementImport xmi:id="_F_lw0WvLEd6ofs5w8Takvg">
+            <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </elementImport>
+          <elementImport xmi:id="_F_lw0mvLEd6ofs5w8Takvg">
+            <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </elementImport>
+          <packagedElement xmi:type="uml:Class" xmi:id="_VW-hEMVEEd2gxo2Yyu8isA" name="Customer">
+            <ownedAttribute xmi:id="_1y46wMnOEd23VbTmZ6CCEw" name="age">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_FONTQMoREd2R-LEScdZDXg" name="isMale">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Boolean"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_doldsMkwEd2S2cuzoMKaDg" name="name">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_noF1gMm5Ed23VbTmZ6CCEw" name="title">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_fBpSwMVIEd2gxo2Yyu8isA" name="CustomerCard">
+            <ownedAttribute xmi:id="_dJRj4MnSEd23VbTmZ6CCEw" name="color" type="_2Cn4gMnREd23VbTmZ6CCEw"/>
+            <ownedAttribute xmi:id="_f8pz0Mm5Ed23VbTmZ6CCEw" name="printedName">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_gYE6MMVIEd2gxo2Yyu8isA" name="valid">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Boolean"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_3XPEYMm4Ed23VbTmZ6CCEw" name="Customer CustomerCards" memberEnd="_5liH8Mm4Ed23VbTmZ6CCEw _6tqNoMm4Ed23VbTmZ6CCEw">
+            <ownedEnd xmi:id="_5liH8Mm4Ed23VbTmZ6CCEw" name="owner" type="_VW-hEMVEEd2gxo2Yyu8isA" association="_3XPEYMm4Ed23VbTmZ6CCEw"/>
+            <ownedEnd xmi:id="_6tqNoMm4Ed23VbTmZ6CCEw" name="cards" type="_fBpSwMVIEd2gxo2Yyu8isA" association="_3XPEYMm4Ed23VbTmZ6CCEw">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xFOxcMnREd23VbTmZ6CCEw" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_w0PvIMnREd23VbTmZ6CCEw"/>
+            </ownedEnd>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_2Cn4gMnREd23VbTmZ6CCEw" name="Color">
+            <ownedLiteral xmi:id="_Blk-UMnSEd23VbTmZ6CCEw" name="silver"/>
+            <ownedLiteral xmi:id="_C_ILMMnSEd23VbTmZ6CCEw" name="gold"/>
+            <ownedLiteral xmi:id="_DDH2wOlREeKE372m8txxjQ" name="red"/>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+</uml:Package>

@@ -1,11 +1,11 @@
 package simula.standalone.modelinstance;
 
-public class AbstractUMLModelInstance {
+public class AbstUMLModelIns {
 
 	String name;
 	String value;
 
-	public AbstractUMLModelInstance(String name, String value) {
+	public AbstUMLModelIns(String name, String value) {
 		this.name =  name;
 		this.value = value;
 	}
@@ -25,7 +25,7 @@ public class AbstractUMLModelInstance {
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
-		return new AbstractUMLModelInstance(this.name, this.value);
+		return new AbstUMLModelIns(this.name, this.value);
 	}
 
 }
