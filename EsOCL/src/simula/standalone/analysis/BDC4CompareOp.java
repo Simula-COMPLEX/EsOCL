@@ -30,14 +30,13 @@ public class BDC4CompareOp {
 		this.interpreter.setEnviromentVariable("self", env);
 		OclAny left = this.interpreter.doSwitch(leftExp);
 		OclAny right = this.interpreter.doSwitch(rightExp);
+		if (left.oclIsUndefined().isTrue() || right.oclIsUndefined().isTrue()) {
+			return Utility.K;
+		}
 		Double leftResult = 0.0, rightResult = 0.0;
 		//obtain the int value based on the different types of evaluated results
 		leftResult = oclExpUtility.getResultNumericValue(left);
 		rightResult = oclExpUtility.getResultNumericValue(right);
-		if (left.oclIsUndefined().isTrue() || right.oclIsUndefined().isTrue()) {
-			return Utility.K;
-		}
-
 		String complexType = oclExpUtility.isComplexType(leftExp);
 		if (complexType != null
 				&& complexType.equals(OCLExpUtility.OP_COMPLEX_SELECT_SIZE)) {

@@ -54,39 +54,15 @@ public class BDC4IterateOp {
 			handleComplexSelectIterateOp(env, iteratorExp);
 		}
 
-		// operation expression for each iteration
-		OperationCallExpImpl oce = (OperationCallExpImpl) contents.get(1);
-		String oceOpName = oce.getReferredOperation().getName();
-		// left part of operator
-		OclExpression p1 = (OclExpression) oce.eContents().get(0);
-		// right part of operator
-		OclExpression p2 = (OclExpression) oce.eContents().get(1);
-
+		// iterator expression for each iteration
+		OclExpression paraExp = (OperationCallExpImpl) contents.get(1);
 		if (opName.equals("forAll")) {
-			if (oclExpUtility.isBelongToOp(oceOpName, OCLExpUtility.OP_COMPARE)) {
-				return forAllOp(env, envArray, iterators, p1, p2, oceOpName);
-			} else if (oclExpUtility.isBelongToOp(opName,
-					OCLExpUtility.OP_BOOLEAN)) {
-				if (opName.equals("not")) {
-					return forAllOp(env, envArray, iterators, p1, null,
-							oceOpName);
-				} else {
-					return forAllOp(env, envArray, iterators, p1, p2, oceOpName);
-				}
-			}
+			return forAllOp(env, envArray, iterators, paraExp, null, null);
 
 		} else if (opName.equals("exists")) {
-			if (oclExpUtility.isBelongToOp(oceOpName, OCLExpUtility.OP_COMPARE)) {
-				return existsOp(env, envArray, iterators, p1, p2, oceOpName);
-			} else if (oclExpUtility.isBelongToOp(opName,
-					OCLExpUtility.OP_BOOLEAN)) {
-				if (opName.equals("not")) {
-					return existsOp(env, envArray, iterators, p1, null,
-							oceOpName);
-				} else {
-					return existsOp(env, envArray, iterators, p1, p2, oceOpName);
-				}
-			}
+
+			return existsOp(env, envArray, iterators, paraExp, null, null);
+
 		} else if (opName.equals("isUnique")) {
 			double temp = 0;
 			int[][] envComb = Utility.INSTANCE.getArrangeOrCombine(input);
@@ -147,7 +123,7 @@ public class BDC4IterateOp {
 
 	private double forAllOp(IModelInstanceObject env,
 			IModelInstanceElement[] envArray, List<Variable> iterators,
-			OclExpression p1, OclExpression p2, String opName) {
+			OclExpression p1, OclExpression p2, String modifyOp) {
 		int envColsize = envArray.length;
 		int[] input = new int[envColsize];
 		for (int i = 0; i < envColsize; i++) {
@@ -166,7 +142,10 @@ public class BDC4IterateOp {
 							.getName(), envArray[envComb[i][j]]);
 				}
 				BDC4BooleanOp bdc4BoolOp = new BDC4BooleanOp(this.interpreter);
-				temp += bdc4BoolOp.classifyValue(env, p1, p2, opName);
+				if (p2 == null)
+					temp += bdc4BoolOp.handleBooleanOp(env, p1);
+				else
+					temp += bdc4BoolOp.classifyValue(env, p1, p2, modifyOp);
 			}
 			return utility.formatValue(temp / envComb.length);
 		}
@@ -174,7 +153,7 @@ public class BDC4IterateOp {
 
 	private double existsOp(IModelInstanceObject env,
 			IModelInstanceElement[] envArray, List<Variable> iterators,
-			OclExpression p1, OclExpression p2, String opName) {
+			OclExpression p1, OclExpression p2, String modifyOp) {
 		int envColsize = envArray.length;
 		int[] input = new int[envColsize];
 		for (int i = 0; i < envColsize; i++) {
@@ -190,7 +169,10 @@ public class BDC4IterateOp {
 						.getName(), envArray[envComb[i][j]]);
 			}
 			BDC4BooleanOp bdc4BoolOp = new BDC4BooleanOp(this.interpreter);
-			temp = bdc4BoolOp.classifyValue(env, p1, p2, opName);
+			if (p2 == null)
+				temp = bdc4BoolOp.handleBooleanOp(env, p1);
+			else
+				temp = bdc4BoolOp.classifyValue(env, p1, p2, modifyOp);
 			if (min_value - temp < 0) {
 				min_value = temp;
 			}
