@@ -24,10 +24,10 @@ import tudresden.ocl20.pivot.pivotmodel.PrimitiveType;
 import tudresden.ocl20.pivot.pivotmodel.Property;
 import tudresden.ocl20.pivot.pivotmodel.Type;
 
-public class RuntimeModelInstanceObject extends AbstractModelInstanceObject
+public class RModelInsObject extends AbstractModelInstanceObject
 		implements IModelInstanceObject {
 	/** The XML {@link Node} adapted by this {@link XmlModelInstanceObject}. */
-	protected AbstractUMLModelInstance aumi;
+	protected AbstUMLModelIns aumi;
 
 	/**
 	 * The {@link IModelInstanceFactory} to adapt properties of this
@@ -35,7 +35,7 @@ public class RuntimeModelInstanceObject extends AbstractModelInstanceObject
 	 */
 	protected IModelInstanceFactory modelInstanceFactory;
 
-	protected RuntimeModelInstanceObject(AbstractUMLModelInstance aumi,
+	protected RModelInsObject(AbstUMLModelIns aumi,
 			Type type, Type originalType, IModelInstanceFactory factory) {
 		super(type, originalType);
 		this.aumi = aumi;
@@ -67,7 +67,7 @@ public class RuntimeModelInstanceObject extends AbstractModelInstanceObject
 
 		/* If the type can be casted in the model, cast it. */
 		if (this.getOriginalType().conformsTo(type)) {
-			result = new RuntimeModelInstanceObject(this.aumi, type,
+			result = new RModelInsObject(this.aumi, type,
 					this.getOriginalType(), this.modelInstanceFactory);
 		}
 		// no else.
@@ -82,15 +82,15 @@ public class RuntimeModelInstanceObject extends AbstractModelInstanceObject
 		System.out.println("copyForAtPre() ");
 		IModelInstanceElement result;
 
-		AbstractUMLModelInstance copiedNode = null;
+		AbstUMLModelIns copiedNode = null;
 		try {
-			copiedNode = (AbstractUMLModelInstance) this.aumi.clone();
+			copiedNode = (AbstUMLModelIns) this.aumi.clone();
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		result = new RuntimeModelInstanceObject(copiedNode, this.myType,
+		result = new RModelInsObject(copiedNode, this.myType,
 				this.getOriginalType(), this.modelInstanceFactory);
 
 		return result;
@@ -120,8 +120,8 @@ public class RuntimeModelInstanceObject extends AbstractModelInstanceObject
 		}
 
 		else {
-			RuntimeModelInstanceObject other;
-			other = (RuntimeModelInstanceObject) object;
+			RModelInsObject other;
+			other = (RModelInsObject) object;
 
 			if (this.aumi == null) {
 				if (other.aumi != null) {
@@ -165,9 +165,9 @@ public class RuntimeModelInstanceObject extends AbstractModelInstanceObject
 					&& (property.getType() instanceof PrimitiveType)
 					|| property.getType() instanceof Enumeration) {
 
-				UMLObjectInstance uoi = (UMLObjectInstance) this.aumi;
+				UMLObjectIns uoi = (UMLObjectIns) this.aumi;
 
-				AbstractUMLModelInstance property_aumi = (AbstractUMLModelInstance) uoi
+				AbstUMLModelIns property_aumi = (AbstUMLModelIns) uoi
 						.getPropertyObject(property.getName());
 
 				if (property_aumi != null) {
@@ -183,7 +183,7 @@ public class RuntimeModelInstanceObject extends AbstractModelInstanceObject
 
 			if (result == null) {
 
-				UMLObjectInstance uoi = (UMLObjectInstance) this.aumi;
+				UMLObjectIns uoi = (UMLObjectIns) this.aumi;
 
 				Object property_auois = uoi.getPropertyObject(property.getName());
 
@@ -192,7 +192,7 @@ public class RuntimeModelInstanceObject extends AbstractModelInstanceObject
 
 					List<IModelInstanceElement> imiList = new ArrayList<IModelInstanceElement>();
 
-					for (AbstractUMLModelInstance auoi : (List<AbstractUMLModelInstance>) property_auois) {
+					for (AbstUMLModelIns auoi : (List<AbstUMLModelIns>) property_auois) {
 						if (auoi.getName().equalsIgnoreCase(
 								((CollectionType) property.getType())
 										.getElementType().getName())) {
@@ -213,7 +213,7 @@ public class RuntimeModelInstanceObject extends AbstractModelInstanceObject
 					// end for (on nodes).
 					if (property_auois != null) {
 						result = AbstractModelInstance.adaptInvocationResult(
-								(AbstractUMLModelInstance) property_auois,
+								(AbstUMLModelIns) property_auois,
 								property.getType(), this.modelInstanceFactory);
 					} else {
 						result = AbstractModelInstance.adaptInvocationResult(

@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
-	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.standalone.facade_3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/antlr.jar"/>
 	<classpathentry kind="lib" path="lib/org.apache.commons.lang_2.3.0.v200803061910.jar"/>
 	<classpathentry kind="lib" path="lib/org.apache.log4j_1.2.13.v200903072027.jar"/>
@@ -52,12 +51,13 @@
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.CWM_3.0.0.201101171054.jar"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/jaxen-1.1-beta-6.jar"/>
-	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.template_3.1.0.201101171054.jar"/>
+	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.standalone.facade_3.1.0.jar"/>
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.codegen_3.1.0.201101171054.jar"/>
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.codegen.declarativ_3.0.0.201101171054.jar"/>
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.codegen.declarativ.ocl2sql_3.1.0.201101171054.jar"/>
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.codegen.ocl2java_3.1.0.201101171054.jar"/>
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.codegen.ocl2java.types_3.0.0.201101171054.jar"/>
+	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.template_3.1.0.201101171054.jar"/>
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.template.sql_3.1.0.201101171054.jar"/>
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.transformation_3.1.0.201101171054.jar"/>
 	<classpathentry kind="lib" path="plugins/tudresden.ocl20.pivot.tools.transformation.pivot2sql_3.0.0.201101171054.jar"/>

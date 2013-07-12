@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import tudresden.ocl20.pivot.pivotmodel.Expression;
 
 public class Utility {
@@ -13,7 +12,6 @@ public class Utility {
 	private static Utility instance;
 
 	public static double K = 1;
-
 
 	/**
 	 * Returns the single instance of the {@link StandaloneFacade}.
