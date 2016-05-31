@@ -1,178 +1,157 @@
 package simula.oclga;
 
-public class AVM extends Search 
-{
-	@Override
-	public int[] getSolution(Problem problem)
-	{	
-		Individual best = Individual.getRandomIndividual(problem);
-		best.evaluate();
-		this.increaseIteration();
+public class AVM extends Search {
+    @Override
+    public int[] getSolution(Problem problem) {
+        Individual best = Individual.getRandomIndividual(problem);
 
-		if(best.fitness_value == 0d)
-			return best.v;
+        best.evaluate();
+        this.increaseIteration();
 
-		//init first generation
-		while(!this.isStoppingCriterionFulfilled())
-		{
-			Individual current = Individual.getRandomIndividual(problem);
-			current.evaluate();
-			this.increaseIteration();
+        if (best.fitness_value == 0d)
+            return best.v;
 
-			if(current.fitness_value == 0d)
-				return current.v;
+        //init first generation
+        while (!this.isStoppingCriterionFulfilled()) {
+            Individual current = Individual.getRandomIndividual(problem);
+            current.evaluate();
+            this.increaseIteration();
 
-			applyAVMSearch(current);
+            if (current.fitness_value == 0d)
+                return current.v;
 
-			if(current.fitness_value == 0d)
-				return current.v;
+            applyAVMSearch(current);
 
-			if(current.fitness_value < best.fitness_value)
-			{
-				best.copyDataFrom(current);
-				reportImprovement();				
-			}
-		}
+            if (current.fitness_value == 0d)
+                return current.v;
 
-		return best.v;		
-	}
+            if (current.fitness_value < best.fitness_value) {
+                best.copyDataFrom(current);
+                reportImprovement();
+            }
+        }
 
-	protected void applyAVMSearch(Individual ind)
-	{
-		int[][] cons = ind.problem.getConstraints();
-		final int[] directions = new int[]{-1,+1};
+        return best.v;
+    }
 
-		int last_improvement_index = -1;
+    protected void applyAVMSearch(Individual ind) {
+        int[][] cons = ind.problem.getConstraints();
+        final int[] directions = new int[]{-1, +1};
 
-		while(!this.isStoppingCriterionFulfilled())
-		{
-			loop_on_variables : for(int i=0; i<ind.v.length; i++)
-			{
-				int index = (last_improvement_index+1+i)  %  ind.v.length; 
+        int last_improvement_index = -1;
 
-				//----------------------------------------------
-				if(cons[index][2]==Problem.CATEGORICAL_TYPE)
-				{
-					//try all the other values
+        while (!this.isStoppingCriterionFulfilled()) {
+            loop_on_variables:
+            for (int i = 0; i < ind.v.length; i++) {
+                int index = (last_improvement_index + 1 + i) % ind.v.length;
 
-					int current_value = ind.v[index];
-					double current_fitness = ind.fitness_value;
+                //----------------------------------------------
+                if (cons[index][2] == Problem.CATEGORICAL_TYPE) {
+                    //try all the other values
 
-					boolean improved = false;
+                    int current_value = ind.v[index];
+                    double current_fitness = ind.fitness_value;
 
-					loop_on_values : for(int value=cons[index][0]; value<=cons[index][1]; value++)
-					{
-						if(value == current_value)
-							continue;
+                    boolean improved = false;
 
-						ind.v[index] = value;
+                    loop_on_values:
+                    for (int value = cons[index][0]; value <= cons[index][1]; value++) {
+                        if (value == current_value)
+                            continue;
 
-						ind.evaluate();
-						this.increaseIteration();
+                        ind.v[index] = value;
 
-						if(ind.fitness_value == 0d)
-							return;
+                        ind.evaluate();
+                        this.increaseIteration();
 
-						//is it better?
-								if(ind.fitness_value < current_fitness)
-								{
-									improved = true;
-									break loop_on_values;
-								}
-								else
-								{
-									//undo the change
-									ind.fitness_value = current_fitness;
-									ind.v[index] = current_value;
-								}
-					}
+                        if (ind.fitness_value == 0d)
+                            return;
+
+                        //is it better?
+                        if (ind.fitness_value < current_fitness) {
+                            improved = true;
+                            break loop_on_values;
+                        } else {
+                            //undo the change
+                            ind.fitness_value = current_fitness;
+                            ind.v[index] = current_value;
+                        }
+                    }
 
 
-					//it was possible to improve fitness by changing the value at v[index]
-					if(improved)
-					{						
-						last_improvement_index = index;
-						break loop_on_variables;
-					}
-				}
-				//----------------------------------------------
-				else //Numerical
-				{
-					boolean improved = true;
+                    //it was possible to improve fitness by changing the value at v[index]
+                    if (improved) {
+                        last_improvement_index = index;
+                        break loop_on_variables;
+                    }
+                }
+                //----------------------------------------------
+                else //Numerical
+                {
+                    boolean improved = true;
 
-					while(improved)
-					{
-						improved = false;
-						
-						for(int d : directions)
-						{
-							//exploratory search
-							double current_fitness = ind.fitness_value;
+                    while (improved) {
+                        improved = false;
 
-							ind.v[index] = ind.v[index] + d;
+                        for (int d : directions) {
+                            //exploratory search
+                            double current_fitness = ind.fitness_value;
 
-							ind.evaluate();
-							this.increaseIteration();
+                            ind.v[index] = ind.v[index] + d;
 
-							if(ind.fitness_value == 0d)
-								return;
+                            ind.evaluate();
+                            this.increaseIteration();
 
-							//is it better?
-							if(ind.fitness_value < current_fitness)
-							{
-								current_fitness = ind.fitness_value;
-								improved = true;
-							}
-							else
-							{
-								//undo change
-								ind.v[index] = ind.v[index] - d;
-								ind.fitness_value = current_fitness;
-							}
+                            if (ind.fitness_value == 0d)
+                                return;
 
-							if(improved)
-							{
-								//exploration in one direction was successful
+                            //is it better?
+                            if (ind.fitness_value < current_fitness) {
+                                current_fitness = ind.fitness_value;
+                                improved = true;
+                            } else {
+                                //undo change
+                                ind.v[index] = ind.v[index] - d;
+                                ind.fitness_value = current_fitness;
+                            }
 
-								int delta = 2;
+                            if (improved) {
+                                //exploration in one direction was successful
 
-								while(!this.isStoppingCriterionFulfilled())
-								{
-									current_fitness = ind.fitness_value;
+                                int delta = 2;
 
-									ind.v[index] = ind.v[index] + (d * delta);
+                                while (!this.isStoppingCriterionFulfilled()) {
+                                    current_fitness = ind.fitness_value;
 
-									ind.evaluate();
-									this.increaseIteration();
+                                    ind.v[index] = ind.v[index] + (d * delta);
 
-									if(ind.fitness_value == 0d)
-										return;
+                                    ind.evaluate();
+                                    this.increaseIteration();
 
-									//is it better?
-									if(ind.fitness_value < current_fitness)
-									{
-										delta = delta * 2;
-									}
-									else
-									{
-										//undo change
-										ind.v[index] = ind.v[index] - (d*delta);
-										ind.fitness_value = current_fitness;
-										break;
-									}
-								}
-							}	
-						}
-					}
-				}
-			}
-		}
-	}
+                                    if (ind.fitness_value == 0d)
+                                        return;
+
+                                    //is it better?
+                                    if (ind.fitness_value < current_fitness) {
+                                        delta = delta * 2;
+                                    } else {
+                                        //undo change
+                                        ind.v[index] = ind.v[index] - (d * delta);
+                                        ind.fitness_value = current_fitness;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 
-	@Override 
-	public String getShortName()
-	{
-		return "AVM";
-	}
+    @Override
+    public String getShortName() {
+        return "AVM";
+    }
 }
