@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="EsOCL">
-    <output-path>$PROJECT_DIR$/out/artifacts/EsOCL</output-path>
-    <root id="archive" name="EsOCL.war">
-      <element id="artifact" artifact-name="EsOCL:war exploded" />
-    </root>
-  </artifact>
-</component>
