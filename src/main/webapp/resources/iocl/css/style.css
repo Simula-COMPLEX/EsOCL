@@ -1,0 +1,196 @@
+@CHARSET "UTF-8";
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/* footer */
+.footer {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 100px;
+    color: #99979c;
+    text-align: center;
+    background-color: #2a2730;
+}
+
+.footer a {
+    color: #fff;
+}
+
+.footer-links {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.footer-links li {
+    display: inline-block;
+}
+
+.footer-links li + li {
+    margin-left: 15px;
+}
+
+@media (min-width: 768px) {
+    .footer {
+        text-align: left;
+    }
+
+    .footer p {
+        margin-bottom: 0;
+    }
+}
+
+/* ui-icons */
+
+.ui-icon-class {
+    background-image: url("#{resource['images/model/class.png']}") !important;
+}
+
+.ui-icon-property {
+    background-image: url("#{resource['images/model/property.png']}") !important;
+}
+
+.ui-icon-operation {
+    background-image: url("#{resource['images/model/operation.png']}") !important;
+}
+
+.ui-icon-datatype {
+    background-image: url("#{resource['images/model/datatype.png']}") !important;
+}
+
+.ui-icon-list-datatype {
+    background-image: url("#{resource['images/model/list.png']}") !important;
+}
+
+.ui-icon-association {
+    background-image: url("#{resource['images/model/association.png']}") !important;
+}
+
+.ui-icon-superclass {
+    background-image: url("#{resource['images/model/superclass.png']}") !important;
+}
+
+.ui-icon-enumeration {
+    background-image: url("#{resource['images/model/enumeration.png']}") !important;
+}
+
+.ui-icon-instance {
+    background-image: url("#{resource['images/model/instance.png']}") !important;
+}
+
+/* throbber */
+
+.loader {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, .8) url("#{resource['images/throbber.gif']}") 50% 50% no-repeat;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+body.loading .loader {
+    display: block;
+}
+
+/* doc list */
+.doc {
+}
+
+.doc ol {
+    counter-reset: li; /* Initiate a counter */
+    list-style: none; /* Remove default numbering */
+    *list-style: decimal; /* Keep using default numbering for IE6/7 */
+    font: 15px 'trebuchet MS', 'lucida sans';
+    padding: 0;
+    margin-bottom: 4em;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+}
+
+.doc ol ol {
+    margin: 0 0 0 2em; /* Add some left margin for inner lists */
+}
+
+.rounded-list a {
+    position: relative;
+    display: block;
+    padding: .4em .4em .4em 2em;
+    *padding: .4em;
+    margin: .5em 0;
+    background: #ddd;
+    color: #444;
+    text-decoration: none;
+    border-radius: .3em;
+    transition: all .3s ease-out;
+}
+
+.rounded-list a:hover {
+    background: #eee;
+}
+
+.rounded-list a:hover:before {
+    transform: rotate(360deg);
+}
+
+.rounded-list a:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -1.3em;
+    top: 50%;
+    margin-top: -1.3em;
+    background: #87ceeb;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border: .3em solid #fff;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 2em;
+    transition: all .3s ease-out;
+}
+
+/* panel-heading */
+
+.panel-heading a:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+    color: grey
+}
+
+.panel-heading a.collapsed:after {
+    content: "\e080"
+}
+
+.white-text {
+    color: #FFF !important;
+}
+
+.rgba-black-light {
+    background-color: rgba(0, 0, 0, .3);
+}

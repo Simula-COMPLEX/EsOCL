@@ -1,0 +1,70 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="/theme/theme.xhtml">
+
+    <ui:define name="nav">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <h:link value="Home" outcome="index"/>
+            </li>
+            <li><a href="http://zen-tools.com" target="_blank">About Us</a></li>
+        </ul>
+    </ui:define>
+
+    <ui:define name="body">
+
+        <div class="loader"></div>
+        <f:event type="preRenderView" listener="#{bean.preRenderView()}"/>
+        <div class="container-fluid">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">IOCL</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <ui:include src="input.xhtml"/>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ui:include src="updates.xhtml"/>
+
+
+        </div>
+
+
+        <h:outputScript>
+            function ajaxStart() {
+                $("body").addClass("loading");
+            }
+
+            function ajaxComplete() {
+                $("body").removeClass("loading");
+            }
+
+            jsf.ajax.addOnEvent(function (data) {
+                var ajaxstatus = data.status;
+
+                switch (ajaxstatus) {
+                    case "begin":
+                        ajaxStart();
+                        break;
+
+                    case "complete":
+                        ajaxComplete();
+                        break;
+
+                    case "success":
+
+                        break;
+                }
+            });
+        </h:outputScript>
+    </ui:define>
+</ui:composition>

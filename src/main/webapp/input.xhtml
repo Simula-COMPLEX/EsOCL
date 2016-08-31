@@ -1,0 +1,137 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
+>
+
+    <h:form id="inputform" prependId="false" enctype="multipart/form-data">
+        <p:growl id="growl" showDetail="true" sticky="true"/>
+        <div class="panel panel-default" id="inputformPanel">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Model Input Panel<a class="pull-right" role="button"
+                                        data-toggle="collapse" href="#inputformPanelBody"
+                                        aria-expanded="false"/>
+                </h3>
+
+            </div>
+            <div class="panel-body" id="inputformPanelBody">
+
+
+                <div id="inputPanel">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+
+
+                            <div class="form-inline">
+
+                                <h:outputLabel styleClass="control-label" value="UML Model"
+                                               style="padding-left: 10px;padding-right: 10px"/>
+
+                                <span class="btn btn-raised btn-file fileinput-button">
+                                    <i class="fa fa-upload"></i>
+                                    <span> Select Model </span>
+                                    <h:inputFile id="file" styleClass=""
+                                                 label="Upload Model" value="#{bean.diagram}" required="true"
+                                                 requiredMessage="File not selected !!"/>
+
+                                </span>
+
+
+                                <div class="form-group">
+                                    <h:commandButton id="submit" styleClass="btn btn-raised btn-success"
+                                                     action="#{bean.loadModel}"
+                                                     value="Upload Model">
+                                    </h:commandButton>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-default" id="queryPanel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Constraint Panel<a class="pull-right" role="button"
+                                       data-toggle="collapse" href="#requirmentsformBody"
+                                       aria-expanded="false"/>
+                </h3>
+            </div>
+            <div class="panel-body" id="requirmentsformBody">
+
+
+                <div class="panel panel-default" id="informationPanel">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <b>Result : </b>
+                                <b>
+                                    <h:outputLabel value="#{bean.result}"/>
+                                </b>
+
+                                <br/> <b>Constraint : </b>
+                                <h:outputLabel value="#{bean.constraint}" style="color:green"/>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+
+
+                                <h:inputTextarea value="#{bean.constraint}" rows="3" id="constraint"
+                                                 class="form-control" cols="80">
+
+                                </h:inputTextarea>
+
+
+                            </div>
+
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="algos">Algos</label>
+                                <h:selectManyCheckbox value="#{bean.algos}" id="algos" label="Algos" styleClass="form-control"
+                                                      style="width: 100%">
+                                    <f:selectItem itemValue="AVM" itemLabel="AVM" />
+                                    <f:selectItem itemValue="OpOEA" itemLabel="OpOEA"/>
+                                </h:selectManyCheckbox>
+                            </div>
+                            <div class="col-lg-6">
+                                <h:outputLabel for="iterations" value="Iterations"/>
+                                <h:inputText value="#{bean.iterations}" id="iterations" styleClass="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+
+                                <h:commandButton
+                                        value="Validate" styleClass="btn btn-raised btn-success"
+                                        style="margin: 0;width: 100%;">
+                                    <f:ajax execute="@this constraint iterations algos"
+                                            listener="#{bean.validateConstraint}"
+                                            render="inputform"/>
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </h:form>
+
+</ui:composition>
