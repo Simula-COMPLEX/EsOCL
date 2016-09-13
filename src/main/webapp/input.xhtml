@@ -23,7 +23,7 @@
                 <div id="inputPanel">
 
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
 
 
                             <div class="form-inline">
@@ -42,16 +42,28 @@
 
 
                                 <div class="form-group">
-                                    <h:commandButton id="submit" styleClass="btn btn-raised btn-success"
+                                    <h:commandButton id="submit" styleClass="btn btn-raised btn-info"
                                                      action="#{bean.loadModel}"
                                                      value="Upload Model">
                                     </h:commandButton>
 
                                 </div>
 
+                                <div class="form-group">
+                                    <h:commandButton id="RoyalAndLoyal" styleClass="btn btn-raised btn-info"
+                                                     action="#{bean.royalModel()}" value="Royal And Loyal"
+                                                     immediate="true">
+                                        <f:ajax render="inputform"/>
+                                    </h:commandButton>
+                                </div>
+
 
                             </div>
 
+                        </div>
+
+                        <div class="col-lg-6">
+                            <h:outputLabel value="Model Name: #{bean.modelName}"/>
                         </div>
                     </div>
                 </div>
@@ -63,32 +75,20 @@
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Constraint Panel<a class="pull-right" role="button"
-                                       data-toggle="collapse" href="#requirmentsformBody"
+                                       data-toggle="collapse" href="#constraintPanel"
                                        aria-expanded="false"/>
                 </h3>
             </div>
-            <div class="panel-body" id="requirmentsformBody">
+            <div class="panel-body" id="constraintPanel">
 
 
                 <div class="panel panel-default" id="informationPanel">
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <b>Result : </b>
-                                <b>
-                                    <h:outputLabel value="#{bean.result}"/>
-                                </b>
-
-                                <br/> <b>Constraint : </b>
-                                <h:outputLabel value="#{bean.constraint}" style="color:green"/>
-                            </div>
-                        </div>
-                        <br/>
 
                         <div class="row">
                             <div class="col-lg-12">
 
-
+                                <label>Constraint</label>
                                 <h:inputTextarea value="#{bean.constraint}" rows="3" id="constraint"
                                                  class="form-control" cols="80">
 
@@ -102,15 +102,18 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <label for="algos">Algos</label>
-                                <h:selectManyCheckbox value="#{bean.algos}" id="algos" label="Algos" styleClass="form-control"
+                                <label for="algos">Search Algorithms</label>
+                                <h:selectManyCheckbox value="#{bean.algos}" id="algos" label="Algos"
+                                                      styleClass="form-control"
                                                       style="width: 100%">
-                                    <f:selectItem itemValue="AVM" itemLabel="AVM" />
+                                    <f:selectItem itemValue="AVM" itemLabel="AVM"/>
+                                    <f:selectItem itemValue="SSGA" itemLabel="SSGA"/>
                                     <f:selectItem itemValue="OpOEA" itemLabel="OpOEA"/>
+                                    <f:selectItem itemValue="RandomSearch" itemLabel="RandomSearch"/>
                                 </h:selectManyCheckbox>
                             </div>
                             <div class="col-lg-6">
-                                <h:outputLabel for="iterations" value="Iterations"/>
+                                <h:outputLabel for="iterations" value="Max Iterations"/>
                                 <h:inputText value="#{bean.iterations}" id="iterations" styleClass="form-control"/>
                             </div>
                         </div>
@@ -118,7 +121,7 @@
                             <div class="col-lg-4">
 
                                 <h:commandButton
-                                        value="Validate" styleClass="btn btn-raised btn-success"
+                                        value="Find Solution" styleClass="btn btn-raised btn-success"
                                         style="margin: 0;width: 100%;">
                                     <f:ajax execute="@this constraint iterations algos"
                                             listener="#{bean.validateConstraint}"
@@ -132,6 +135,94 @@
 
             </div>
         </div>
+
+        <div class="panel panel-default" id="resultPanel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Result Panel<a class="pull-right" role="button"
+                                   data-toggle="collapse" href="#resultPanelBody"
+                                   aria-expanded="false"/>
+                </h3>
+            </div>
+            <div class="panel-body" id="resultPanelBody">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+
+                                <h:outputLabel value="Result: "/>
+                                <h:outputLabel style="color:#4caf50" value=" #{bean.result.result}"/>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <h:outputLabel value="Algo: "/>
+                                <h:outputLabel style="color:#4caf50" value=" #{bean.result.algo}"/>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <h:outputLabel value="Iternations: "/>
+                                <h:outputLabel style="color:#4caf50" value=" #{bean.result.iternations}"/>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h:outputLabel value="Solution: "/>
+                                <h:outputLabel style="color:#03a9f4" value="#{bean.result.solution}"/>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <br/> <b>Constraint : </b>
+                                <h:outputLabel value="#{bean.constraint}" style="color:#03a9f4"/>
+                            </div>
+                        </div>
+                        <br/>
+
+
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                Solutions
+
+                                <table class="table table-bordered table-striped table-responsive display responsive no-wrap">
+
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Solutions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <ui:repeat varStatus="myVarStatus" value="#{bean.result.solutions}" var="solution">
+                                        <tr>
+                                            <td>#{myVarStatus.index+1}</td>
+                                            <td><h:outputLabel value="Solution: #{bean.result.solution}"/></td>
+                                        </tr>
+                                    </ui:repeat>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </h:form>
 
 </ui:composition>

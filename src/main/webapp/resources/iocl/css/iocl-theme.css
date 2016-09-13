@@ -54,6 +54,7 @@ a:hover .material-icons,
 a:focus .material-icons {
     vertical-align: middle;
 }
+
 .form-control {
     border-radius: 1px;
     position: relative;
