@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_b7T6QAWeEeO555WFojGAEQ" name="Test2">
+  <packageImport xmi:id="_b7T6QQWeEeO555WFojGAEQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_b7T6QgWeEeO555WFojGAEQ" name="A">
+    <ownedAttribute xmi:id="_b7T6QwWeEeO555WFojGAEQ" name="b" visibility="private" type="_b7T6RgWeEeO555WFojGAEQ" association="_b7T6TQWeEeO555WFojGAEQ">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_b7T6RAWeEeO555WFojGAEQ" value="5"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_b7T6RQWeEeO555WFojGAEQ" value="5"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_b7T6RgWeEeO555WFojGAEQ" name="B">
+    <ownedAttribute xmi:id="_b7T6RwWeEeO555WFojGAEQ" name="a" visibility="private" type="_b7T6QgWeEeO555WFojGAEQ" association="_b7T6TQWeEeO555WFojGAEQ">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_b7T6SAWeEeO555WFojGAEQ" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_b7T6SQWeEeO555WFojGAEQ" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_b7T6SgWeEeO555WFojGAEQ" name="x" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_b7T6SwWeEeO555WFojGAEQ" name="s" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_b7T6TAWeEeO555WFojGAEQ" name="d" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_b7T6TQWeEeO555WFojGAEQ" memberEnd="_b7T6QwWeEeO555WFojGAEQ _b7T6RwWeEeO555WFojGAEQ"/>
+  <profileApplication xmi:id="_b7T6TgWeEeO555WFojGAEQ">
+    <eAnnotations xmi:id="_b7T6TwWeEeO555WFojGAEQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+    </eAnnotations>
+    <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+  </profileApplication>
+</uml:Package>

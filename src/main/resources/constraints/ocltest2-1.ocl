@@ -1,0 +1,4 @@
+package Test2
+context A
+inv initial: self.b->forAll(b|b.x=47)
+endpackage

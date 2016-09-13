@@ -1,0 +1,4 @@
+package Test2
+context A
+inv initial: self.b->forAll(b|b.d > 2.1 and b.d < 5.3 )
+endpackage

@@ -1,8 +1,0 @@
-package tudresden::ocl20::pivot::examples::royalsandloyals
-
--- Invariant 1:
-context Customer
-
-inv ofAge: self.cards->includes(valid=true)
-
-endpackage

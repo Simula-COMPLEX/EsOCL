@@ -1,0 +1,4 @@
+package Test2
+context A
+inv initial: let c = Set{0,1,2,3} in self.b->select(b|b.x>0 and b.x<5)->size()>=5 and self.b->select(b|b.x>0 and b.x<5)->collect(b|b.x)->excludesAll(c)
+endpackage
