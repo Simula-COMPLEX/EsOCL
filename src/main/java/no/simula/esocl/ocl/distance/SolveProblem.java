@@ -30,8 +30,6 @@ import org.dresdenocl.standalone.facade.StandaloneFacade;
 import org.eclipse.emf.ecore.EObject;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,7 +52,7 @@ public class SolveProblem implements Problem {
     ArrayList<GeneValueScope> geneValueScopeList;
 
     // it is usef for encoding and decoding values for the ValueElement4Search[] valueOfConstraints
-    EnAndDecoding  encodingAndDecoding = new EnAndDecoding();
+    EnAndDecoding encodingAndDecoding = new EnAndDecoding();
 
     // this variable indicates the time that invoked the getFitness function
     int i = 0;
@@ -184,18 +182,6 @@ public class SolveProblem implements Problem {
         return -1;
     }
 
-    private static File getUMLResources() {
-        try {
-            URL fileURL = ClassLoaderUtil
-                    .getExtendResource("../lib/org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar");
-            return new File(fileURL.getPath());
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-
-    }
 
     public Constraint getConstraint() {
         return constraint;
@@ -398,7 +384,6 @@ public class SolveProblem implements Problem {
                     try {
                         result = instanceInteger.getDouble();
                     } catch (NullPointerException e) {
-                        e.printStackTrace();
                     }
                 }
                 System.out.println("Property " + property.getName() + "=" + result);
@@ -406,6 +391,15 @@ public class SolveProblem implements Problem {
                 resultBuilder.append("=");
                 resultBuilder.append(result);
                 resultBuilder.append(" ,");
+            } else if (property.getType() instanceof IModelInstanceElement) {
+
+                String nusted = printobject((IModelInstanceElement) InstanceObject.getProperty(property));
+                if (nusted != null) {
+                    resultBuilder.append(nusted);
+                }
+
+            }else {
+                System.out.println(property.getType().getName());
             }
 
 

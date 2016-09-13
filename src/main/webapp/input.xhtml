@@ -49,14 +49,21 @@
 
                                 </div>
 
-                                <div class="form-group">
-                                    <h:commandButton id="RoyalAndLoyal" styleClass="btn btn-raised btn-info"
+                         <!--       <div class="form-group">
+                                    <h:commandButton id="RoyalAndLoyal" styleClass="btn btn-raised btn-primary"
                                                      action="#{bean.royalModel()}" value="Royal And Loyal"
                                                      immediate="true">
                                         <f:ajax render="inputform"/>
                                     </h:commandButton>
                                 </div>
-
+-->
+                                <div class="form-group">
+                                    <h:commandButton id="reset" styleClass="btn btn-raised btn-danger"
+                                                     action="#{bean.reset()}" value="Reset"
+                                                     immediate="true">
+                                        <f:ajax render="inputform"/>
+                                    </h:commandButton>
+                                </div>
 
                             </div>
 
@@ -151,8 +158,8 @@
                             <div class="col-lg-4">
 
                                 <h:outputLabel value="Result: "/>
-                                <h:outputLabel style="color:#4caf50" value=" #{bean.result.result}"/>
-
+                                <h:outputLabel style="color:#4caf50" value=" #{bean.result.result}" rendered="#{bean.result.result=='true'}"/>
+                                <h:outputLabel style="color:#f44336" value=" #{bean.result.result}" rendered="#{bean.result.result=='false'}"/>
                             </div>
 
                             <div class="col-lg-4">

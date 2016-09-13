@@ -8,12 +8,12 @@ import org.primefaces.context.RequestContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import java.io.File;
-import java.io.Serializable;
+import java.io.*;
 
 
 @ManagedBean(name = "bean", eager = true)
@@ -21,7 +21,7 @@ import java.io.Serializable;
 public class QueryListener implements Serializable {
     private static final long serialVersionUID = 1L;
     public String[] algos = {"AVM", "OpOEA"};
-    public Integer iterations = 50000;
+    public Integer iterations = 5000;
     private Part diagram;
     private File inputModel;
     private String constraint;
@@ -36,34 +36,130 @@ public class QueryListener implements Serializable {
     }
 
 
-    public void royalModel() {
+    String type = "";
 
-        FacesContext fCtx = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
-        String sessionId = session.getId();
-        String path = getClass().getClassLoader().getResource("model/RoyalAndLoyal.uml").getPath();
+
+    public void reset() {
+        diagram = null;
+        inputModel = null;
+        constraint = null;
+        result = null;
+        modelName = null;
+    }
+
+    public void royalModel() {
+        type = "royalModel";
+
         modelName = "RoyalAndLoyal.uml";
         constraint = "context Transaction inv: self.amount >  50  and  self.points <  50";
-        inputModel = new File(path);
+
+
+        loadModel("RoyalAndLoyal.uml");
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Model Uploaded", "");
+        facesContext.addMessage(null, message);
 
     }
 
 
+    public void exportModel() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext ec = facesContext.getExternalContext();
+
+        ec.responseReset();
+
+        try {
+
+            InputStream model = getClass().getClassLoader().getResourceAsStream("RoyalAndLoyal.uml");
+
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+            int nRead;
+            byte[] data = new byte[16384];
+
+            while ((nRead = model.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+
+            buffer.flush();
+
+            byte[] dataArray = buffer.toByteArray();
+
+            ec.setResponseContentType("application/download");
+            ec.setResponseContentLength(dataArray.length);
+            String attachmentName =
+                    "attachment; filename=\"" + "RoyalAndLoyal.uml\"";
+            ec.setResponseHeader("Content-Disposition", attachmentName);
+
+            OutputStream output = ec.getResponseOutputStream();
+            output.write(dataArray);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
+        facesContext.responseComplete();
+    }
+
+
+    private void loadModel(String modelName) {
+        FacesContext fCtx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
+        String sessionId = session.getId();
+
+
+        InputStream inStream = null;
+        OutputStream outStream = null;
+
+        try {
+
+            String path = getClass().getClassLoader().getResource("").getPath() + File.separator + sessionId + modelName;
+            inputModel = new File(path);
+            if (inputModel.exists()) {
+                inputModel.delete();
+            }
+            inputModel.createNewFile();
+
+            String modelPath = getClass().getClassLoader().getResource(modelName).getPath();
+            File modelFile = new File(modelPath);
+            inStream = new FileInputStream(modelFile);
+            outStream = new FileOutputStream(inputModel);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inStream.read(buffer)) > 0) {
+                outStream.write(buffer, 0, length);
+
+            }
+            inStream.close();
+            outStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void loadModel() {
+        type = "loadModel";
         try {
             FacesContext fCtx = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
             String sessionId = session.getId();
-            String path = getClass().getClassLoader().getResource("/").getPath() + File.pathSeparator + sessionId + diagram.getSubmittedFileName();
+            String path = getClass().getClassLoader().getResource("").getPath() + File.separator + sessionId + diagram.getSubmittedFileName();
             modelName = diagram.getSubmittedFileName();
             inputModel = new File(path);
-            if (!inputModel.isFile()) {
-                inputModel.createNewFile();
+            if (inputModel.exists()) {
+                inputModel.delete();
             }
+            inputModel.createNewFile();
+
             diagram.write(inputModel.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Model Uploaded", "");
         facesContext.addMessage(null, message);
@@ -76,6 +172,8 @@ public class QueryListener implements Serializable {
 
 
     public void validateConstraint(AjaxBehaviorEvent event) {
+
+
         result = null;
         System.out.println("validate Constraint");
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -115,10 +213,15 @@ public class QueryListener implements Serializable {
             OCLSolver oclSolver = new OCLSolver();
             result = oclSolver.solveConstraint(inputModel.getAbsolutePath(), constraint, algos, iterations);
 
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Result", "Constraint Solved");
-            facesContext.addMessage(null, message);
-            RequestContext.getCurrentInstance().showMessageInDialog(message);
-
+            if (result != null && result.getResult()) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Result", "Constraint Solved");
+                facesContext.addMessage(null, message);
+                RequestContext.getCurrentInstance().showMessageInDialog(message);
+            } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Result", "Constraint Not Solved");
+                facesContext.addMessage(null, message);
+                RequestContext.getCurrentInstance().showMessageInDialog(message);
+            }
         } catch (Exception e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Result", "Constraint Not Solved");
             facesContext.addMessage(null, message);
@@ -126,6 +229,14 @@ public class QueryListener implements Serializable {
             e.printStackTrace();
         }
 
+
+        if (type.equals("loadModel")) {
+            inputModel = null;
+            modelName = null;
+
+        } else if (type.equals("royalModel")) {
+            loadModel("RoyalAndLoyal.uml");
+        }
 
     }
 

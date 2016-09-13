@@ -10,22 +10,17 @@ import java.util.Map;
 public class OCLSolver {
 
 
-    private static UML2Model model;
-
-    public static void init(UML2Model model) {
-        OCLSolver.model = model;
-    }
-
     public static void main(String[] args) {
-        String inputModelPath = "/Users/hammad/git/EsOCLWeb/src/main/resources/model/RoyalAndLoyal.uml";
-        String constraint = "context Transaction inv: self.amount >  50  and  self.points <  50";
+        String inputModelPath = "/Users/hammad/git/EsOCLWeb/src/main/resources/RoyalAndLoyal.uml";
+        String constraint = "context LoyaltyAccount inv: self.points > 0 implies self.transactions->exists(t | t.points > 0 )";
         OCLSolver oclSolver = new OCLSolver();
         try {
-            Result result = oclSolver.solveConstraint(inputModelPath, constraint, new String[]{"AVM", "OpOEA"}, 50000);
+            Result result = oclSolver.solveConstraint(inputModelPath, constraint, new String[]{"AVM", "OpOEA"}, 5000);
             System.out.println(result.getResult());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -42,7 +37,7 @@ public class OCLSolver {
 
             int alogokey = alogkeys.get(algo);
             SearchEngineDriver searchEngineDriver = new SearchEngineDriver();
-            Result result = searchEngineDriver.solveConstraint(inputModel, constraint, alogokey, 0, 5000);
+            Result result = searchEngineDriver.solveConstraint(inputModel, constraint, alogokey, 0, 500);
             if (result.getResult()) {
                 return result;
             }

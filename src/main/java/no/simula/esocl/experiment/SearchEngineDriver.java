@@ -6,6 +6,7 @@ import no.simula.esocl.ocl.distance.SolveProblem;
 import no.simula.esocl.ocl.distance.ValueElement4Search;
 import no.simula.esocl.oclga.*;
 import no.simula.esocl.standalone.analysis.OCLExpUtility;
+import no.simula.esocl.standalone.analysis.Utility;
 import no.simula.esocl.standalone.modelinstance.UMLObjectIns;
 
 import java.io.File;
@@ -23,6 +24,13 @@ public class SearchEngineDriver {
     Search[] s = new Search[]{new AVM(),
             new SSGA(100, 0.75), new OpOEA(),
             new RandomSearch()};
+
+    public SearchEngineDriver() {
+        OCLExpUtility.INSTANCE = new OCLExpUtility();
+        Utility.INSTANCE = new Utility();
+        DisplayResult.boundValueTypes = null;
+        DisplayResult.resultList = null;
+    }
 
 
     public Result solveConstraint(String inputModel, File constraint, int searchAlgorithm, int boundValueStratergy, Integer iterations) throws Exception {
@@ -142,7 +150,9 @@ public class SearchEngineDriver {
         result.setAlgo(sv.getShortName());
         result.setIternations(steps);
         result.setSolutions(solutions);
-        result.setSolution(solutions.get(solutions.size() - 1));
+        if (!solutions.isEmpty()) {
+            result.setSolution(solutions.get(solutions.size() - 1));
+        }
 
         for (String str : value)
             System.out.println(str);

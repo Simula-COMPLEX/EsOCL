@@ -21,7 +21,8 @@ public class WebServiceEndPoint {
 
         try {
 
-            File inputModel = new File(System.currentTimeMillis() + ".uml");
+            String path = getClass().getClassLoader().getResource("").getPath() + File.separator + System.currentTimeMillis() + ".uml";
+            File inputModel = new File(path);
             FileOutputStream fos = new FileOutputStream(inputModel);
             fos.write(model);
             fos.close();

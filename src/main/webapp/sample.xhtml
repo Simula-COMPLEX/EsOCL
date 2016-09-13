@@ -1,0 +1,65 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="/theme/theme.xhtml">
+
+    <ui:define name="nav">
+
+        <ul class="nav navbar-nav">
+            <li >
+                <h:link value="Home" outcome="index"/>
+            </li>
+
+            <li><a href="${pageContext.request.contextPath}/EsOCLService" target="_blank">Service</a></li>
+
+            <li class="active"> <h:link value="Sample" outcome="sample"/></li>
+            <li><a href="http://zen-tools.com" target="_blank">About Us</a></li>
+        </ul>
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="inputform" prependId="false" enctype="multipart/form-data">
+            <div class="loader"></div>
+            <f:event type="preRenderView" listener="#{bean.preRenderView()}"/>
+            <div class="container-fluid">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">EsOCL</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <h:commandButton id="submit" styleClass="btn btn-raised btn-info"
+                                                 action="#{bean.exportModel}"
+                                                 value="Download  Royal And Loyal Model">
+                                </h:commandButton>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <h2>Constraints</h2>
+                                <ul>
+                                    <li>context Membership inv: self.programs.partners->forAll(p | p.deliveredServices->forAll(d | d.pointsEarned = 0 ) ) implies self.account->isEmpty() = true</li>
+                                    <li>context LoyaltyAccount inv: self.points > 0 implies self.transactions->exists(t | t.points > 0 )</li>
+                                    <li>context Transaction inv: self.amount > 50 and self.points &gt; 50</li>
+                                    <li>context CustomerCard inv: self.transactions->select(t | t.points > 100 ) ->notEmpty() = true</li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

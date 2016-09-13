@@ -142,11 +142,10 @@ public class VESGenerator {
                             .getLowAndUpperValueForProperty(p.getOwningType()
                                     .getName(), p.getName(), "model")[1];
                 } catch (NumberFormatException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 ves.setMinValue(LowValue);
-                if (upperValue.equals("*"))
+                if (upperValue == null || upperValue.isEmpty() || upperValue.equals("*"))
                     ves.setMaxValue(100);
                 else
                     ves.setMaxValue(Integer.valueOf(upperValue));
