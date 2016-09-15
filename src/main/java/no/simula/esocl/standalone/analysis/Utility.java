@@ -64,8 +64,13 @@ public class Utility {
     }
 
     public double formatValue(double value) {
-        DecimalFormat df = new DecimalFormat(".000000000000000000000");
-        return Double.valueOf(df.format(value));
+        try {
+            DecimalFormat df = new DecimalFormat(".000000000000000000000");
+            return Double.valueOf(df.format(value));
+        } catch (NumberFormatException e) {
+            DecimalFormat df = new DecimalFormat(",000000000000000000000");
+            return Double.valueOf(df.format(value));
+        }
     }
 
     public double formatRealValueWithoutZero(String afterDecimal) {

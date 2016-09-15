@@ -159,7 +159,7 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
         IModelInstanceBoolean result;
 
 		/*
-		 * Use the java basis types here because the adaptation of a node would
+         * Use the java basis types here because the adaptation of a node would
 		 * not help. If you adapt a node, cast it to boolean and then to string,
 		 * you have to alter the nodes' value to get the right result such as
 		 * 'true', 'false' or null in all other cases!

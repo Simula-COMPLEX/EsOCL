@@ -13,7 +13,7 @@ public class EnAndDecoding {
     }
 
 	/*
-	public int[] removeNegativeValue(int v[], ArrayList<GeneValueScope> geneValueList)
+    public int[] removeNegativeValue(int v[], ArrayList<GeneValueScope> geneValueList)
 	{
 		ArrayList<GeneValueScope> cons = geneValueList;
 		int value[] = new int[v.length];

@@ -17,15 +17,9 @@ import org.dresdenocl.interpreter.OclInterpreterPlugin;
 import org.dresdenocl.interpreter.internal.OclInterpreter;
 import org.dresdenocl.model.IModel;
 import org.dresdenocl.modelinstance.IModelInstance;
-import org.dresdenocl.modelinstancetype.exception.PropertyAccessException;
-import org.dresdenocl.modelinstancetype.exception.PropertyNotFoundException;
-import org.dresdenocl.modelinstancetype.types.IModelInstanceElement;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
-import org.dresdenocl.modelinstancetype.types.base.JavaModelInstanceInteger;
-import org.dresdenocl.modelinstancetype.types.base.JavaModelInstanceString;
 import org.dresdenocl.pivotmodel.Constraint;
 import org.dresdenocl.pivotmodel.Expression;
-import org.dresdenocl.pivotmodel.Property;
 import org.dresdenocl.standalone.facade.StandaloneFacade;
 import org.eclipse.emf.ecore.EObject;
 
@@ -35,7 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SolveProblem implements Problem {
-
+    static Logger logger = Logger.getLogger(SolveProblem.class);
     // after loading the model file, it is the parsed model
     IModel model;
 
@@ -57,7 +51,6 @@ public class SolveProblem implements Problem {
     // this variable indicates the time that invoked the getFitness function
     int i = 0;
 
-    Logger logger = Logger.getLogger("bar");
 
     VESGenerator vesGenerator;
 
@@ -69,6 +62,27 @@ public class SolveProblem implements Problem {
 
     List<String> solutions = new ArrayList<>();
 
+    private String getPath() {
+        String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        if (path.lastIndexOf(File.separator) != path.length()) {
+            try {
+                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
+            } catch (Exception e) {
+                path = path.substring(0, path.lastIndexOf("/")) + File.separator;
+            }
+        } else {
+            path = path.substring(0, path.length() - 2);
+            try {
+                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
+            } catch (Exception e) {
+                path = path.substring(0, path.lastIndexOf("/")) + File.separator;
+            }
+        }
+
+        return path;
+    }
+
+
     public SolveProblem(String inputModelPath, String[] inputProfilePaths,
                         File inputOclConstraintsPath) {
 
@@ -76,7 +90,7 @@ public class SolveProblem implements Problem {
         // PropertyConfigurator.configure("Eslog4j.properties");
         Utility.INSTANCE.initialUMLDoc(inputModelPath, inputProfilePaths);
         for (String inputProfileFilePath : inputProfilePaths) {
-            logger.info("The profle file path:: " + inputProfileFilePath);
+            logger.debug("The profle file path:: " + inputProfileFilePath);
         }
         try {
             System.setProperty("DRESDENOCL_LOCATION_LOG4J",
@@ -87,10 +101,26 @@ public class SolveProblem implements Problem {
 
             StandaloneFacade.INSTANCE.initialize();
 
-            model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
-                            inputModelPath),
-                    new File(getClass().getClassLoader().getResource("lib/org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar").getFile()));
+            File file = new File(getClass().getClassLoader().getResource("lib/org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar").getFile());
+            //  System.out.println(file.getAbsolutePath());
+            if (file.exists()) {
+                model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
+                                inputModelPath),
+                        new File(getClass().getClassLoader().getResource("lib/org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar").getFile()));
 
+                // System.out.println("File exists");
+            } else {
+
+
+                String path = getPath() + "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
+
+                // System.out.println(path);
+
+                model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
+                                inputModelPath),
+                        new File(path));
+
+            }
 
             // obtain the ocl constraints based on the model
             this.constraint = StandaloneFacade.INSTANCE.parseOclConstraints(
@@ -115,13 +145,14 @@ public class SolveProblem implements Problem {
     }
 
 
+
     public SolveProblem(String inputModelPath, String[] inputProfilePaths,
                         String inputOclConstraintsPath) {
 
         // PropertyConfigurator.configure("Eslog4j.properties");
         Utility.INSTANCE.initialUMLDoc(inputModelPath, inputProfilePaths);
         for (String inputProfileFilePath : inputProfilePaths) {
-            logger.info("The profle file path:: " + inputProfileFilePath);
+            logger.debug("The profle file path:: " + inputProfileFilePath);
         }
         try {
             System.setProperty("DRESDENOCL_LOCATION_LOG4J",
@@ -132,9 +163,25 @@ public class SolveProblem implements Problem {
 
             StandaloneFacade.INSTANCE.initialize();
 
-            model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
-                            inputModelPath),
-                    new File(getClass().getClassLoader().getResource("lib/org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar").getFile()));
+
+            File file = new File(getClass().getClassLoader().getResource("lib/org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar").getFile());
+            //  System.out.println(file.getAbsolutePath());
+            if (file.exists()) {
+                model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
+                                inputModelPath),
+                        new File(getClass().getClassLoader().getResource("lib/org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar").getFile()));
+
+                // System.out.println("File exists");
+            } else {
+
+                String path = getPath() + "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
+                // System.out.println(path);
+
+                model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
+                                inputModelPath),
+                        new File(path));
+
+            }
 
 
             // obtain the ocl constraints based on the model
@@ -250,6 +297,10 @@ public class SolveProblem implements Problem {
             // assign the values into the attribute and build the class objects
             List<UMLObjectIns> objects = this.umlModelInsGenerator
                     .getReAssignedUMLObjects(valueStr);
+
+            String solution = this.umlModelInsGenerator.getSolution();
+
+
             // create the model instance for ocl interpreter
             IModelInstance modelInstance = new RModelIns(model, objects);
             OclInterpreter interpreter = new OclInterpreter(modelInstance);
@@ -260,7 +311,7 @@ public class SolveProblem implements Problem {
             bdc.setOclInterpreter((OclInterpreter) interpreter);
             bdc.setModelInstanceObjects(modelInstance
                     .getAllModelInstanceObjects());
-            System.out.println("---Calculate the fitness---");
+            logger.debug("---Calculate the fitness---");
             for (IModelInstanceObject imiObject : modelInstance
                     .getAllModelInstanceObjects()) {
                 IInterpretationResult result = null;
@@ -274,14 +325,14 @@ public class SolveProblem implements Problem {
 
                         if (result.getResult() instanceof OclBoolean) {
                             if (((OclBoolean) result.getResult()).isTrue()) {
-                                String solution = printobject(imiObject);
+                                // String solution = printobject(imiObject);
                                 solutions.add(solution);
                             }
 
                         }
 
 
-                        System.out.println(result.getConstraint()
+                        logger.debug(result.getConstraint()
                                 .getSpecification().getBody()
                                 + ": " + result.getResult());
                         resultList.add(result);
@@ -290,7 +341,7 @@ public class SolveProblem implements Problem {
 
                         // Classify the OCL expression
                         double distance = classifyExp(exp, imiObject, bdc);
-                        System.out.println("the fitness: " + distance);
+                        logger.debug("the fitness: " + distance);
                         return distance;
                     }
                 } catch (Exception e) {
@@ -308,13 +359,12 @@ public class SolveProblem implements Problem {
      * get all the attributes after the class is instanced based on "classInstanceValue"
      */
     public ValueElement4Search[] getAllAttributeConstraints() {
-        System.err
-                .println("*******************Build the concreate number of class instance*******************");
+        logger.debug("*******************Build the concreate number of class instance*******************");
 
         for (ValueElement4Search initialVes : this.initialVesForSearchList) {
             if (!initialVes.getSourceClass().equals(
                     initialVes.getDestinationClass()))
-                logger.info("the value of Association:: "
+                logger.debug("the value of Association:: "
                         + initialVes.getSourceClass() + "->"
                         + initialVes.getDestinationClass() + " number: "
                         + initialVes.getValue());
@@ -354,10 +404,10 @@ public class SolveProblem implements Problem {
     }
 
 
-    private String printobject(IModelInstanceElement modelInstanceObject) throws PropertyAccessException, PropertyNotFoundException {
+   /* private String printobject(IModelInstanceElement modelInstanceObject) throws PropertyAccessException, PropertyNotFoundException {
 
         StringBuilder resultBuilder = new StringBuilder();
-        System.out.println(modelInstanceObject.getType().getName());
+       logger.debug(modelInstanceObject.getType().getName());
 
         for (Property property : modelInstanceObject.getType().getOwnedProperty()) {
 
@@ -367,7 +417,7 @@ public class SolveProblem implements Problem {
 
                 JavaModelInstanceString instanceString =
                         (JavaModelInstanceString) InstanceObject.getProperty(property);
-                System.out.println("Property " + property.getName() + "=" + instanceString.getString());
+               logger.debug("Property " + property.getName() + "=" + instanceString.getString());
 
                 resultBuilder.append(property.getName());
                 resultBuilder.append("=");
@@ -386,7 +436,7 @@ public class SolveProblem implements Problem {
                     } catch (NullPointerException e) {
                     }
                 }
-                System.out.println("Property " + property.getName() + "=" + result);
+               logger.debug("Property " + property.getName() + "=" + result);
                 resultBuilder.append(property.getName());
                 resultBuilder.append("=");
                 resultBuilder.append(result);
@@ -399,13 +449,13 @@ public class SolveProblem implements Problem {
                 }
 
             }else {
-                System.out.println(property.getType().getName());
+               logger.debug(property.getType().getName());
             }
 
 
         }
 
         return resultBuilder.toString();
-    }
+    }*/
 
 }

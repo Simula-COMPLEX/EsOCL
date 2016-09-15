@@ -21,16 +21,21 @@ public class WebServiceEndPoint {
 
         try {
 
-            String path = getClass().getClassLoader().getResource("").getPath() + File.separator + System.currentTimeMillis() + ".uml";
-            File inputModel = new File(path);
-            FileOutputStream fos = new FileOutputStream(inputModel);
+            String path = getClass().getClassLoader().getResource(File.separator).getPath()+ System.currentTimeMillis() + ".uml";
+            File modelFile = new File(path);
+            FileOutputStream fos = new FileOutputStream(modelFile);
             fos.write(model);
             fos.close();
-
+            System.out.println(path);
+            File inputModel = new File(path);
+            if (!inputModel.exists()) {
+                System.out.println("Model Not Found");
+                return false;
+            }
 
             OCLSolver oclSolver = new OCLSolver();
 
-            boolean result = oclSolver.solveConstraint(inputModel.getAbsolutePath(), constraint, new String[]{"AVM", "OpOEA"}, 50000).getResult();
+            boolean result = oclSolver.solveConstraint(inputModel.getAbsolutePath(), constraint, new String[]{"AVM", "OpOEA"}, 5000).getResult();
             System.out.println(result);
             return result;
 

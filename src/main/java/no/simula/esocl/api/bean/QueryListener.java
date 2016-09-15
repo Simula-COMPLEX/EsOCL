@@ -2,7 +2,7 @@ package no.simula.esocl.api.bean;
 
 
 import no.simula.esocl.api.OCLSolver;
-import no.simula.esocl.api.dataobject.Result;
+import no.simula.esocl.experiment.Result;
 import org.primefaces.context.RequestContext;
 
 import javax.faces.application.FacesMessage;
@@ -25,6 +25,7 @@ public class QueryListener implements Serializable {
     private Part diagram;
     private File inputModel;
     private String constraint;
+    private String resultConstraint;
     private Result result;
     private String modelName;
 
@@ -43,6 +44,7 @@ public class QueryListener implements Serializable {
         diagram = null;
         inputModel = null;
         constraint = null;
+        resultConstraint = null;
         result = null;
         modelName = null;
     }
@@ -104,9 +106,6 @@ public class QueryListener implements Serializable {
 
 
     private void loadModel(String modelName) {
-        FacesContext fCtx = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
-        String sessionId = session.getId();
 
 
         InputStream inStream = null;
@@ -114,7 +113,7 @@ public class QueryListener implements Serializable {
 
         try {
 
-            String path = getClass().getClassLoader().getResource("").getPath() + File.separator + sessionId + modelName;
+            String path = getClass().getClassLoader().getResource(File.separator ).getPath()  + System.currentTimeMillis() + modelName;
             inputModel = new File(path);
             if (inputModel.exists()) {
                 inputModel.delete();
@@ -146,25 +145,28 @@ public class QueryListener implements Serializable {
             FacesContext fCtx = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
             String sessionId = session.getId();
-            String path = getClass().getClassLoader().getResource("").getPath() + File.separator + sessionId + diagram.getSubmittedFileName();
+            String path = getClass().getClassLoader().getResource(File.separator ).getPath() + System.currentTimeMillis() + diagram.getSubmittedFileName();
             modelName = diagram.getSubmittedFileName();
-            inputModel = new File(path);
-            if (inputModel.exists()) {
-                inputModel.delete();
+            File modelFile = new File(path);
+            if (!modelFile.exists()) {
+                modelFile.createNewFile();
             }
-            inputModel.createNewFile();
+            diagram.write(modelFile.getAbsolutePath());
 
-            diagram.write(inputModel.getAbsolutePath());
+            System.out.println(path);
+            inputModel = new File(path);
+
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Model Uploaded", "");
+            facesContext.addMessage(null, message);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Model Uploaded", "");
-        facesContext.addMessage(null, message);
     }
-
 
     public void doNothing(AjaxBehaviorEvent event) {
         System.out.println("doNothing");
@@ -175,6 +177,7 @@ public class QueryListener implements Serializable {
 
 
         result = null;
+        resultConstraint = constraint;
         System.out.println("validate Constraint");
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -184,6 +187,15 @@ public class QueryListener implements Serializable {
             RequestContext.getCurrentInstance().showMessageInDialog(message);
             return;
         }
+
+
+        if (!inputModel.exists()) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Model not found", "Model File Not Found");
+            facesContext.addMessage(null, message);
+            RequestContext.getCurrentInstance().showMessageInDialog(message);
+            return;
+        }
+
 
         if (constraint == null || constraint.isEmpty()) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Constraint not found", "Please Enter the Constraint");
@@ -233,9 +245,11 @@ public class QueryListener implements Serializable {
         if (type.equals("loadModel")) {
             inputModel = null;
             modelName = null;
+            constraint = "";
 
         } else if (type.equals("royalModel")) {
             loadModel("RoyalAndLoyal.uml");
+            constraint = "";
         }
 
     }
@@ -287,5 +301,13 @@ public class QueryListener implements Serializable {
 
     public void setModelName(String modelName) {
         this.modelName = modelName;
+    }
+
+    public String getResultConstraint() {
+        return resultConstraint;
+    }
+
+    public void setResultConstraint(String resultConstraint) {
+        this.resultConstraint = resultConstraint;
     }
 }

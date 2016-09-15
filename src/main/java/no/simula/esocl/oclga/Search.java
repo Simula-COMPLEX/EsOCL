@@ -85,7 +85,7 @@ public abstract class Search {
     }
 
 	/*
-	protected boolean isStoppingCriterionFulfilled(int populationsize)
+    protected boolean isStoppingCriterionFulfilled(int populationsize)
 	{
 		if(current_iteration >= max_iterations)
 			if(max_iterations < populationsize)

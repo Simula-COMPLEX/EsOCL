@@ -1,6 +1,5 @@
 package no.simula.esocl.experiment;
 
-import no.simula.esocl.api.dataobject.Result;
 import no.simula.esocl.ocl.distance.DisplayResult;
 import no.simula.esocl.ocl.distance.SolveProblem;
 import no.simula.esocl.ocl.distance.ValueElement4Search;
@@ -8,14 +7,15 @@ import no.simula.esocl.oclga.*;
 import no.simula.esocl.standalone.analysis.OCLExpUtility;
 import no.simula.esocl.standalone.analysis.Utility;
 import no.simula.esocl.standalone.modelinstance.UMLObjectIns;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchEngineDriver {
-
     public static int boundValueStratergy = 0;
+    static Logger logger = Logger.getLogger(SearchEngineDriver.class);
     String inputModelPath;
     File inputOclConstraintsPath;
     String constraint;
@@ -138,11 +138,14 @@ public class SearchEngineDriver {
         sv.setMaxIterations(iterations);
         Search.validateConstraints(xp);
         String[] value = sv.search(xp);
+
+        for (String str : value) {
+            logger.debug(str);
+        }
+
         boolean found = xp.getFitness(value) == 0d;
+
         int steps = sv.getIteration();
-        System.out.println(sv.getShortName());
-        System.out.println(found);
-        System.out.println("Iterations:" + steps);
         List<String> solutions = xp.getSolutions();
 
         Result result = new Result();
@@ -154,8 +157,11 @@ public class SearchEngineDriver {
             result.setSolution(solutions.get(solutions.size() - 1));
         }
 
-        for (String str : value)
-            System.out.println(str);
+        logger.info("Algo: " + result.getAlgo());
+        logger.info("Result: " + result.getResult());
+        logger.info("Iterations:" + result.getIternations());
+        logger.info("Solution: " + result.getSolution());
+
 
         return result;
     }

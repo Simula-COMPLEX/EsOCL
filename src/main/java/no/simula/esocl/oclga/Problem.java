@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface Problem {
+
+
     public static final int NUMERICAL_TYPE = 0;
     public static final int CATEGORICAL_TYPE = 1;
 

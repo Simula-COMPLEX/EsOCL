@@ -16,8 +16,9 @@ public class TEST {
 
 
             System.out.println(model.length);
-            //  String url = "http://zen.simula.no:8080/EsOCL/EsOCLService";
-            String url = "http://localhost:8090/EsOCLService";
+             String url = "http://esocl.herokuapp.com/EsOCLService";
+            //String url = "http://zen.simula.no:8080/EsOCL/EsOCLService";
+            //String url = "http://localhost:8090/EsOCLService";
             WebServiceEndPointService service = new WebServiceEndPointServiceLocator(url);
             WebServiceEndPoint port = service.getWebServiceEndPointPort();
             boolean response = port.getResult(constraint, model);

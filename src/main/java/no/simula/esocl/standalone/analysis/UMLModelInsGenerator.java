@@ -3,7 +3,6 @@ package no.simula.esocl.standalone.analysis;
 import no.simula.esocl.ocl.distance.ValueElement4Search;
 import no.simula.esocl.standalone.modelinstance.UMLAttributeIns;
 import no.simula.esocl.standalone.modelinstance.UMLObjectIns;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dresdenocl.essentialocl.types.CollectionType;
 import org.dresdenocl.metamodels.uml2.internal.model.UML2Class;
@@ -17,8 +16,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class UMLModelInsGenerator {
-
     public static int i = 0;
+    static Logger logger = Logger.getLogger(UMLModelInsGenerator.class);
     /**
      * this list is initialized for recording the attribute information after confirming the
      * instance number
@@ -28,16 +27,16 @@ public class UMLModelInsGenerator {
      * this list contains the class instance
      */
     List<UMLObjectIns> umlObjectInsList;
-    Logger logger = Logger.getLogger("bar");
+
     VESGenerator vesGenerator;
+    StringBuilder solution = new StringBuilder();
 
     public UMLModelInsGenerator(VESGenerator vesGenerator) {
         this.vesGenerator = vesGenerator;
         this.umlObjectInsList = new ArrayList<UMLObjectIns>();
-        logger.setLevel(Level.OFF);
+        //logger.setLevel(Level.OFF);
         // PropertyConfigurator.configure("Eslog4j.properties");
     }
-
 
     public List<UMLObjectIns> getUmlObjectInsList() {
         return umlObjectInsList;
@@ -51,29 +50,32 @@ public class UMLModelInsGenerator {
      * @return
      */
     public List<UMLObjectIns> getReAssignedUMLObjects(String[] valueStrs) {
-
+        solution = new StringBuilder();
         // the order of value is consistent with the attributeInsList
-        System.out
-                .println(i++
-                        + "*******************Assign the value into the class instance*******************");
+        logger.debug("*******************Assign the value into the class instance (" + i++ + ")*******************");
         for (int i = 0; i < this.attributeInsList.size(); i++) {
             Type type = this.attributeInsList.get(i).getType();
             if (type instanceof UML2PrimitiveType) {
                 String typeValue = ((UML2PrimitiveType) type).getKind()
                         .getName();
-                if (typeValue.equals("Integer"))
+                if (typeValue.equals("Integer")) {
                     this.attributeInsList.get(i).setValue(
                             "" + Double.valueOf(valueStrs[i]).intValue());
-                else if (typeValue.equals("Boolean")) {
+                } else if (typeValue.equals("Boolean")) {
                     double temp = Double.valueOf(valueStrs[i]);
-                    if ((temp - 1.0) == 0)
+                    if ((temp - 1.0) == 0) {
                         this.attributeInsList.get(i).setValue("true");
-                    else
+                    } else {
                         this.attributeInsList.get(i).setValue("false");
-                } else if (typeValue.equals("String"))
+                    }
+                } else if (typeValue.equals("String")) {
                     this.attributeInsList.get(i).setValue(valueStrs[i]);
-                else if (typeValue.equals("Real"))
+                } else if (typeValue.equals("Real")) {
                     this.attributeInsList.get(i).setValue(valueStrs[i]);
+                }
+
+                //logger.debug("Primitive Property: "+ this.attributeInsList.get(i).getName() +" Value: "+ this.attributeInsList.get(i).getValue());
+
             } else if (type instanceof UML2Enumeration) {
                 UML2Enumeration enumType = (UML2Enumeration) type;
                 String lieralName = enumType.getOwnedLiteral()
@@ -81,8 +83,14 @@ public class UMLModelInsGenerator {
                 this.attributeInsList.get(i).setValue(lieralName);
             }
 
-            logger.info("Assigned attr name: "
-                    + this.attributeInsList.get(i).getQualifiedName()
+            solution.append("Attribute: ");
+            solution.append(this.attributeInsList.get(i).getQualifiedName());
+            solution.append(" = ");
+            solution.append(this.attributeInsList.get(i).getValue());
+            solution.append(" , ");
+
+            logger.debug("Assigned attr name: "
+                    + this.attributeInsList.get(i).getName()
                     + " value: " + this.attributeInsList.get(i).getValue());
         }
         return umlObjectInsList;
@@ -98,11 +106,10 @@ public class UMLModelInsGenerator {
         List<ValueElement4Search> vesList = this.vesGenerator
                 .getIniVesGroupByClassMap().get(contextClassName);
         UMLObjectIns uoi = buildUMLObjectFromVesList(vesList, contextClassName);
-        logger.info("Build the class instance:: ClassName= "
+        logger.debug("Build the class instance:: ClassName= "
                 + uoi.getQualifiedName() + " Attrs: " + uoi.getAttributeNames());
         this.umlObjectInsList.add(uoi);
-        System.err
-                .println("*******************Generate the ves array from the this.umlObjectInsList*******************");
+        logger.debug("*******************Generate the ves array from the this.umlObjectInsList*******************");
         for (UMLObjectIns umlObject : this.umlObjectInsList) {
             List<ValueElement4Search> initialVes4SameClassList = this.vesGenerator
                     .getVesList4Class(umlObject.getQualifiedName());
@@ -121,7 +128,7 @@ public class UMLModelInsGenerator {
         ValueElement4Search[] ves4InsNumberArray = new ValueElement4Search[ves4InsNumberList
                 .size()];
         ves4InsNumberArray = ves4InsNumberList.toArray(ves4InsNumberArray);
-        logger.info("Generate the number of nonAss Ves: "
+        logger.debug("Generate the number of nonAss Ves: "
                 + ves4InsNumberArray.length + "/n");
         return ves4InsNumberArray;
     }
@@ -181,7 +188,7 @@ public class UMLModelInsGenerator {
                                 assVes4SameClassList, ves.getDestinationClass());
                     }
                     if (assUoi != null) {
-                        logger.info("Build the class instance:: ClassName= "
+                        logger.debug("Build the class instance:: ClassName= "
                                 + assUoi.getQualifiedName() + " Attrs: "
                                 + assUoi.getAttributeNames() + "/n");
                         this.umlObjectInsList.add(assUoi);
@@ -210,4 +217,7 @@ public class UMLModelInsGenerator {
         return identifiedObjects;
     }
 
+    public String getSolution() {
+        return solution.toString();
+    }
 }

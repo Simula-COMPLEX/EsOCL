@@ -1,5 +1,6 @@
 package no.simula.esocl.standalone.analysis;
 
+import org.apache.log4j.Logger;
 import org.dresdenocl.essentialocl.expressions.OclExpression;
 import org.dresdenocl.essentialocl.expressions.impl.IntegerLiteralExpImpl;
 import org.dresdenocl.essentialocl.expressions.impl.IteratorExpImpl;
@@ -24,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
 import java.util.*;
 
 public class OCLExpUtility {
-
     public static String OP_COMPLEX_SELECT_SIZE = "op_complex_select_size";
     public static String OP_COMPLEX_SELECT_ITERATE = "op_complex_select_iterate";
     public static String[] OP_BOOLEAN = {"implies", "not", "and", "or", "xor"};
@@ -35,12 +35,13 @@ public class OCLExpUtility {
     public static String[] OP_SELECT = {"select", "reject", "collect"};
     public static String[] OP_MISCELLANEOUS = {"oclIsTypeOf", "oclIsKindOf",
             "oclIsNew", "oclIsUndefined", "oclIsInvalid"};
+    static Logger logger = Logger.getLogger(OCLExpUtility.class);
     /**
      * singleton instance
      */
     private static OCLExpUtility instance;
     /**
-     * Returns the single instance of the {@link StandaloneFacade}.
+     * Returns the single instance of the {@link OCLExpUtility}.
      */
     public static OCLExpUtility INSTANCE = instance();
     VESGenerator vesGenerator;
@@ -100,8 +101,9 @@ public class OCLExpUtility {
             return;
         int now_depth = depth;
         for (EObject eObject : contents) {
+            String depthstring = "";
             for (int i = 0; i < depth; i++) {
-                System.out.print("***");
+                depthstring += "***";
             }
             EAttribute eatt = eObject.eClass().getEAllAttributes().get(0);
             String name = null;
@@ -118,7 +120,7 @@ public class OCLExpUtility {
 
 //			String name = eObject.eGet(eatt).toString();
 //			ExpressionInOclImpl ex = (ExpressionInOclImpl) eObject;
-            System.out.println(eObject.toString());
+            logger.debug(depthstring + " " + eObject.toString());
             printChild(eObject, ++now_depth);
         }
 
@@ -127,7 +129,7 @@ public class OCLExpUtility {
 //	public void printOclClause4Depth(EObject e) {
 //		int depth = 0;
 //		for (EObject eObject : e.eContents()) {
-//			System.out.println(eObject.toString());
+//			logger.debug(eObject.toString());
 //			printChild(eObject, ++depth);
 //			depth = 0;
 //		}
@@ -138,7 +140,7 @@ public class OCLExpUtility {
         Constraint con = (Constraint) e;
         EList<EObject> exp = con.eContents();
         for (EObject eObject : e.eContents()) {
-            System.out.println(eObject.toString());
+            logger.debug(eObject.toString());
 
             printChild(eObject, ++depth);
             depth = 0;
@@ -296,7 +298,7 @@ public class OCLExpUtility {
     /**
      * typeArray[i][0] value-1; typeArray[i][1] value; typeArray[i][2] value+1;
      *
-     * @param expList
+     * @param oceSet
      * @return
      */
     public String[][] buildBoundTypeArray(Set<OperationCallExpImpl> oceSet) {

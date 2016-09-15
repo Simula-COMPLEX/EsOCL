@@ -1,4 +1,4 @@
-package no.simula.esocl.api.dataobject;
+package no.simula.esocl.experiment;
 
 import java.util.List;
 

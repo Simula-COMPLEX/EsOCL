@@ -1,7 +1,6 @@
 package no.simula.esocl.standalone.analysis;
 
 import no.simula.esocl.ocl.distance.ValueElement4Search;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dresdenocl.essentialocl.expressions.impl.PropertyCallExpImpl;
 import org.dresdenocl.essentialocl.types.SetType;
@@ -19,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class VESGenerator {
+
     /**
      * this list is initialized for recording the needed attribute information from .uml model
      */
@@ -41,11 +41,11 @@ public class VESGenerator {
      * @return
      */
 
-    Logger logger = Logger.getLogger("bar");
+    Logger logger = Logger.getLogger(VESGenerator.class);
 
     public VESGenerator(Constraint constraint) {
         this.constraint = constraint;
-        logger.setLevel(Level.OFF);
+        // logger.setLevel(Level.OFF);
         // PropertyConfigurator.configure("Eslog4j.properties");
     }
 
@@ -62,8 +62,7 @@ public class VESGenerator {
     }
 
     public List<ValueElement4Search> buildInitialVes(IModel model) {
-        System.err
-                .println("*******************Initial the VES array*******************");
+        logger.debug("*******************Initial the VES array*******************");
         // OCLExpUtility.INSTANCE.printOclClause4Depth(cons.getSpecification());
         List<PropertyCallExpImpl> propCallList = OCLExpUtility.INSTANCE
                 .getPropertyInCons(this.constraint);
@@ -75,7 +74,7 @@ public class VESGenerator {
             ves.setSourceClass(vesCla.getQualifiedName());
             if (p.getType() instanceof UML2PrimitiveType
                     || p.getType() instanceof UML2Enumeration) {
-                logger.info("Add a VES:: ClassName= "
+                logger.debug("Add a VES:: ClassName= "
                         + vesCla.getQualifiedName() + " AttrName= "
                         + p.getName() + " AttrType= " + p.getType().getName());
                 ves.setDestinationClass(vesCla.getQualifiedName());
@@ -116,7 +115,7 @@ public class VESGenerator {
             }// end if
             else if (p.getType() instanceof SetType
                     || p.getType() instanceof UML2Class) {
-                logger.info("Add a VES:: ClassName= "
+                logger.debug("Add a VES:: ClassName= "
                         + vesCla.getQualifiedName() + " AttrName= "
                         + p.getName() + " AttrType= " + p.getType().getName());
                 if (p.getType() instanceof SetType) {
@@ -142,7 +141,8 @@ public class VESGenerator {
                             .getLowAndUpperValueForProperty(p.getOwningType()
                                     .getName(), p.getName(), "model")[1];
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    // by default value is zero
                 }
                 ves.setMinValue(LowValue);
                 if (upperValue == null || upperValue.isEmpty() || upperValue.equals("*"))
@@ -152,8 +152,7 @@ public class VESGenerator {
                 if (!ves.getSourceClass().equals(ves.getDestinationClass()))
                     ves.setValue(""
                             + Utility.INSTANCE.getFixedNumberOfCardinality(ves));
-                System.out
-                        .println(ves.getMinValue() + "  " + ves.getMaxValue());
+              logger.debug("ves min "+ves.getMinValue() + " ves max " + ves.getMaxValue());
 
             }
             this.initialVesForSearchList.add(ves);
@@ -166,6 +165,8 @@ public class VESGenerator {
                 vesList.add(ves);
                 this.iniVesGroupByClassMap.put(vesCla.getQualifiedName(),
                         vesList);
+
+
             }
         }
 
