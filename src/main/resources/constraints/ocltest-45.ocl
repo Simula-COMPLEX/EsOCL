@@ -1,0 +1,4 @@
+package Test
+context Saturn
+inv initial: self.media.video.videoFrameLoss.value > 4 
+endpackage

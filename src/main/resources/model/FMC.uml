@@ -1,0 +1,1136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SimPL="http:///schemas/SimPL/_nxQCsCBTEeORveStHLazVw/118" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http:///schemas/SimPL/_nxQCsCBTEeORveStHLazVw/118 Profile.profile.uml#_nxQpwCBTEeORveStHLazVw">
+  <uml:Package xmi:id="_vbLSgPLiEeKk8Ipx9dSDbA" name="SubseaControl">
+    <packageImport xmi:id="_vbLSg_LiEeKk8Ipx9dSDbA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_lqRVQDEAEeO5h8hFA2QO6g" name="SystemDesignView">
+      <packagedElement xmi:type="uml:Package" xmi:id="_oixzcDEAEeO5h8hFA2QO6g" name="SystemModel">
+        <packagedElement xmi:type="uml:Class" xmi:id="__6GfMDEAEeO5h8hFA2QO6g" name="SubseaControlSystemSystem">
+          <ownedAttribute xmi:id="_GbMYMDECEeO5h8hFA2QO6g" name="subseaField" visibility="private" type="_DN2u8DEBEeO5h8hFA2QO6g" templateParameter="_teOOUTHzEeO5h8hFA2QO6g" aggregation="composite" association="_Ga_j4DECEeO5h8hFA2QO6g">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GbONYDECEeO5h8hFA2QO6g" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GbNmUDECEeO5h8hFA2QO6g" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_JGncoDECEeO5h8hFA2QO6g" name="semApp" visibility="private" type="_ORpzkDEBEeO5h8hFA2QO6g" templateParameter="_2ABQQDHzEeO5h8hFA2QO6g" aggregation="composite" association="_JGlncDECEeO5h8hFA2QO6g">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JGoqwDECEeO5h8hFA2QO6g" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JGoDsDECEeO5h8hFA2QO6g"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_8y2hAH6JEeOvhr9dmhLUyw" name="mCS" visibility="private" type="_UfGJUH6JEeOvhr9dmhLUyw" aggregation="composite" association="_8y0EwH6JEeOvhr9dmhLUyw">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8y3vIX6JEeOvhr9dmhLUyw" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8y3vIH6JEeOvhr9dmhLUyw"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_BYs1UH6LEeOvhr9dmhLUyw" name="mcsApp" visibility="private" type="_5tqcQH6KEeOvhr9dmhLUyw" aggregation="composite" association="_BYrnMH6LEeOvhr9dmhLUyw">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BYtcYX6LEeOvhr9dmhLUyw" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BYtcYH6LEeOvhr9dmhLUyw"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_-OHoIIDZEeO0lccyhor3Aw" name="systemType" visibility="private" type="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedAttribute xmi:id="_fps-YIDrEeO0lccyhor3Aw" name="triggerType" visibility="private" type="_A7iA4IDrEeO0lccyhor3Aw"/>
+          <ownedAttribute xmi:id="_i_3B4IDrEeO0lccyhor3Aw" name="controlType" visibility="private" type="_A7iA4IDrEeO0lccyhor3Aw"/>
+          <ownedAttribute xmi:id="_qGjeUIEYEeO0lccyhor3Aw" name="maxPressure" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_YXPFsIMBEeOt_qIwpdUXBg" name="productionSysType" visibility="private" type="_a-_yIIMBEeOt_qIwpdUXBg"/>
+          <ownedAttribute xmi:id="_X8NhIIMCEeOt_qIwpdUXBg" name="hasHIPPS" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_I5suwIMDEeOt_qIwpdUXBg" name="iWCS" visibility="private" type="_HoJAQIMDEeOt_qIwpdUXBg" aggregation="composite" association="_I475wIMDEeOt_qIwpdUXBg">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_I5_psIMDEeOt_qIwpdUXBg" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_I56KIIMDEeOt_qIwpdUXBg"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_Ga_j4DECEeO5h8hFA2QO6g" memberEnd="_GbMYMDECEeO5h8hFA2QO6g _GbQCkDECEeO5h8hFA2QO6g">
+          <ownedEnd xmi:id="_GbQCkDECEeO5h8hFA2QO6g" name="" visibility="private" type="__6GfMDEAEeO5h8hFA2QO6g" association="_Ga_j4DECEeO5h8hFA2QO6g">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GbRQsTECEeO5h8hFA2QO6g" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GbRQsDECEeO5h8hFA2QO6g" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_JGlncDECEeO5h8hFA2QO6g" memberEnd="_JGncoDECEeO5h8hFA2QO6g _JGpR0DECEeO5h8hFA2QO6g">
+          <ownedEnd xmi:id="_JGpR0DECEeO5h8hFA2QO6g" name="" visibility="private" type="__6GfMDEAEeO5h8hFA2QO6g" association="_JGlncDECEeO5h8hFA2QO6g">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JGqf8TECEeO5h8hFA2QO6g" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JGqf8DECEeO5h8hFA2QO6g" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_8y0EwH6JEeOvhr9dmhLUyw" memberEnd="_8y2hAH6JEeOvhr9dmhLUyw _8y5kUH6JEeOvhr9dmhLUyw">
+          <ownedEnd xmi:id="_8y5kUH6JEeOvhr9dmhLUyw" name="" visibility="private" type="__6GfMDEAEeO5h8hFA2QO6g" association="_8y0EwH6JEeOvhr9dmhLUyw">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8y9OsH6JEeOvhr9dmhLUyw" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8y8noH6JEeOvhr9dmhLUyw" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_BYrnMH6LEeOvhr9dmhLUyw" memberEnd="_BYs1UH6LEeOvhr9dmhLUyw _BYy78H6LEeOvhr9dmhLUyw">
+          <ownedEnd xmi:id="_BYy78H6LEeOvhr9dmhLUyw" name="" visibility="private" type="__6GfMDEAEeO5h8hFA2QO6g" association="_BYrnMH6LEeOvhr9dmhLUyw">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BY0KEH6LEeOvhr9dmhLUyw" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BYzjAH6LEeOvhr9dmhLUyw" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_YOX6cIDZEeO0lccyhor3Aw" name="ControlSystemType"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_eKnAoIDfEeO0lccyhor3Aw" name="AllHydraulicSystem">
+          <generalization xmi:id="_C9UTcIDgEeO0lccyhor3Aw" general="__6GfMDEAEeO5h8hFA2QO6g"/>
+          <ownedAttribute xmi:id="_vbI30IDgEeO0lccyhor3Aw" name="systemType" visibility="private" type="_FDWL0IDgEeO0lccyhor3Aw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_-lsL4IDfEeO0lccyhor3Aw" name="ElectrohydraulicSystem">
+          <generalization xmi:id="_DTqW4IDgEeO0lccyhor3Aw" general="__6GfMDEAEeO5h8hFA2QO6g"/>
+          <ownedAttribute xmi:id="_1iIrQIDgEeO0lccyhor3Aw" name="systemType" visibility="private" type="_NKbAoIDgEeO0lccyhor3Aw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_AutG0IDgEeO0lccyhor3Aw" name="AllElectricSystem">
+          <generalization xmi:id="_DmlS4IDgEeO0lccyhor3Aw" general="__6GfMDEAEeO5h8hFA2QO6g"/>
+          <ownedAttribute xmi:id="_3vJVYIDgEeO0lccyhor3Aw" name="systemType" visibility="private" type="_VbeQ0IDgEeO0lccyhor3Aw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_FDWL0IDgEeO0lccyhor3Aw" name="AllHydraulicType">
+          <generalization xmi:id="_JorYMIDgEeO0lccyhor3Aw" general="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_iCL94IDZEeO0lccyhor3Aw" name="DirectHydraulic" classifier="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_k-LN4IDZEeO0lccyhor3Aw" name="PilotedHydraulic" classifier="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_nbu1cIDZEeO0lccyhor3Aw" name="SequentialHydraulic" classifier="_YOX6cIDZEeO0lccyhor3Aw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_NKbAoIDgEeO0lccyhor3Aw" name="ElectrohydraulicType">
+          <generalization xmi:id="_VG02gIDgEeO0lccyhor3Aw" general="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_rAEe4IDZEeO0lccyhor3Aw" name="DirectElectrohydraulic" classifier="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_teMuMIDZEeO0lccyhor3Aw" name="MultiplexedElectrohydraulic" classifier="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_TukqIIDgEeO0lccyhor3Aw" name="Autonomous" classifier="_NKbAoIDgEeO0lccyhor3Aw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_VbeQ0IDgEeO0lccyhor3Aw" name="AllElectricType">
+          <generalization xmi:id="_W0B_MIDgEeO0lccyhor3Aw" general="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_1Ew28IDZEeO0lccyhor3Aw" name="DirectElectric" classifier="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_3O2I4IDZEeO0lccyhor3Aw" name="MultiplexedElectric" classifier="_YOX6cIDZEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_5FEDoIDZEeO0lccyhor3Aw" name="AutonomousElectirc" classifier="_YOX6cIDZEeO0lccyhor3Aw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_A7iA4IDrEeO0lccyhor3Aw" name="SignalType">
+          <ownedLiteral xmi:id="_CbbGUIDrEeO0lccyhor3Aw" name="HydraulicSignal" classifier="_A7iA4IDrEeO0lccyhor3Aw"/>
+          <ownedLiteral xmi:id="_EqNSEIDrEeO0lccyhor3Aw" name="ElectricSignal" classifier="_A7iA4IDrEeO0lccyhor3Aw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_a-_yIIMBEeOt_qIwpdUXBg" name="ProductionSystemType">
+          <ownedLiteral xmi:id="_eQ_uYIMBEeOt_qIwpdUXBg" name="RateMaxShutinPress" classifier="_a-_yIIMBEeOt_qIwpdUXBg"/>
+          <ownedLiteral xmi:id="_hWBloIMBEeOt_qIwpdUXBg" name="WithPressRestriction" classifier="_a-_yIIMBEeOt_qIwpdUXBg"/>
+          <ownedLiteral xmi:id="_jZGQoIMBEeOt_qIwpdUXBg" name="WithPressProtection" classifier="_a-_yIIMBEeOt_qIwpdUXBg"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_p97i0DEAEeO5h8hFA2QO6g" name="SubseaHardware">
+        <packagedElement xmi:type="uml:Package" xmi:id="_tImIADEAEeO5h8hFA2QO6g" name="ElectricalModel">
+          <packagedElement xmi:type="uml:Class" xmi:id="_hi8sIH3DEeOHvN2fEdoKHg" name="PressureTransducer">
+            <generalization xmi:id="__W05sH3FEeOHvN2fEdoKHg" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_S0ZmADEBEeO5h8hFA2QO6g" name="ControlModule">
+            <ownedAttribute xmi:id="_acp7YDECEeO5h8hFA2QO6g" name="sEM" visibility="private" type="_USJ9cDEBEeO5h8hFA2QO6g" templateParameter="_M0FXcDEDEeO5h8hFA2QO6g" aggregation="composite" association="_acpUUDECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-4sQUIDzEeO0lccyhor3Aw" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-4WSEIDzEeO0lccyhor3Aw"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_ZHZuEIKjEeO6D9CBuSJKOw" name="elecPowerInterface" visibility="private" type="_SuqDUIKjEeO6D9CBuSJKOw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_USJ9cDEBEeO5h8hFA2QO6g" name="SEM">
+            <ownedAttribute xmi:id="_tzhfIH6CEeOvhr9dmhLUyw" name="sensors" visibility="private" type="_V0MX8DEBEeO5h8hFA2QO6g" association="_tzPyUH6CEeOvhr9dmhLUyw">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tzitQX6CEeOvhr9dmhLUyw" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tzitQH6CEeOvhr9dmhLUyw" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_6zHiEH6CEeOvhr9dmhLUyw" name="valves" visibility="private" type="_Q27e8H28EeOHvN2fEdoKHg" association="_6zFF0H6CEeOvhr9dmhLUyw">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6zIwMH6CEeOvhr9dmhLUyw" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6zIJIH6CEeOvhr9dmhLUyw" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_1TLVYIKlEeO6D9CBuSJKOw" name="shockLevel" visibility="private" type="_hTCn4IKlEeO6D9CBuSJKOw"/>
+            <ownedAttribute xmi:id="_31ObYIKlEeO6D9CBuSJKOw" name="excitationLevel" visibility="private" type="_pv-X8IKlEeO6D9CBuSJKOw"/>
+            <ownedAttribute xmi:id="_HpflYIKmEeO6D9CBuSJKOw" name="lowDesignTemprature" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_JqzV0IKmEeO6D9CBuSJKOw" name="highDesignTemprature" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_PBXVYIKnEeO6D9CBuSJKOw" name="lowDesignPressure" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_Qa1CsIKnEeO6D9CBuSJKOw" name="highDesignPressure" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_NSJZ4IL8EeOt_qIwpdUXBg" name="Id" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_P88zQIL8EeOt_qIwpdUXBg" name="idType" visibility="private" type="_AvJMUIL8EeOt_qIwpdUXBg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_V0MX8DEBEeO5h8hFA2QO6g" name="Sensor" isAbstract="true">
+            <ownedAttribute xmi:id="_tzkicH6CEeOvhr9dmhLUyw" name="sEM" visibility="private" type="_USJ9cDEBEeO5h8hFA2QO6g" association="_tzPyUH6CEeOvhr9dmhLUyw">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tzlwkH6CEeOvhr9dmhLUyw" value="2"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tzlJgH6CEeOvhr9dmhLUyw" value="2"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_aklWYIKmEeO6D9CBuSJKOw" name="accuracy" visibility="private"/>
+            <ownedAttribute xmi:id="_gUC-4IM7EeOt_qIwpdUXBg" name="eBoardIndex" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_l-Sk4IM7EeOt_qIwpdUXBg" name="pinIndex" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_W8p00DEBEeO5h8hFA2QO6g" name="PressureTankRegulator">
+            <generalization xmi:id="_gigfUDECEeO5h8hFA2QO6g" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_acpUUDECEeO5h8hFA2QO6g" memberEnd="_acp7YDECEeO5h8hFA2QO6g _acqicDECEeO5h8hFA2QO6g">
+            <ownedEnd xmi:id="_acqicDECEeO5h8hFA2QO6g" name="" visibility="private" type="_S0ZmADEBEeO5h8hFA2QO6g" association="_acpUUDECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_acrJgDECEeO5h8hFA2QO6g" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_acqicTECEeO5h8hFA2QO6g" value="1"/>
+            </ownedEnd>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_Q27e8H28EeOHvN2fEdoKHg" name="Valve" isAbstract="true">
+            <ownedAttribute xmi:id="_6zKlYH6CEeOvhr9dmhLUyw" name="sEM" visibility="private" type="_USJ9cDEBEeO5h8hFA2QO6g" association="_6zFF0H6CEeOvhr9dmhLUyw">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6zLzgX6CEeOvhr9dmhLUyw" value="2"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6zLzgH6CEeOvhr9dmhLUyw" value="2"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_W8yD0IDmEeO0lccyhor3Aw" name="openpressure" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_o9X_YIF-EeODbKFxX0opgQ" name="installType" visibility="private" type="_vMcwwIF-EeODbKFxX0opgQ"/>
+            <ownedAttribute xmi:id="_s33r0IM7EeOt_qIwpdUXBg" name="eBoardIndex" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_t2vu4IM7EeOt_qIwpdUXBg" name="pinIndex" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_s-7AMH3DEeOHvN2fEdoKHg" name="TemperatureTransducer">
+            <generalization xmi:id="__vTrIH3FEeOHvN2fEdoKHg" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_LF3loH3EEeOHvN2fEdoKHg" name="CombinedPTTransducer">
+            <generalization xmi:id="_Ir8sYH5-EeOvhr9dmhLUyw" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_P5fFoH3EEeOHvN2fEdoKHg" name="PositionSensor">
+            <generalization xmi:id="_A1DLMH3GEeOHvN2fEdoKHg" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_Y3_RsH3EEeOHvN2fEdoKHg" name="ErosionProbs">
+            <generalization xmi:id="_JiXXAH5-EeOvhr9dmhLUyw" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_aB2cwH3EEeOHvN2fEdoKHg" name="CorrosionProbs">
+            <generalization xmi:id="_J-IF8H5-EeOvhr9dmhLUyw" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_bOhEMH3EEeOHvN2fEdoKHg" name="PigDetector">
+            <generalization xmi:id="_Kej5gH5-EeOvhr9dmhLUyw" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_cmeVoH3EEeOHvN2fEdoKHg" name="SubseaFlowMeter">
+            <generalization xmi:id="_K29ycH5-EeOvhr9dmhLUyw" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_yBaNMH3EEeOHvN2fEdoKHg" name="SandDetector">
+            <generalization xmi:id="_MBgS8H5-EeOvhr9dmhLUyw" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_8xH4MH3EEeOHvN2fEdoKHg" name="HydrocarbonLeakDetector">
+            <generalization xmi:id="_LVVwgH5-EeOvhr9dmhLUyw" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_BWsVIH3FEeOHvN2fEdoKHg" name="DownholeMonitor">
+            <generalization xmi:id="_MtJQ8H5-EeOvhr9dmhLUyw" general="_V0MX8DEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_SS3t4H5_EeOvhr9dmhLUyw" name="SurfaceControlledSubsurfaceSafetyValve">
+            <generalization xmi:id="_kkM6wH6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_Yqk20H5_EeOvhr9dmhLUyw" name="ProductionMasterValve">
+            <generalization xmi:id="_h4Y0wH6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_aby80H5_EeOvhr9dmhLUyw" name="ProductionWingValve">
+            <generalization xmi:id="_hfl6QH6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_b0hDQH5_EeOvhr9dmhLUyw" name="AnnulusWingValve">
+            <generalization xmi:id="_hCOo0H6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_hpc2UH5_EeOvhr9dmhLUyw" name="CrossoverValve">
+            <generalization xmi:id="_iRkJwH6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_l3XoQH5_EeOvhr9dmhLUyw" name="MethanolInjectionValve">
+            <generalization xmi:id="_lOdYsH6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_vJTtsH5_EeOvhr9dmhLUyw" name="ScaleInhibitorInjectionValve">
+            <generalization xmi:id="_loELgH6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_4PXTQH5_EeOvhr9dmhLUyw" name="ProductionChokeValve">
+            <generalization xmi:id="_mC-l4H6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+            <ownedAttribute xmi:id="_MbuuYIF_EeODbKFxX0opgQ" name="type" visibility="private" type="_JCmPYIF_EeODbKFxX0opgQ"/>
+            <ownedAttribute xmi:id="_mObQYIF_EeODbKFxX0opgQ" name="trimType" visibility="private" type="_bLB0YIF_EeODbKFxX0opgQ"/>
+            <ownedAttribute xmi:id="_zKlk0IF_EeODbKFxX0opgQ" name="inletPressure" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_1Vq8UIF_EeODbKFxX0opgQ" name="outletPressure" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_3BtAUIF_EeODbKFxX0opgQ" name="pressureDrop" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_6RrJQH5_EeOvhr9dmhLUyw" name="InjectionChokeValve">
+            <generalization xmi:id="_gtPQQH6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_81GvUH5_EeOvhr9dmhLUyw" name="ManifoldValve">
+            <generalization xmi:id="_f05TAH6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_-RVcwH5_EeOvhr9dmhLUyw" name="ChemicalInjectionControlValve">
+            <generalization xmi:id="_k6q6AH6AEeOvhr9dmhLUyw" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_tzPyUH6CEeOvhr9dmhLUyw" memberEnd="_tzhfIH6CEeOvhr9dmhLUyw _tzkicH6CEeOvhr9dmhLUyw"/>
+          <packagedElement xmi:type="uml:Association" xmi:id="_6zFF0H6CEeOvhr9dmhLUyw" memberEnd="_6zHiEH6CEeOvhr9dmhLUyw _6zKlYH6CEeOvhr9dmhLUyw"/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_quj1IH6JEeOvhr9dmhLUyw" name="MCS">
+            <packagedElement xmi:type="uml:Class" xmi:id="_UfGJUH6JEeOvhr9dmhLUyw" name="MCS"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_EA5z8IF7EeODbKFxX0opgQ" name="ProductionSwabValve">
+            <generalization xmi:id="_OKDYwIF8EeODbKFxX0opgQ" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_aEoUYIF8EeODbKFxX0opgQ" name="AnnulusMasterValve">
+            <generalization xmi:id="_j4Jc4IF8EeODbKFxX0opgQ" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_byzGYIF8EeODbKFxX0opgQ" name="AnnulusSwabValve">
+            <generalization xmi:id="_kXnnIIF8EeODbKFxX0opgQ" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_50WOcIF8EeODbKFxX0opgQ" name="AnnulusAccessValve">
+            <generalization xmi:id="_suLXgIF-EeODbKFxX0opgQ" general="_Q27e8H28EeOHvN2fEdoKHg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_vMcwwIF-EeODbKFxX0opgQ" name="ValveInstallType">
+            <ownedLiteral xmi:id="_0IAr0IF-EeODbKFxX0opgQ" name="Boltedon" classifier="_vMcwwIF-EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_2BsxUIF-EeODbKFxX0opgQ" name="Builtin" classifier="_vMcwwIF-EeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_JCmPYIF_EeODbKFxX0opgQ" name="ChokeType">
+            <ownedLiteral xmi:id="_KUYnYIF_EeODbKFxX0opgQ" name="Positive" classifier="_JCmPYIF_EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_LmFf0IF_EeODbKFxX0opgQ" name="Adjustable" classifier="_JCmPYIF_EeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_bLB0YIF_EeODbKFxX0opgQ" name="TrimType">
+            <ownedLiteral xmi:id="_eJmeUIF_EeODbKFxX0opgQ" name="RotatingDisc" classifier="_bLB0YIF_EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_fxC9QIF_EeODbKFxX0opgQ" name="NeedleSeat" classifier="_bLB0YIF_EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_hNcp0IF_EeODbKFxX0opgQ" name="PlugCage" classifier="_bLB0YIF_EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_iM7w4IF_EeODbKFxX0opgQ" name="SlidingSleeveCage" classifier="_bLB0YIF_EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_jeBlUIF_EeODbKFxX0opgQ" name="Multistage" classifier="_bLB0YIF_EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_kpfS4IF_EeODbKFxX0opgQ" name="CageExternalSleeve" classifier="_bLB0YIF_EeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_SuqDUIKjEeO6D9CBuSJKOw" name="ElectricalPowerTyep">
+            <ownedLiteral xmi:id="_WmU4cIKjEeO6D9CBuSJKOw" name="Low" classifier="_SuqDUIKjEeO6D9CBuSJKOw"/>
+            <ownedLiteral xmi:id="_XUV1AIKjEeO6D9CBuSJKOw" name="High" classifier="_SuqDUIKjEeO6D9CBuSJKOw"/>
+            <ownedLiteral xmi:id="_X4V58IKjEeO6D9CBuSJKOw" name="Medium" classifier="_SuqDUIKjEeO6D9CBuSJKOw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_hTCn4IKlEeO6D9CBuSJKOw" name="ShockLevel">
+            <ownedLiteral xmi:id="_mKxy4IKlEeO6D9CBuSJKOw" name="Q1" classifier="_hTCn4IKlEeO6D9CBuSJKOw"/>
+            <ownedLiteral xmi:id="_mutmYIKlEeO6D9CBuSJKOw" name="Q2" classifier="_hTCn4IKlEeO6D9CBuSJKOw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_pv-X8IKlEeO6D9CBuSJKOw" name="ExcitationLevel">
+            <ownedLiteral xmi:id="_tZCwYIKlEeO6D9CBuSJKOw" name="Q1andQ2" classifier="_pv-X8IKlEeO6D9CBuSJKOw"/>
+            <ownedLiteral xmi:id="_v6GX4IKlEeO6D9CBuSJKOw" name="Q1" classifier="_pv-X8IKlEeO6D9CBuSJKOw"/>
+            <ownedLiteral xmi:id="_xq7cUIKlEeO6D9CBuSJKOw" name="Q2" classifier="_pv-X8IKlEeO6D9CBuSJKOw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_G_wZ8IKoEeO6D9CBuSJKOw" name="RedundantLevel">
+            <ownedLiteral xmi:id="_Knq70IKoEeO6D9CBuSJKOw" name="FullyRedundant" classifier="_G_wZ8IKoEeO6D9CBuSJKOw"/>
+            <ownedLiteral xmi:id="_LggoUIKoEeO6D9CBuSJKOw" name="NoneRedundant" classifier="_G_wZ8IKoEeO6D9CBuSJKOw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_AvJMUIL8EeOt_qIwpdUXBg" name="IdentificationType">
+            <ownedLiteral xmi:id="_I1UpQIL8EeOt_qIwpdUXBg" name="Tag" classifier="_AvJMUIL8EeOt_qIwpdUXBg"/>
+            <ownedLiteral xmi:id="_JdSoMIL8EeOt_qIwpdUXBg" name="NamePlate" classifier="_AvJMUIL8EeOt_qIwpdUXBg"/>
+            <ownedLiteral xmi:id="_K-WLQIL8EeOt_qIwpdUXBg" name="ImprintedId" classifier="_AvJMUIL8EeOt_qIwpdUXBg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_I475wIMDEeOt_qIwpdUXBg" memberEnd="_I5suwIMDEeOt_qIwpdUXBg _I6KBwIMDEeOt_qIwpdUXBg">
+            <ownedEnd xmi:id="_I6KBwIMDEeOt_qIwpdUXBg" name="" visibility="private" type="__6GfMDEAEeO5h8hFA2QO6g" association="_I475wIMDEeOt_qIwpdUXBg">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_I6L28IMDEeOt_qIwpdUXBg" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_I6LP4IMDEeOt_qIwpdUXBg" value="1"/>
+            </ownedEnd>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_oFdnMIMDEeOt_qIwpdUXBg" name="ConfigurationType">
+            <ownedLiteral xmi:id="_s-EU4IMDEeOt_qIwpdUXBg" name="FullyIntergrated" classifier="_oFdnMIMDEeOt_qIwpdUXBg"/>
+            <ownedLiteral xmi:id="_uKXI4IMDEeOt_qIwpdUXBg" name="Standalone" classifier="_oFdnMIMDEeOt_qIwpdUXBg"/>
+            <ownedLiteral xmi:id="_vC0a4IMDEeOt_qIwpdUXBg" name="Interfaced" classifier="_oFdnMIMDEeOt_qIwpdUXBg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_8SaosIMDEeOt_qIwpdUXBg" name="IwcsInstallType">
+            <ownedLiteral xmi:id="_I39M4IMEEeOt_qIwpdUXBg" name="InsideSEM" classifier="_8SaosIMDEeOt_qIwpdUXBg"/>
+            <ownedLiteral xmi:id="_M1mHIIMEEeOt_qIwpdUXBg" name="AtSCM" classifier="_8SaosIMDEeOt_qIwpdUXBg"/>
+            <ownedLiteral xmi:id="_N3GncIMEEeOt_qIwpdUXBg" name="Others" classifier="_8SaosIMDEeOt_qIwpdUXBg"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_j07CQIMHEeOt_qIwpdUXBg" name="IWCS">
+            <packagedElement xmi:type="uml:Class" xmi:id="_HoJAQIMDEeOt_qIwpdUXBg" name="IWCS">
+              <ownedAttribute xmi:id="_qfL3oIMDEeOt_qIwpdUXBg" name="configType" visibility="private" type="_oFdnMIMDEeOt_qIwpdUXBg"/>
+              <ownedAttribute xmi:id="_66hBoIMDEeOt_qIwpdUXBg" name="installType" visibility="private" type="_8SaosIMDEeOt_qIwpdUXBg"/>
+            </packagedElement>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_vBDecDEAEeO5h8hFA2QO6g" name="SubseaFieldModel">
+          <packagedElement xmi:type="uml:Class" xmi:id="_DN2u8DEBEeO5h8hFA2QO6g" name="SubseaField">
+            <ownedAttribute xmi:id="_u7vYUIDbEeO0lccyhor3Aw" name="distance" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_wgquwIDbEeO0lccyhor3Aw" name="unit" visibility="private" type="_yu1PcIDbEeO0lccyhor3Aw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_El_mkDEBEeO5h8hFA2QO6g" name="ScatteredSubseaField">
+            <generalization xmi:id="_Q0DpcDECEeO5h8hFA2QO6g" general="_DN2u8DEBEeO5h8hFA2QO6g"/>
+            <ownedAttribute xmi:id="_RYgaUDECEeO5h8hFA2QO6g" name="xmasTree" visibility="private" type="_HAyOADEBEeO5h8hFA2QO6g" templateParameter="_ACkMwTEDEeO5h8hFA2QO6g" aggregation="composite" association="_RYelIDECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RYhocDECEeO5h8hFA2QO6g" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RYhBYDECEeO5h8hFA2QO6g" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_g_Q_IIEXEeO0lccyhor3Aw" name="designPressure" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_Oq3gcIF0EeODbKFxX0opgQ" name="type" visibility="private" type="_IKIXUIF0EeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_HAyOADEBEeO5h8hFA2QO6g" name="XmasTree">
+            <ownedAttribute xmi:id="_WyYCADECEeO5h8hFA2QO6g" name="controlModule" visibility="private" type="_S0ZmADEBEeO5h8hFA2QO6g" aggregation="composite" association="_WyWz4DECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WyZQITECEeO5h8hFA2QO6g" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WyZQIDECEeO5h8hFA2QO6g"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_c9ReADECEeO5h8hFA2QO6g" name="sensor" visibility="private" type="_V0MX8DEBEeO5h8hFA2QO6g" aggregation="composite" association="_c9QP4DECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_c9SFETECEeO5h8hFA2QO6g" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_c9SFEDECEeO5h8hFA2QO6g" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_Cd2jwH3AEeOHvN2fEdoKHg" name="valve" visibility="private" type="_Q27e8H28EeOHvN2fEdoKHg" aggregation="composite" association="_Cc1QEH3AEeOHvN2fEdoKHg">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CeSBkH3AEeOHvN2fEdoKHg" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CeRagH3AEeOHvN2fEdoKHg" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_CkRTwH6PEeOvhr9dmhLUyw" name="treeType" visibility="private" type="_nGY3wH6NEeOvhr9dmhLUyw"/>
+            <ownedAttribute xmi:id="_Eg28QH6PEeOvhr9dmhLUyw" name="boreSize" visibility="private" type="_wk7OwH6NEeOvhr9dmhLUyw"/>
+            <ownedAttribute xmi:id="_HMKE4H6PEeOvhr9dmhLUyw" name="preRating" visibility="private" type="_3u7XUH6NEeOvhr9dmhLUyw"/>
+            <ownedAttribute xmi:id="_KO7SUH6PEeOvhr9dmhLUyw" name="waterDepth" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_LqeqUH6PEeOvhr9dmhLUyw" name="wellType" visibility="private" type="_li-u0H6OEeOvhr9dmhLUyw"/>
+            <ownedAttribute xmi:id="_NbQrcH6PEeOvhr9dmhLUyw" name="serviceType" visibility="private" type="_qDrS0H6OEeOvhr9dmhLUyw"/>
+            <ownedAttribute xmi:id="_PG4fwH6PEeOvhr9dmhLUyw" name="minTem" visibility="private" type="_iKJKwH6OEeOvhr9dmhLUyw"/>
+            <ownedAttribute xmi:id="_V3780H6PEeOvhr9dmhLUyw" name="maxTem" visibility="private" type="_iKJKwH6OEeOvhr9dmhLUyw"/>
+            <ownedAttribute xmi:id="_0qqRcIF0EeODbKFxX0opgQ" name="purpose" visibility="private" type="_w6LCYIF0EeODbKFxX0opgQ"/>
+            <ownedAttribute xmi:id="_rEEqUIF3EeODbKFxX0opgQ" name="completion" visibility="private" type="_Bsd64IF1EeODbKFxX0opgQ"/>
+            <ownedAttribute xmi:id="_hRx0YIF4EeODbKFxX0opgQ" name="partialPressure" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_3bnj4IF5EeODbKFxX0opgQ" name="corrosivity" visibility="private" type="_49Mg0IF4EeODbKFxX0opgQ"/>
+            <ownedAttribute xmi:id="_PP-w8IF6EeODbKFxX0opgQ" name="material" visibility="private" type="_heX7YIF3EeODbKFxX0opgQ"/>
+            <ownedAttribute xmi:id="_k3f84IGDEeODbKFxX0opgQ" name="needInjection" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_IsHaUIGFEeODbKFxX0opgQ" name="installType" visibility="private" type="_NKr3YIGFEeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_RYelIDECEeO5h8hFA2QO6g" memberEnd="_RYgaUDECEeO5h8hFA2QO6g _RYiPgDECEeO5h8hFA2QO6g">
+            <ownedEnd xmi:id="_RYiPgDECEeO5h8hFA2QO6g" name="" visibility="private" type="_El_mkDEBEeO5h8hFA2QO6g" association="_RYelIDECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RYjdoTECEeO5h8hFA2QO6g" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RYjdoDECEeO5h8hFA2QO6g"/>
+            </ownedEnd>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_WyWz4DECEeO5h8hFA2QO6g" memberEnd="_WyYCADECEeO5h8hFA2QO6g _WyaeQDECEeO5h8hFA2QO6g">
+            <ownedEnd xmi:id="_WyaeQDECEeO5h8hFA2QO6g" name="" visibility="private" type="_HAyOADEBEeO5h8hFA2QO6g" association="_WyWz4DECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WybsYDECEeO5h8hFA2QO6g" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WybFUDECEeO5h8hFA2QO6g"/>
+            </ownedEnd>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_c9QP4DECEeO5h8hFA2QO6g" memberEnd="_c9ReADECEeO5h8hFA2QO6g _c9TTMDECEeO5h8hFA2QO6g">
+            <ownedEnd xmi:id="_c9TTMDECEeO5h8hFA2QO6g" name="" visibility="private" type="_HAyOADEBEeO5h8hFA2QO6g" association="_c9QP4DECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_c9T6QTECEeO5h8hFA2QO6g" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_c9T6QDECEeO5h8hFA2QO6g"/>
+            </ownedEnd>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_Cc1QEH3AEeOHvN2fEdoKHg" memberEnd="_Cd2jwH3AEeOHvN2fEdoKHg _CeTPsH3AEeOHvN2fEdoKHg">
+            <ownedEnd xmi:id="_CeTPsH3AEeOHvN2fEdoKHg" name="" visibility="private" type="_HAyOADEBEeO5h8hFA2QO6g" association="_Cc1QEH3AEeOHvN2fEdoKHg">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CeVE4H3AEeOHvN2fEdoKHg" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CeUd0H3AEeOHvN2fEdoKHg"/>
+            </ownedEnd>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_nGY3wH6NEeOvhr9dmhLUyw" name="TreeType">
+            <ownedLiteral xmi:id="_sxKpQH6NEeOvhr9dmhLUyw" name="VXT" classifier="_nGY3wH6NEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_t_DYsH6NEeOvhr9dmhLUyw" name="HXT" classifier="_nGY3wH6NEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_wk7OwH6NEeOvhr9dmhLUyw" name="BoreSize">
+            <ownedLiteral xmi:id="_yQHlQH6NEeOvhr9dmhLUyw" name="Three" classifier="_wk7OwH6NEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_zcfRwH6NEeOvhr9dmhLUyw" name="Four" classifier="_wk7OwH6NEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_0FxfUH6NEeOvhr9dmhLUyw" name="Five" classifier="_wk7OwH6NEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_0dk7UH6NEeOvhr9dmhLUyw" name="Seven" classifier="_wk7OwH6NEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_05kTwH6NEeOvhr9dmhLUyw" name="Nine" classifier="_wk7OwH6NEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_3u7XUH6NEeOvhr9dmhLUyw" name="PressureRating">
+            <ownedLiteral xmi:id="_5bfm0H6NEeOvhr9dmhLUyw" name="FiveKsi" classifier="_3u7XUH6NEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_6UBKQH6NEeOvhr9dmhLUyw" name="TenKsi" classifier="_3u7XUH6NEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_7BBaMH6NEeOvhr9dmhLUyw" name="FifteenKsi" classifier="_3u7XUH6NEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_4kfX0IF2EeODbKFxX0opgQ" name="TwentyKsi" classifier="_3u7XUH6NEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_iKJKwH6OEeOvhr9dmhLUyw" name="TemperatrueRating">
+            <ownedLiteral xmi:id="_-VMrQH6OEeOvhr9dmhLUyw" name="K" classifier="_iKJKwH6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_-0yKQH6OEeOvhr9dmhLUyw" name="L" classifier="_iKJKwH6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="__L0xQH6OEeOvhr9dmhLUyw" name="P" classifier="_iKJKwH6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="__mXYMH6OEeOvhr9dmhLUyw" name="R" classifier="_iKJKwH6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="__-yfQH6OEeOvhr9dmhLUyw" name="S" classifier="_iKJKwH6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_AM5zwH6PEeOvhr9dmhLUyw" name="T" classifier="_iKJKwH6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_AkZtwH6PEeOvhr9dmhLUyw" name="U" classifier="_iKJKwH6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_A3GAQH6PEeOvhr9dmhLUyw" name="V" classifier="_iKJKwH6OEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_li-u0H6OEeOvhr9dmhLUyw" name="WellType">
+            <ownedLiteral xmi:id="_maNRwH6OEeOvhr9dmhLUyw" name="ProductionWell" classifier="_li-u0H6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_nWBZwH6OEeOvhr9dmhLUyw" name="WaterInjectionWell" classifier="_li-u0H6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_oVVhsH6OEeOvhr9dmhLUyw" name="GasInjectionWell" classifier="_li-u0H6OEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_qDrS0H6OEeOvhr9dmhLUyw" name="ServiceType">
+            <ownedLiteral xmi:id="_rCr4wH6OEeOvhr9dmhLUyw" name="Sour" classifier="_qDrS0H6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_sSabQH6OEeOvhr9dmhLUyw" name="Neutral" classifier="_qDrS0H6OEeOvhr9dmhLUyw"/>
+            <ownedLiteral xmi:id="_tefM0H6OEeOvhr9dmhLUyw" name="Sweet" classifier="_qDrS0H6OEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_yu1PcIDbEeO0lccyhor3Aw" name="DistanceUnit">
+            <ownedLiteral xmi:id="_1b7u4IDbEeO0lccyhor3Aw" name="Mile" classifier="_yu1PcIDbEeO0lccyhor3Aw"/>
+            <ownedLiteral xmi:id="_6FtWYIDbEeO0lccyhor3Aw" name="KM" classifier="_yu1PcIDbEeO0lccyhor3Aw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_IKIXUIF0EeODbKFxX0opgQ" name="FieldType">
+            <ownedLiteral xmi:id="_JbAwYIF0EeODbKFxX0opgQ" name="Gas" classifier="_IKIXUIF0EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_KFQAMIF0EeODbKFxX0opgQ" name="Oil" classifier="_IKIXUIF0EeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_w6LCYIF0EeODbKFxX0opgQ" name="TreePurposeType">
+            <ownedLiteral xmi:id="_yxfJUIF0EeODbKFxX0opgQ" name="Production" classifier="_w6LCYIF0EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_zg3X0IF0EeODbKFxX0opgQ" name="Injection" classifier="_w6LCYIF0EeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_Bsd64IF1EeODbKFxX0opgQ" name="TreeCompletionType">
+            <ownedLiteral xmi:id="_ky_GwIF3EeODbKFxX0opgQ" name="Simple" classifier="_Bsd64IF1EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_lU8kUIF3EeODbKFxX0opgQ" name="DiverAssist" classifier="_Bsd64IF1EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_nnDJ0IF3EeODbKFxX0opgQ" name="Diverless" classifier="_Bsd64IF1EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_oNuvUIF3EeODbKFxX0opgQ" name="Guidelineless" classifier="_Bsd64IF1EeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_heX7YIF3EeODbKFxX0opgQ" name="MaterialType">
+            <ownedLiteral xmi:id="_xrXHYIF3EeODbKFxX0opgQ" name="AA" classifier="_heX7YIF3EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_yBiywIF3EeODbKFxX0opgQ" name="BB" classifier="_heX7YIF3EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_yaWUUIF3EeODbKFxX0opgQ" name="CC" classifier="_heX7YIF3EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_y0JUYIF3EeODbKFxX0opgQ" name="DD" classifier="_heX7YIF3EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_zBWp8IF3EeODbKFxX0opgQ" name="EE" classifier="_heX7YIF3EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_zSHCwIF3EeODbKFxX0opgQ" name="FF" classifier="_heX7YIF3EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_zmySQIF3EeODbKFxX0opgQ" name="HH" classifier="_heX7YIF3EeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_49Mg0IF4EeODbKFxX0opgQ" name="CorrosivityDegree">
+            <ownedLiteral xmi:id="_6zmo0IF4EeODbKFxX0opgQ" name="Noncorrosive" classifier="_49Mg0IF4EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_8MypUIF4EeODbKFxX0opgQ" name="Slightylycorrosive" classifier="_49Mg0IF4EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_-x970IF4EeODbKFxX0opgQ" name="ModeratelytoHighly" classifier="_49Mg0IF4EeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_BlLqUIF5EeODbKFxX0opgQ" name="Verycorrosive" classifier="_49Mg0IF4EeODbKFxX0opgQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_NKr3YIGFEeODbKFxX0opgQ" name="InstallationVesselType">
+            <ownedLiteral xmi:id="_OvUS4IGFEeODbKFxX0opgQ" name="Jackup" classifier="_NKr3YIGFEeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_PuLH0IGFEeODbKFxX0opgQ" name="Semisubmersible" classifier="_NKr3YIGFEeODbKFxX0opgQ"/>
+            <ownedLiteral xmi:id="_Rm15oIGFEeODbKFxX0opgQ" name="Drillship" classifier="_NKr3YIGFEeODbKFxX0opgQ"/>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_r1Ht8DEAEeO5h8hFA2QO6g" name="SubseaSoftware">
+        <packagedElement xmi:type="uml:Package" xmi:id="_I9P6sDEBEeO5h8hFA2QO6g" name="SEM">
+          <packagedElement xmi:type="uml:Class" xmi:id="_J9qO0DEBEeO5h8hFA2QO6g" name="DeviceController">
+            <ownedAttribute xmi:id="_VGOTQDH0EeO5h8hFA2QO6g" name="fullName" visibility="private" templateParameter="_x_GjETH0EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_WvIx0DH0EeO5h8hFA2QO6g" name="heartBeatTime" visibility="private" templateParameter="_zAaPEDH0EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_aEcgwDH0EeO5h8hFA2QO6g" name="location" visibility="private" templateParameter="_zhKLsDH0EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_bN2Y0DH0EeO5h8hFA2QO6g" name="mode" visibility="private" type="_gc20UDH0EeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_LbSDYDEBEeO5h8hFA2QO6g" name="SensorController" isAbstract="true">
+            <generalization xmi:id="_PIA-YDECEeO5h8hFA2QO6g" general="_J9qO0DEBEeO5h8hFA2QO6g"/>
+            <ownedAttribute xmi:id="_5dv9IIMNEeOt_qIwpdUXBg" name="sensor" visibility="private" type="_V0MX8DEBEeO5h8hFA2QO6g" association="_5dmMIIMNEeOt_qIwpdUXBg">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5d5uIIMNEeOt_qIwpdUXBg" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5d5HEIMNEeOt_qIwpdUXBg" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_adI14IM7EeOt_qIwpdUXBg" name="eBoardIndex" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_dD-8UIM7EeOt_qIwpdUXBg" name="pinIndex" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_ORpzkDEBEeO5h8hFA2QO6g" name="SemApp" clientDependency="_TXeVgIGgEeODbKFxX0opgQ">
+            <ownedAttribute xmi:id="_L-isADECEeO5h8hFA2QO6g" name="deviceController" visibility="private" type="_J9qO0DEBEeO5h8hFA2QO6g" templateParameter="_KzgGQDH0EeO5h8hFA2QO6g" aggregation="composite" association="_L-iE8DECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_L-jTETECEeO5h8hFA2QO6g" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L-jTEDECEeO5h8hFA2QO6g"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_4e6UIIL-EeOt_qIwpdUXBg" name="internalPressSEM" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_7RGH4IL-EeOt_qIwpdUXBg" name="hydraulicSupplyPress" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_9vjuYIL-EeOt_qIwpdUXBg" name="hydraulicReturnPress" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_4bohMIL_EeOt_qIwpdUXBg" name="internalTempreSEM" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_7M-AYIL_EeOt_qIwpdUXBg" name="internalVoltageSEM" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_PhPzMDEBEeO5h8hFA2QO6g" name="PressureTankRegulatorSW">
+            <generalization xmi:id="_Pjk5ADECEeO5h8hFA2QO6g" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+            <ownedAttribute xmi:id="_OiC_IDH1EeO5h8hFA2QO6g" name="initialRegulatorSetPoint" visibility="private" templateParameter="_7tAWUTH1EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_QuRmIDH1EeO5h8hFA2QO6g" name="usePresetValue" visibility="private" templateParameter="_98rS4DH1EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_WjftEDH1EeO5h8hFA2QO6g" name="presetStatus" visibility="private" templateParameter="_-bLz0DH1EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_X53qIDH1EeO5h8hFA2QO6g" name="presetValue" visibility="private" templateParameter="_-4LR0DH1EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_aSS6EDH1EeO5h8hFA2QO6g" name="enablePressureDiffCheck" visibility="private" templateParameter="__iINwDH1EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_cYlRIDH1EeO5h8hFA2QO6g" name="minOperatingPressure" visibility="private" templateParameter="___F2kDH1EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_eq_YoDH1EeO5h8hFA2QO6g" name="tankPressureSensor1" visibility="private" templateParameter="_AhnU0DH2EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_inqpkDH1EeO5h8hFA2QO6g" name="tankPressureSetPoint" visibility="private" templateParameter="_A-_0YDH2EeO5h8hFA2QO6g"/>
+            <ownedAttribute xmi:id="_kx_MEDH1EeO5h8hFA2QO6g" name="m_pSupplyPress" visibility="private" templateParameter="_Bg2kQDH2EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_mZWygDH1EeO5h8hFA2QO6g" name="tankInletValue" visibility="private" templateParameter="_CGeZ0DH2EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_ofZ5ADH1EeO5h8hFA2QO6g" name="engUnit" visibility="private" templateParameter="_Cll-wDH2EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_rcdgADH1EeO5h8hFA2QO6g" name="tankPressureSensor2" visibility="private" templateParameter="_Dd1OUDH2EeO5h8hFA2QO6g"/>
+            <ownedAttribute xmi:id="_s1MNgDH1EeO5h8hFA2QO6g" name="regulatorHystersis" visibility="private" templateParameter="_EB16UDH2EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_u-mxEDH1EeO5h8hFA2QO6g" name="m_pReturnPress" visibility="private" templateParameter="_Ei4K0DH2EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_xUEMkDH1EeO5h8hFA2QO6g" name="tankOutletValue" visibility="private" templateParameter="_E_3BwDH2EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_znscEDH1EeO5h8hFA2QO6g" name="usePresetStatus" visibility="private" templateParameter="_FlA9QDH2EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_1gr-ADH1EeO5h8hFA2QO6g" name="regulatorCycleCounter" visibility="private" templateParameter="_0nt5MDH2EeO5h8hFA2QO6g">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_L-iE8DECEeO5h8hFA2QO6g" memberEnd="_L-isADECEeO5h8hFA2QO6g _L-j6IDECEeO5h8hFA2QO6g">
+            <ownedEnd xmi:id="_L-j6IDECEeO5h8hFA2QO6g" name="" visibility="private" type="_ORpzkDEBEeO5h8hFA2QO6g" association="_L-iE8DECEeO5h8hFA2QO6g">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_L-nkgTECEeO5h8hFA2QO6g" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L-nkgDECEeO5h8hFA2QO6g" value="1"/>
+            </ownedEnd>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_gc20UDH0EeO5h8hFA2QO6g" name="OperationMode">
+            <ownedLiteral xmi:id="_hljhwDH0EeO5h8hFA2QO6g" name="Normal" classifier="_gc20UDH0EeO5h8hFA2QO6g"/>
+            <ownedLiteral xmi:id="_ihmTQDH0EeO5h8hFA2QO6g" name="Maintenance" classifier="_gc20UDH0EeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_Z-D7IH6DEeOvhr9dmhLUyw" name="ValveController" isAbstract="true">
+            <generalization xmi:id="_O1z-4H6EEeOvhr9dmhLUyw" general="_J9qO0DEBEeO5h8hFA2QO6g"/>
+            <ownedAttribute xmi:id="_7puFcIMNEeOt_qIwpdUXBg" name="valve" visibility="private" type="_Q27e8H28EeOHvN2fEdoKHg" association="_7prCIIMNEeOt_qIwpdUXBg">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7pxIwIMNEeOt_qIwpdUXBg" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7pwhsIMNEeOt_qIwpdUXBg" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_XSdpoIM7EeOt_qIwpdUXBg" name="eBoardIndex" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_YrOzYIM7EeOt_qIwpdUXBg" name="pinIndex" visibility="private">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9P2YUH6EEeOvhr9dmhLUyw" name="AnnulusWingValveController">
+            <generalization xmi:id="_3uD40H6GEeOvhr9dmhLUyw" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_Ca8kMH6FEeOvhr9dmhLUyw" name="ChemicalInjectionControlValveController">
+            <generalization xmi:id="_1eFaQH6GEeOvhr9dmhLUyw" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_FektQH6FEeOvhr9dmhLUyw" name="CombinedPTTransducerController">
+            <generalization xmi:id="_cYcykH6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_Og5CUH6FEeOvhr9dmhLUyw" name="CorrosionProbsController">
+            <generalization xmi:id="_Z4mE8H6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_QR33wH6FEeOvhr9dmhLUyw" name="CrossoverValveController">
+            <generalization xmi:id="_3LqWYH6GEeOvhr9dmhLUyw" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_TKWgwH6FEeOvhr9dmhLUyw" name="DownholeMonitorController">
+            <generalization xmi:id="_YyYq0H6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_V7qKwH6FEeOvhr9dmhLUyw" name="ErosionProbsController">
+            <generalization xmi:id="_bbmv0H6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_ZMuS4H6FEeOvhr9dmhLUyw" name="HydrocarbonLeakDetectorController">
+            <generalization xmi:id="_cBdO4H6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_chG0wH6FEeOvhr9dmhLUyw" name="InjectionChokeValveController">
+            <generalization xmi:id="_13DT4H6GEeOvhr9dmhLUyw" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_fGEE0H6FEeOvhr9dmhLUyw" name="ManifoldValveController">
+            <generalization xmi:id="_2oVm4H6GEeOvhr9dmhLUyw" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_giJBQH6FEeOvhr9dmhLUyw" name="PigDetectorController">
+            <generalization xmi:id="_ZMXREH6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_iN8bwH6FEeOvhr9dmhLUyw" name="PositionSensorController">
+            <generalization xmi:id="_YacE4H6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_kg-OUH6FEeOvhr9dmhLUyw" name="PressureTransducerController">
+            <generalization xmi:id="_cxSwYH6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_ocu5QH6FEeOvhr9dmhLUyw" name="ProductionChokeValveController">
+            <generalization xmi:id="_2Px88H6GEeOvhr9dmhLUyw" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_qXze0H6FEeOvhr9dmhLUyw" name="ProductionMasterValveController">
+            <generalization xmi:id="_5Mm6cH6GEeOvhr9dmhLUyw" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_stj1QH6FEeOvhr9dmhLUyw" name="ProductionWingValveController">
+            <generalization xmi:id="_4QB9cH6GEeOvhr9dmhLUyw" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_uiq8wH6FEeOvhr9dmhLUyw" name="SandDetectorController">
+            <generalization xmi:id="_apVlYH6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_w7kt0H6FEeOvhr9dmhLUyw" name="ScaleInhibitorInjectionValveController">
+            <generalization xmi:id="_4rLBUH6GEeOvhr9dmhLUyw" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_01atMH6FEeOvhr9dmhLUyw" name="SubseaFlowMeterController">
+            <generalization xmi:id="_gpfxAH6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_6SxtwH6FEeOvhr9dmhLUyw" name="SCSSVController">
+            <generalization xmi:id="_bBnigH6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="__XBqwH6FEeOvhr9dmhLUyw" name="TemperatureTransducerController">
+            <generalization xmi:id="_gVczoH6GEeOvhr9dmhLUyw" general="_LbSDYDEBEeO5h8hFA2QO6g"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_GA2bAIGSEeODbKFxX0opgQ" name="AnnulusSwabValveController">
+            <generalization xmi:id="_9ZMSQIL9EeOt_qIwpdUXBg" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_sq0xcIGSEeODbKFxX0opgQ" name="AnnulusMasterValveController">
+            <generalization xmi:id="_8i8mwIL9EeOt_qIwpdUXBg" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_ucCQYIGSEeODbKFxX0opgQ" name="ProductionSwabValveController">
+            <generalization xmi:id="_7nm_4IL9EeOt_qIwpdUXBg" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_1Hn-oIGSEeODbKFxX0opgQ" name="AnnulusAccessValveController">
+            <generalization xmi:id="_6ZV18IL9EeOt_qIwpdUXBg" general="_Z-D7IH6DEeOvhr9dmhLUyw"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_TXeVgIGgEeODbKFxX0opgQ" supplier="_USJ9cDEBEeO5h8hFA2QO6g" client="_ORpzkDEBEeO5h8hFA2QO6g">
+            <eAnnotations xmi:id="_Vl5U4IGgEeODbKFxX0opgQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+              <details xmi:id="_Vl_bgIGgEeODbKFxX0opgQ" key="Assign"/>
+            </eAnnotations>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_5dmMIIMNEeOt_qIwpdUXBg" memberEnd="_5dv9IIMNEeOt_qIwpdUXBg _5eFUUIMNEeOt_qIwpdUXBg">
+            <ownedEnd xmi:id="_5eFUUIMNEeOt_qIwpdUXBg" name="" visibility="private" type="_LbSDYDEBEeO5h8hFA2QO6g" association="_5dmMIIMNEeOt_qIwpdUXBg">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5eHwkIMNEeOt_qIwpdUXBg" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5eHJgIMNEeOt_qIwpdUXBg" value="1"/>
+            </ownedEnd>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_7prCIIMNEeOt_qIwpdUXBg" memberEnd="_7puFcIMNEeOt_qIwpdUXBg _7p0MEIMNEeOt_qIwpdUXBg">
+            <ownedEnd xmi:id="_7p0MEIMNEeOt_qIwpdUXBg" name="" visibility="private" type="_Z-D7IH6DEeOvhr9dmhLUyw" association="_7prCIIMNEeOt_qIwpdUXBg">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7p1aMYMNEeOt_qIwpdUXBg" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7p1aMIMNEeOt_qIwpdUXBg" value="1"/>
+            </ownedEnd>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_26VD4H6IEeOvhr9dmhLUyw" name="MCS">
+          <packagedElement xmi:type="uml:Class" xmi:id="_5tqcQH6KEeOvhr9dmhLUyw" name="McsApp" clientDependency="_PGC2cINqEeOt_qIwpdUXBg"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_PGC2cINqEeOt_qIwpdUXBg" supplier="_UfGJUH6JEeOvhr9dmhLUyw" client="_5tqcQH6KEeOvhr9dmhLUyw">
+            <eAnnotations xmi:id="_Rt5pgINqEeOt_qIwpdUXBg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+              <details xmi:id="_Rt5pgYNqEeOt_qIwpdUXBg" key="Assign"/>
+            </eAnnotations>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_Y76MgH6BEeOvhr9dmhLUyw" name="SubseaAllocation"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_G5uZcH6BEeOvhr9dmhLUyw" name="semVariabilityModel">
+      <packagedElement xmi:type="uml:Package" xmi:id="_yUMgcIPREeOcTOQpI3nxpA" name="SystemConfigurationUnit">
+        <packagedElement xmi:type="uml:Package" xmi:id="_jfMZYDHzEeO5h8hFA2QO6g" name="SystemConfigurationUnit" clientDependency="_rIee8DHzEeO5h8hFA2QO6g">
+          <eAnnotations xmi:id="_mfh94DHzEeO5h8hFA2QO6g" source="http://www.eclipse.org/uml2/2.0.0/UML"/>
+          <ownedTemplateSignature xmi:id="_teOOUDHzEeO5h8hFA2QO6g" parameter="_teOOUTHzEeO5h8hFA2QO6g _2ABQQDHzEeO5h8hFA2QO6g _cA6roIPREeOcTOQpI3nxpA _J2XKQIPSEeOcTOQpI3nxpA _W93MAIPSEeOcTOQpI3nxpA _dYDBMIPSEeOcTOQpI3nxpA _fMzjYIPSEeOcTOQpI3nxpA _ny_WEIPSEeOcTOQpI3nxpA _s_aXoIPSEeOcTOQpI3nxpA _viTLIIPSEeOcTOQpI3nxpA _zN4sEIPSEeOcTOQpI3nxpA _RIuIIIPTEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_teOOUTHzEeO5h8hFA2QO6g" parameteredElement="_GbMYMDECEeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_2ABQQDHzEeO5h8hFA2QO6g" parameteredElement="_JGncoDECEeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_cA6roIPREeOcTOQpI3nxpA" parameteredElement="_cBprcIPREeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_cBprcIPREeOcTOQpI3nxpA" name="systemType" templateParameter="_cA6roIPREeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_J2XKQIPSEeOcTOQpI3nxpA" parameteredElement="_J2Y_cIPSEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_J2Y_cIPSEeOcTOQpI3nxpA" name="triggerType" templateParameter="_J2XKQIPSEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_W93MAIPSEeOcTOQpI3nxpA" parameteredElement="_W95BMIPSEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_W95BMIPSEeOcTOQpI3nxpA" name="controlType" templateParameter="_W93MAIPSEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_dYDBMIPSEeOcTOQpI3nxpA" parameteredElement="_dYE2YIPSEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_dYE2YIPSEeOcTOQpI3nxpA" name="maxPressure" templateParameter="_dYDBMIPSEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_fMzjYIPSEeOcTOQpI3nxpA" parameteredElement="_fM0xgIPSEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_fM0xgIPSEeOcTOQpI3nxpA" name="productionSysType" templateParameter="_fMzjYIPSEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_ny_WEIPSEeOcTOQpI3nxpA" parameteredElement="_nzBLQIPSEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_nzBLQIPSEeOcTOQpI3nxpA" name="hasHIPPS" templateParameter="_ny_WEIPSEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_s_aXoIPSEeOcTOQpI3nxpA" parameteredElement="_s_blwIPSEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_s_blwIPSEeOcTOQpI3nxpA" name="mCS" templateParameter="_s_aXoIPSEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_viTLIIPSEeOcTOQpI3nxpA" parameteredElement="_viVAUIPSEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_viVAUIPSEeOcTOQpI3nxpA" name="mcsAPP" templateParameter="_viTLIIPSEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_zN4sEIPSEeOcTOQpI3nxpA" parameteredElement="_zN6hQIPSEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_zN6hQIPSEeOcTOQpI3nxpA" name="iWCS" templateParameter="_zN4sEIPSEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_RIuIIIPTEeOcTOQpI3nxpA" parameteredElement="_RIvWQIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_RIvWQIPTEeOcTOQpI3nxpA" name="SubseaField" templateParameter="_RIuIIIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_rIee8DHzEeO5h8hFA2QO6g" supplier="__6GfMDEAEeO5h8hFA2QO6g" client="_jfMZYDHzEeO5h8hFA2QO6g"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_0SHlsIPREeOcTOQpI3nxpA" name="HardwareConfigurationUnit">
+        <packagedElement xmi:type="uml:Package" xmi:id="_H6jcsDEDEeO5h8hFA2QO6g" name="xmasTreeConfigurationUnit" clientDependency="_LL_YQDEDEeO5h8hFA2QO6g">
+          <ownedTemplateSignature xmi:id="_M0EwYDEDEeO5h8hFA2QO6g" parameter="_M0FXcDEDEeO5h8hFA2QO6g _gVE9kIPTEeOcTOQpI3nxpA _iI4dgIPTEeOcTOQpI3nxpA _jahrkIPTEeOcTOQpI3nxpA _k6V4gIPTEeOcTOQpI3nxpA _mkLkIIPTEeOcTOQpI3nxpA _nzJ4sIPTEeOcTOQpI3nxpA _pGkoYIPTEeOcTOQpI3nxpA _qNzWMIPTEeOcTOQpI3nxpA _rr7hEIPTEeOcTOQpI3nxpA _uZHgEIPTEeOcTOQpI3nxpA _vyMy4IPTEeOcTOQpI3nxpA _xzTvAIPTEeOcTOQpI3nxpA _zQrr8IPTEeOcTOQpI3nxpA _1X6eMIPTEeOcTOQpI3nxpA _23v5QIPTEeOcTOQpI3nxpA __b2BQIPTEeOcTOQpI3nxpA _BZnVgIPUEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_M0FXcDEDEeO5h8hFA2QO6g" parameteredElement="_acp7YDECEeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_gVE9kIPTEeOcTOQpI3nxpA" parameteredElement="_gVGLsIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_gVGLsIPTEeOcTOQpI3nxpA" name="treeType" templateParameter="_gVE9kIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_iI4dgIPTEeOcTOQpI3nxpA" parameteredElement="_iI5roIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_iI5roIPTEeOcTOQpI3nxpA" name="boreSize" templateParameter="_iI4dgIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_jahrkIPTEeOcTOQpI3nxpA" parameteredElement="_jai5sIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_jai5sIPTEeOcTOQpI3nxpA" name="preRating" templateParameter="_jahrkIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_k6V4gIPTEeOcTOQpI3nxpA" parameteredElement="_k6XGoIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_k6XGoIPTEeOcTOQpI3nxpA" name="waterDepth" templateParameter="_k6V4gIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_mkLkIIPTEeOcTOQpI3nxpA" parameteredElement="_mkMyQIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_mkMyQIPTEeOcTOQpI3nxpA" name="wellType" templateParameter="_mkLkIIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_nzJ4sIPTEeOcTOQpI3nxpA" parameteredElement="_nzLG0IPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_nzLG0IPTEeOcTOQpI3nxpA" name="serviceType" templateParameter="_nzJ4sIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_pGkoYIPTEeOcTOQpI3nxpA" parameteredElement="_pGl2gIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_pGl2gIPTEeOcTOQpI3nxpA" name="minTem" templateParameter="_pGkoYIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_qNzWMIPTEeOcTOQpI3nxpA" parameteredElement="_qN0kUIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_qN0kUIPTEeOcTOQpI3nxpA" name="maxTem" templateParameter="_qNzWMIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_rr7hEIPTEeOcTOQpI3nxpA" parameteredElement="_rr8vMIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_rr8vMIPTEeOcTOQpI3nxpA" name="purpose" templateParameter="_rr7hEIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_uZHgEIPTEeOcTOQpI3nxpA" parameteredElement="_uZIuMIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_uZIuMIPTEeOcTOQpI3nxpA" name="completion" templateParameter="_uZHgEIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_vyMy4IPTEeOcTOQpI3nxpA" parameteredElement="_vyOoEIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_vyOoEIPTEeOcTOQpI3nxpA" name="partialPressure" templateParameter="_vyMy4IPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_xzTvAIPTEeOcTOQpI3nxpA" parameteredElement="_xzU9IIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_xzU9IIPTEeOcTOQpI3nxpA" name="corrosivity" templateParameter="_xzTvAIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_zQrr8IPTEeOcTOQpI3nxpA" parameteredElement="_zQs6EIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_zQs6EIPTEeOcTOQpI3nxpA" name="material" templateParameter="_zQrr8IPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_1X6eMIPTEeOcTOQpI3nxpA" parameteredElement="_1X7sUIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_1X7sUIPTEeOcTOQpI3nxpA" name="needInjection" templateParameter="_1X6eMIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_23v5QIPTEeOcTOQpI3nxpA" parameteredElement="_23xHYIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_23xHYIPTEeOcTOQpI3nxpA" name="installType" templateParameter="_23v5QIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="__b2BQIPTEeOcTOQpI3nxpA" parameteredElement="__b3PYIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="__b3PYIPTEeOcTOQpI3nxpA" name="sensor" templateParameter="__b2BQIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_BZnVgIPUEeOcTOQpI3nxpA" parameteredElement="_BZojoIPUEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_BZojoIPUEeOcTOQpI3nxpA" name="valve" templateParameter="_BZnVgIPUEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_LL_YQDEDEeO5h8hFA2QO6g" supplier="_HAyOADEBEeO5h8hFA2QO6g" client="_H6jcsDEDEeO5h8hFA2QO6g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_VO0vIDEDEeO5h8hFA2QO6g" name="semConfigurationUnit" clientDependency="_YnvLsDEDEeO5h8hFA2QO6g">
+          <ownedTemplateSignature xmi:id="_JOzlAH6CEeOvhr9dmhLUyw" parameter="_JO0MEH6CEeOvhr9dmhLUyw _MQUOMH6CEeOvhr9dmhLUyw _XSXVAIPVEeOcTOQpI3nxpA _Yy0bIIPVEeOcTOQpI3nxpA _aFxQwIPVEeOcTOQpI3nxpA _b7BiMIPVEeOcTOQpI3nxpA _diRM0IPVEeOcTOQpI3nxpA _htLuEIPVEeOcTOQpI3nxpA _jX15EIPVEeOcTOQpI3nxpA _k7NwUIPVEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_JO0MEH6CEeOvhr9dmhLUyw" parameteredElement="_JO65wH6CEeOvhr9dmhLUyw">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_JO65wH6CEeOvhr9dmhLUyw" name="sensors" templateParameter="_JO0MEH6CEeOvhr9dmhLUyw"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_MQUOMH6CEeOvhr9dmhLUyw" parameteredElement="_MQVcUH6CEeOvhr9dmhLUyw">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_MQVcUH6CEeOvhr9dmhLUyw" name="valves" templateParameter="_MQUOMH6CEeOvhr9dmhLUyw"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_XSXVAIPVEeOcTOQpI3nxpA" parameteredElement="_XSYjIIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_XSYjIIPVEeOcTOQpI3nxpA" name="shockLevel" templateParameter="_XSXVAIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_Yy0bIIPVEeOcTOQpI3nxpA" parameteredElement="_Yy1pQIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_Yy1pQIPVEeOcTOQpI3nxpA" name="excitationLevel" templateParameter="_Yy0bIIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_aFxQwIPVEeOcTOQpI3nxpA" parameteredElement="_aFye4IPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_aFye4IPVEeOcTOQpI3nxpA" name="lowDesignTemprature" templateParameter="_aFxQwIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_b7BiMIPVEeOcTOQpI3nxpA" parameteredElement="_b7CJQIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_b7CJQIPVEeOcTOQpI3nxpA" name="highDesignTemprature" templateParameter="_b7BiMIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_diRM0IPVEeOcTOQpI3nxpA" parameteredElement="_diTCAIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_diTCAIPVEeOcTOQpI3nxpA" name="lowDesignPressure" templateParameter="_diRM0IPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_htLuEIPVEeOcTOQpI3nxpA" parameteredElement="_htNjQIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_htNjQIPVEeOcTOQpI3nxpA" name="highDesignPressure" templateParameter="_htLuEIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_jX15EIPVEeOcTOQpI3nxpA" parameteredElement="_jX3HMIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_jX3HMIPVEeOcTOQpI3nxpA" name="Id" templateParameter="_jX15EIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_k7NwUIPVEeOcTOQpI3nxpA" parameteredElement="_k7PlgIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_k7PlgIPVEeOcTOQpI3nxpA" name="idType" templateParameter="_k7NwUIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_YnvLsDEDEeO5h8hFA2QO6g" supplier="_USJ9cDEBEeO5h8hFA2QO6g" client="_VO0vIDEDEeO5h8hFA2QO6g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_4pJvMDECEeO5h8hFA2QO6g" name="scatteredSubseaField" clientDependency="_-Iu9UDECEeO5h8hFA2QO6g">
+          <ownedTemplateSignature xmi:id="_ACkMwDEDEeO5h8hFA2QO6g" parameter="_ACkMwTEDEeO5h8hFA2QO6g _LcwD0IPTEeOcTOQpI3nxpA _YJxJAIPTEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_ACkMwTEDEeO5h8hFA2QO6g" parameteredElement="_RYgaUDECEeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_LcwD0IPTEeOcTOQpI3nxpA" parameteredElement="_LcxR8IPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_LcxR8IPTEeOcTOQpI3nxpA" name="type" templateParameter="_LcwD0IPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_YJxJAIPTEeOcTOQpI3nxpA" parameteredElement="_YJyXIIPTEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_YJyXIIPTEeOcTOQpI3nxpA" name="designPressure" templateParameter="_YJxJAIPTEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_-Iu9UDECEeO5h8hFA2QO6g" supplier="_El_mkDEBEeO5h8hFA2QO6g" client="_4pJvMDECEeO5h8hFA2QO6g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_q64pMIPUEeOcTOQpI3nxpA" name="controlModuleConfigurationUnit" clientDependency="_E8i0QIPVEeOcTOQpI3nxpA">
+          <ownedTemplateSignature xmi:id="_rG-H8IPVEeOcTOQpI3nxpA" parameter="_rG-H8YPVEeOcTOQpI3nxpA _xQJFoIPVEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_rG-H8YPVEeOcTOQpI3nxpA" parameteredElement="_rHDAcIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_rHDAcIPVEeOcTOQpI3nxpA" name="elecPowerInterface" templateParameter="_rG-H8YPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_xQJFoIPVEeOcTOQpI3nxpA" parameteredElement="_xQKTwIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_xQKTwIPVEeOcTOQpI3nxpA" name="sEM" templateParameter="_xQJFoIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_E8i0QIPVEeOcTOQpI3nxpA" supplier="_S0ZmADEBEeO5h8hFA2QO6g" client="_q64pMIPUEeOcTOQpI3nxpA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_ymRnkIPUEeOcTOQpI3nxpA" name="IWCSConfigurationUnit" clientDependency="_BiVXMIPVEeOcTOQpI3nxpA">
+          <ownedTemplateSignature xmi:id="_1Lzp8IPVEeOcTOQpI3nxpA" parameter="_1L0RAIPVEeOcTOQpI3nxpA _2lARgIPVEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_1L0RAIPVEeOcTOQpI3nxpA" parameteredElement="_1L04EIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_1L04EIPVEeOcTOQpI3nxpA" name="configType" templateParameter="_1L0RAIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_2lARgIPVEeOcTOQpI3nxpA" parameteredElement="_2lBfoIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_2lBfoIPVEeOcTOQpI3nxpA" name="installType" templateParameter="_2lARgIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_BiVXMIPVEeOcTOQpI3nxpA" supplier="_HoJAQIMDEeOt_qIwpdUXBg" client="_ymRnkIPUEeOcTOQpI3nxpA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_3PVdYIPUEeOcTOQpI3nxpA" name="sensorConfigurationUnit" clientDependency="_Hh3QsIPVEeOcTOQpI3nxpA">
+          <ownedTemplateSignature xmi:id="_EAPuoIPWEeOcTOQpI3nxpA" parameter="_EAPuoYPWEeOcTOQpI3nxpA _FyfvYIPWEeOcTOQpI3nxpA _HK1bUIPWEeOcTOQpI3nxpA _IGlR4IPWEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_EAPuoYPWEeOcTOQpI3nxpA" parameteredElement="_EAQ8wIPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_EAQ8wIPWEeOcTOQpI3nxpA" name="accuracy" templateParameter="_EAPuoYPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_FyfvYIPWEeOcTOQpI3nxpA" parameteredElement="_Fyg9gIPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_Fyg9gIPWEeOcTOQpI3nxpA" name="eBoardIndex" templateParameter="_FyfvYIPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_HK1bUIPWEeOcTOQpI3nxpA" parameteredElement="_HK2pcIPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_HK2pcIPWEeOcTOQpI3nxpA" name="pinIndex" templateParameter="_HK1bUIPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_IGlR4IPWEeOcTOQpI3nxpA" parameteredElement="_IGmgAIPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_IGmgAIPWEeOcTOQpI3nxpA" name="Sensor" templateParameter="_IGlR4IPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_Hh3QsIPVEeOcTOQpI3nxpA" supplier="_V0MX8DEBEeO5h8hFA2QO6g" client="_3PVdYIPUEeOcTOQpI3nxpA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_5GB5QIPUEeOcTOQpI3nxpA" name="valveConfigurationUnit" clientDependency="_SYW5IIPVEeOcTOQpI3nxpA">
+          <ownedTemplateSignature xmi:id="_7MtccIPVEeOcTOQpI3nxpA" parameter="_7MtccYPVEeOcTOQpI3nxpA _9w4CUIPVEeOcTOQpI3nxpA __PCpcIPVEeOcTOQpI3nxpA _Anj7kIPWEeOcTOQpI3nxpA _CNxEYIPWEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_7MtccYPVEeOcTOQpI3nxpA" parameteredElement="_7MuqkIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_7MuqkIPVEeOcTOQpI3nxpA" name="openpressure" templateParameter="_7MtccYPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_9w4CUIPVEeOcTOQpI3nxpA" parameteredElement="_9w5QcIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_9w5QcIPVEeOcTOQpI3nxpA" name="installType" templateParameter="_9w4CUIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="__PCpcIPVEeOcTOQpI3nxpA" parameteredElement="__PD3kIPVEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="__PD3kIPVEeOcTOQpI3nxpA" name="eBoardIndex" templateParameter="__PCpcIPVEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_Anj7kIPWEeOcTOQpI3nxpA" parameteredElement="_AnkioIPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_AnkioIPWEeOcTOQpI3nxpA" name="pinIndex" templateParameter="_Anj7kIPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_CNxEYIPWEeOcTOQpI3nxpA" parameteredElement="_CNySgIPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_CNySgIPWEeOcTOQpI3nxpA" name="Valve" templateParameter="_CNxEYIPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_SYW5IIPVEeOcTOQpI3nxpA" supplier="_Q27e8H28EeOHvN2fEdoKHg" client="_5GB5QIPUEeOcTOQpI3nxpA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_j8wukIPWEeOcTOQpI3nxpA" name="productionChokeConfigurationUnit" clientDependency="_4g9LYIPWEeOcTOQpI3nxpA _FJiAAIPYEeOcTOQpI3nxpA">
+          <ownedTemplateSignature xmi:id="_633_cIPWEeOcTOQpI3nxpA" parameter="_634mgIPWEeOcTOQpI3nxpA _8CGW4IPWEeOcTOQpI3nxpA _9PcTwIPWEeOcTOQpI3nxpA __DCYUIPWEeOcTOQpI3nxpA _A4v8wIPXEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_634mgIPWEeOcTOQpI3nxpA" parameteredElement="_635NkIPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_635NkIPWEeOcTOQpI3nxpA" name="type" templateParameter="_634mgIPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_8CGW4IPWEeOcTOQpI3nxpA" parameteredElement="_8CHlAIPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_8CHlAIPWEeOcTOQpI3nxpA" name="trimType" templateParameter="_8CGW4IPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_9PcTwIPWEeOcTOQpI3nxpA" parameteredElement="_9Pc60IPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_9Pc60IPWEeOcTOQpI3nxpA" name="inletPressure" templateParameter="_9PcTwIPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="__DCYUIPWEeOcTOQpI3nxpA" parameteredElement="__DC_YIPWEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="__DC_YIPWEeOcTOQpI3nxpA" name="outletPressure" templateParameter="__DCYUIPWEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_A4v8wIPXEeOcTOQpI3nxpA" parameteredElement="_A4wj0IPXEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_A4wj0IPXEeOcTOQpI3nxpA" name="pressureDrop" templateParameter="_A4v8wIPXEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_4g9LYIPWEeOcTOQpI3nxpA" supplier="_4PXTQH5_EeOvhr9dmhLUyw" client="_j8wukIPWEeOcTOQpI3nxpA"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_FJiAAIPYEeOcTOQpI3nxpA" supplier="_5GB5QIPUEeOcTOQpI3nxpA" client="_j8wukIPWEeOcTOQpI3nxpA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_CAr4YIPbEeOcTOQpI3nxpA" name="subseaFieldConfigurationUnit" clientDependency="_GgBxgIPbEeOcTOQpI3nxpA _KECDwIPbEeOcTOQpI3nxpA">
+          <ownedTemplateSignature xmi:id="_MLUgYIPbEeOcTOQpI3nxpA" parameter="_MLUgYYPbEeOcTOQpI3nxpA _NMS1MIPbEeOcTOQpI3nxpA _UP6B4IPbEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_MLUgYYPbEeOcTOQpI3nxpA" parameteredElement="_MLVugIPbEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_MLVugIPbEeOcTOQpI3nxpA" name="distance" templateParameter="_MLUgYYPbEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_NMS1MIPbEeOcTOQpI3nxpA" parameteredElement="_NMUDUIPbEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_NMUDUIPbEeOcTOQpI3nxpA" name="unit" templateParameter="_NMS1MIPbEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_UP6B4IPbEeOcTOQpI3nxpA" parameteredElement="_UP7QAIPbEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_UP7QAIPbEeOcTOQpI3nxpA" name="SubseaField" templateParameter="_UP6B4IPbEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_GgBxgIPbEeOcTOQpI3nxpA" supplier="_DN2u8DEBEeO5h8hFA2QO6g" client="_CAr4YIPbEeOcTOQpI3nxpA"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_KECDwIPbEeOcTOQpI3nxpA" supplier="_4pJvMDECEeO5h8hFA2QO6g" client="_CAr4YIPbEeOcTOQpI3nxpA"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_2BhGwIPREeOcTOQpI3nxpA" name="SoftwareConfigurationUnit">
+        <packagedElement xmi:type="uml:Package" xmi:id="_782loDH0EeO5h8hFA2QO6g" name="pressureTankRegulatorSW" clientDependency="_52F4ADH1EeO5h8hFA2QO6g _6-Pl0IPZEeOcTOQpI3nxpA">
+          <ownedTemplateSignature xmi:id="_7tAWUDH1EeO5h8hFA2QO6g" parameter="_7tAWUTH1EeO5h8hFA2QO6g _98rS4DH1EeO5h8hFA2QO6g _-bLz0DH1EeO5h8hFA2QO6g _-4LR0DH1EeO5h8hFA2QO6g __iINwDH1EeO5h8hFA2QO6g ___F2kDH1EeO5h8hFA2QO6g _AhnU0DH2EeO5h8hFA2QO6g _A-_0YDH2EeO5h8hFA2QO6g _Bg2kQDH2EeO5h8hFA2QO6g _CGeZ0DH2EeO5h8hFA2QO6g _Cll-wDH2EeO5h8hFA2QO6g _Dd1OUDH2EeO5h8hFA2QO6g _EB16UDH2EeO5h8hFA2QO6g _Ei4K0DH2EeO5h8hFA2QO6g _E_3BwDH2EeO5h8hFA2QO6g _FlA9QDH2EeO5h8hFA2QO6g _0nt5MDH2EeO5h8hFA2QO6g">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_7tAWUTH1EeO5h8hFA2QO6g" parameteredElement="_OiC_IDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_98rS4DH1EeO5h8hFA2QO6g" parameteredElement="_QuRmIDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_-bLz0DH1EeO5h8hFA2QO6g" parameteredElement="_WjftEDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_-4LR0DH1EeO5h8hFA2QO6g" parameteredElement="_X53qIDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="__iINwDH1EeO5h8hFA2QO6g" parameteredElement="_aSS6EDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="___F2kDH1EeO5h8hFA2QO6g" parameteredElement="_cYlRIDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_AhnU0DH2EeO5h8hFA2QO6g" parameteredElement="_eq_YoDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_A-_0YDH2EeO5h8hFA2QO6g" parameteredElement="_inqpkDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_Bg2kQDH2EeO5h8hFA2QO6g" parameteredElement="_kx_MEDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_CGeZ0DH2EeO5h8hFA2QO6g" parameteredElement="_mZWygDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_Cll-wDH2EeO5h8hFA2QO6g" parameteredElement="_ofZ5ADH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_Dd1OUDH2EeO5h8hFA2QO6g" parameteredElement="_rcdgADH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_EB16UDH2EeO5h8hFA2QO6g" parameteredElement="_s1MNgDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_Ei4K0DH2EeO5h8hFA2QO6g" parameteredElement="_u-mxEDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_E_3BwDH2EeO5h8hFA2QO6g" parameteredElement="_xUEMkDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_FlA9QDH2EeO5h8hFA2QO6g" parameteredElement="_znscEDH1EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_0nt5MDH2EeO5h8hFA2QO6g" parameteredElement="_1gr-ADH1EeO5h8hFA2QO6g"/>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_52F4ADH1EeO5h8hFA2QO6g" supplier="_PhPzMDEBEeO5h8hFA2QO6g" client="_782loDH0EeO5h8hFA2QO6g"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_6-Pl0IPZEeOcTOQpI3nxpA" supplier="_pY2R4IPYEeOcTOQpI3nxpA" client="_782loDH0EeO5h8hFA2QO6g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_IepuwDH0EeO5h8hFA2QO6g" name="semAppConfigurationUnit" clientDependency="_OFZ74DH0EeO5h8hFA2QO6g">
+          <ownedTemplateSignature xmi:id="_KzffMDH0EeO5h8hFA2QO6g" parameter="_KzgGQDH0EeO5h8hFA2QO6g">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_KzgGQDH0EeO5h8hFA2QO6g" parameteredElement="_L-isADECEeO5h8hFA2QO6g"/>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_OFZ74DH0EeO5h8hFA2QO6g" supplier="_ORpzkDEBEeO5h8hFA2QO6g" client="_IepuwDH0EeO5h8hFA2QO6g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_pUAbMDH0EeO5h8hFA2QO6g" name="deviceControllerConfigurationUnit" clientDependency="_u1o3wDH0EeO5h8hFA2QO6g">
+          <ownedTemplateSignature xmi:id="_x_GjEDH0EeO5h8hFA2QO6g" parameter="_x_GjETH0EeO5h8hFA2QO6g _zAaPEDH0EeO5h8hFA2QO6g _zhKLsDH0EeO5h8hFA2QO6g _Njc4UIPYEeOcTOQpI3nxpA _PkPEUIPYEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_x_GjETH0EeO5h8hFA2QO6g" parameteredElement="_VGOTQDH0EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_zAaPEDH0EeO5h8hFA2QO6g" parameteredElement="_WvIx0DH0EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_zhKLsDH0EeO5h8hFA2QO6g" parameteredElement="_aEcgwDH0EeO5h8hFA2QO6g"/>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_Njc4UIPYEeOcTOQpI3nxpA" parameteredElement="_NjeGcIPYEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_NjeGcIPYEeOcTOQpI3nxpA" name="mode" templateParameter="_Njc4UIPYEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_PkPEUIPYEeOcTOQpI3nxpA" parameteredElement="_PkQ5gIPYEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_PkQ5gIPYEeOcTOQpI3nxpA" name="DeviceController" templateParameter="_PkPEUIPYEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_u1o3wDH0EeO5h8hFA2QO6g" supplier="_J9qO0DEBEeO5h8hFA2QO6g" client="_pUAbMDH0EeO5h8hFA2QO6g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_pY2R4IPYEeOcTOQpI3nxpA" name="sensorControllerConfigurationUnit" clientDependency="_3hpYkIPYEeOcTOQpI3nxpA _7fzawIPZEeOcTOQpI3nxpA">
+          <ownedTemplateSignature xmi:id="_6vf0oIPYEeOcTOQpI3nxpA" parameter="_6vgbsIPYEeOcTOQpI3nxpA _8CXxwIPYEeOcTOQpI3nxpA _8_EDgIPYEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_6vgbsIPYEeOcTOQpI3nxpA" parameteredElement="_6vhCwIPYEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_6vhCwIPYEeOcTOQpI3nxpA" name="eBoardIndex" templateParameter="_6vgbsIPYEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_8CXxwIPYEeOcTOQpI3nxpA" parameteredElement="_8CZm8IPYEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_8CZm8IPYEeOcTOQpI3nxpA" name="pinIndex" templateParameter="_8CXxwIPYEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_8_EDgIPYEeOcTOQpI3nxpA" parameteredElement="_8_FRoIPYEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_8_FRoIPYEeOcTOQpI3nxpA" name="SensorController" templateParameter="_8_EDgIPYEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_3hpYkIPYEeOcTOQpI3nxpA" supplier="_LbSDYDEBEeO5h8hFA2QO6g" client="_pY2R4IPYEeOcTOQpI3nxpA"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_7fzawIPZEeOcTOQpI3nxpA" supplier="_pUAbMDH0EeO5h8hFA2QO6g" client="_pY2R4IPYEeOcTOQpI3nxpA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_rKE-8IPYEeOcTOQpI3nxpA" name="valveControllerConfigurationUnit" clientDependency="_460K8IPYEeOcTOQpI3nxpA _88tdoIPZEeOcTOQpI3nxpA">
+          <ownedTemplateSignature xmi:id="__Wi4QIPYEeOcTOQpI3nxpA" parameter="__WjfUIPYEeOcTOQpI3nxpA _Ajd-YIPZEeOcTOQpI3nxpA _BswhsIPZEeOcTOQpI3nxpA">
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="__WjfUIPYEeOcTOQpI3nxpA" parameteredElement="__WktcIPYEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="__WktcIPYEeOcTOQpI3nxpA" name="eBoardIndex" templateParameter="__WjfUIPYEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ConnectableElementTemplateParameter" xmi:id="_Ajd-YIPZEeOcTOQpI3nxpA" parameteredElement="_AjfMgIPZEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Property" xmi:id="_AjfMgIPZEeOcTOQpI3nxpA" name="pinIndex" templateParameter="_Ajd-YIPZEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_BswhsIPZEeOcTOQpI3nxpA" parameteredElement="_Bsxv0IPZEeOcTOQpI3nxpA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_Bsxv0IPZEeOcTOQpI3nxpA" name="ValveController" templateParameter="_BswhsIPZEeOcTOQpI3nxpA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_460K8IPYEeOcTOQpI3nxpA" supplier="_Z-D7IH6DEeOvhr9dmhLUyw" client="_rKE-8IPYEeOcTOQpI3nxpA"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_88tdoIPZEeOcTOQpI3nxpA" supplier="_pUAbMDH0EeO5h8hFA2QO6g" client="_rKE-8IPYEeOcTOQpI3nxpA"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:id="_vbLShPLiEeKk8Ipx9dSDbA">
+      <eAnnotations xmi:id="_vbLShfLiEeKk8Ipx9dSDbA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_vbLShvLiEeKk8Ipx9dSDbA">
+      <eAnnotations xmi:id="_vbLSh_LiEeKk8Ipx9dSDbA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Default.profile.uml#_fNwoAAqoEd6-N_NOT9vsCA"/>
+      </eAnnotations>
+      <appliedProfile href="Default.profile.uml#_a_S3wNWLEdiy4IqP8whjFA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_vbLSiPLiEeKk8Ipx9dSDbA">
+      <eAnnotations xmi:id="_vbLSifLiEeKk8Ipx9dSDbA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Deployment.profile.uml#_IrdAUMmBEdqBcN1R6EvWUw"/>
+      </eAnnotations>
+      <appliedProfile href="Deployment.profile.uml#_vjbuwOvHEdiDX5bji0iVSA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_lDjooDECEeO5h8hFA2QO6g">
+      <eAnnotations xmi:id="_lEEmADECEeO5h8hFA2QO6g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Profile.profile.uml#_nxQpwCBTEeORveStHLazVw"/>
+      </eAnnotations>
+      <appliedProfile href="Profile.profile.uml#_av_eUHoKEeC-k5FNs1NtPw"/>
+    </profileApplication>
+  </uml:Package>
+  <SimPL:CPSystem xmi:id="_mvoI4DECEeO5h8hFA2QO6g" base_Class="__6GfMDEAEeO5h8hFA2QO6g"/>
+  <SimPL:HwComponent xmi:id="_n548kDECEeO5h8hFA2QO6g" base_Class="_DN2u8DEBEeO5h8hFA2QO6g"/>
+  <SimPL:HwComponent xmi:id="_oqf6IDECEeO5h8hFA2QO6g" base_Class="_El_mkDEBEeO5h8hFA2QO6g"/>
+  <SimPL:HwComponent xmi:id="_phWCkDECEeO5h8hFA2QO6g" base_Class="_HAyOADEBEeO5h8hFA2QO6g"/>
+  <SimPL:HwComputingResource xmi:id="_ry2LIDECEeO5h8hFA2QO6g" base_Class="_S0ZmADEBEeO5h8hFA2QO6g"/>
+  <SimPL:HwComputingResource xmi:id="_tDxngDECEeO5h8hFA2QO6g" base_Class="_USJ9cDEBEeO5h8hFA2QO6g"/>
+  <SimPL:HwDevice xmi:id="_t2Vs4DECEeO5h8hFA2QO6g" base_Class="_W8p00DEBEeO5h8hFA2QO6g"/>
+  <SimPL:HwDevice xmi:id="_umHkADECEeO5h8hFA2QO6g" base_Class="_V0MX8DEBEeO5h8hFA2QO6g"/>
+  <SimPL:ConfigurationUnit xmi:id="_9ohzQDECEeO5h8hFA2QO6g" base_Package="_4pJvMDECEeO5h8hFA2QO6g"/>
+  <SimPL:RelatedConfigUnit xmi:id="_-6vCADECEeO5h8hFA2QO6g" base_Dependency="_-Iu9UDECEeO5h8hFA2QO6g"/>
+  <SimPL:RelatedConfigUnit xmi:id="_QVXF0DEDEeO5h8hFA2QO6g" base_Dependency="_LL_YQDEDEeO5h8hFA2QO6g"/>
+  <SimPL:ConfigurationUnit xmi:id="_RF6ZADEDEeO5h8hFA2QO6g" base_Package="_H6jcsDEDEeO5h8hFA2QO6g"/>
+  <SimPL:ConfigurationUnit xmi:id="_X4RdoDEDEeO5h8hFA2QO6g" base_Package="_VO0vIDEDEeO5h8hFA2QO6g"/>
+  <SimPL:RelatedConfigUnit xmi:id="_ZXP9EDEDEeO5h8hFA2QO6g" base_Dependency="_YnvLsDEDEeO5h8hFA2QO6g"/>
+  <SimPL:RelatedConfigUnit xmi:id="_sPZDsDHzEeO5h8hFA2QO6g" base_Dependency="_rIee8DHzEeO5h8hFA2QO6g"/>
+  <SimPL:ConfigurationUnit xmi:id="_syaRMDHzEeO5h8hFA2QO6g" base_Package="_jfMZYDHzEeO5h8hFA2QO6g"/>
+  <SimPL:RelatedConfigUnit xmi:id="_O2okgDH0EeO5h8hFA2QO6g" base_Dependency="_OFZ74DH0EeO5h8hFA2QO6g"/>
+  <SimPL:ConfigurationUnit xmi:id="_PmLLEDH0EeO5h8hFA2QO6g" base_Package="_IepuwDH0EeO5h8hFA2QO6g"/>
+  <SimPL:RelatedConfigUnit xmi:id="_wYsl8DH0EeO5h8hFA2QO6g" base_Dependency="_u1o3wDH0EeO5h8hFA2QO6g"/>
+  <SimPL:ConfigurationUnit xmi:id="_xBwKADH0EeO5h8hFA2QO6g" base_Package="_pUAbMDH0EeO5h8hFA2QO6g"/>
+  <SimPL:ConfigurationUnit xmi:id="_B5va0DH1EeO5h8hFA2QO6g" base_Package="_782loDH0EeO5h8hFA2QO6g"/>
+  <SimPL:RelatedConfigUnit xmi:id="_65MTwDH1EeO5h8hFA2QO6g" base_Dependency="_52F4ADH1EeO5h8hFA2QO6g"/>
+  <SimPL:HwDevice xmi:id="_vmcY4H2_EeOHvN2fEdoKHg" base_Class="_Q27e8H28EeOHvN2fEdoKHg"/>
+  <SimPL:HardwareView xmi:id="_CblA8H3CEeOHvN2fEdoKHg" base_Package="_p97i0DEAEeO5h8hFA2QO6g"/>
+  <SimPL:SoftwareView xmi:id="_DXczUH3CEeOHvN2fEdoKHg" base_Package="_r1Ht8DEAEeO5h8hFA2QO6g"/>
+  <SimPL:SystemDesignView xmi:id="_HasmUH3CEeOHvN2fEdoKHg" base_Package="_lqRVQDEAEeO5h8hFA2QO6g"/>
+  <SimPL:HwDevice xmi:id="_2eLeAH3FEeOHvN2fEdoKHg" base_Class="_s-7AMH3DEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6fxEIH3FEeOHvN2fEdoKHg" base_Class="_Y3_RsH3EEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6fxrMH3FEeOHvN2fEdoKHg" base_Class="_LF3loH3EEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6fySQH3FEeOHvN2fEdoKHg" base_Class="_P5fFoH3EEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6fySQX3FEeOHvN2fEdoKHg" base_Class="_hi8sIH3DEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6fy5UH3FEeOHvN2fEdoKHg" base_Class="_aB2cwH3EEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6fy5UX3FEeOHvN2fEdoKHg" base_Class="_bOhEMH3EEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6fzgYH3FEeOHvN2fEdoKHg" base_Class="_cmeVoH3EEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6f0HcH3FEeOHvN2fEdoKHg" base_Class="_BWsVIH3FEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6f0HcX3FEeOHvN2fEdoKHg" base_Class="_yBaNMH3EEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_6f0ugH3FEeOHvN2fEdoKHg" base_Class="_8xH4MH3EEeOHvN2fEdoKHg"/>
+  <SimPL:HwDevice xmi:id="_HYsC0H6AEeOvhr9dmhLUyw" base_Class="_SS3t4H5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZcQwH6AEeOvhr9dmhLUyw" base_Class="_Yqk20H5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZcQwX6AEeOvhr9dmhLUyw" base_Class="_4PXTQH5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZc30H6AEeOvhr9dmhLUyw" base_Class="_81GvUH5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZde4H6AEeOvhr9dmhLUyw" base_Class="_aby80H5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZde4X6AEeOvhr9dmhLUyw" base_Class="_6RrJQH5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZeF8H6AEeOvhr9dmhLUyw" base_Class="_-RVcwH5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZetAH6AEeOvhr9dmhLUyw" base_Class="_b0hDQH5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZetAX6AEeOvhr9dmhLUyw" base_Class="_l3XoQH5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZfUEH6AEeOvhr9dmhLUyw" base_Class="_vJTtsH5_EeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_HZf7IH6AEeOvhr9dmhLUyw" base_Class="_hpc2UH5_EeOvhr9dmhLUyw"/>
+  <SimPL:VariabilityView xmi:id="_Ka-5sH6BEeOvhr9dmhLUyw" base_Package="_G5uZcH6BEeOvhr9dmhLUyw"/>
+  <SimPL:AllocationView xmi:id="_bWIMMH6BEeOvhr9dmhLUyw" base_Package="_Y76MgH6BEeOvhr9dmhLUyw"/>
+  <SimPL:HwComputingResource xmi:id="_y5DU4H6KEeOvhr9dmhLUyw" base_Class="_UfGJUH6JEeOvhr9dmhLUyw"/>
+  <SimPL:HwDevice xmi:id="_K5JBoIF8EeODbKFxX0opgQ" base_Class="_EA5z8IF7EeODbKFxX0opgQ"/>
+  <SimPL:HwDevice xmi:id="_fOvBwIF8EeODbKFxX0opgQ" base_Class="_byzGYIF8EeODbKFxX0opgQ"/>
+  <SimPL:HwDevice xmi:id="_fOvo0IF8EeODbKFxX0opgQ" base_Class="_aEoUYIF8EeODbKFxX0opgQ"/>
+  <SimPL:HwComputingResource xmi:id="_QYL5kIMDEeOt_qIwpdUXBg" base_Class="_HoJAQIMDEeOt_qIwpdUXBg"/>
+  <SimPL:ConfigurationUnit xmi:id="_xgWhUIPUEeOcTOQpI3nxpA" base_Package="_q64pMIPUEeOcTOQpI3nxpA"/>
+  <SimPL:ConfigurationUnit xmi:id="_1dwyEIPUEeOcTOQpI3nxpA" base_Package="_ymRnkIPUEeOcTOQpI3nxpA"/>
+  <SimPL:ConfigurationUnit xmi:id="_7YS20IPUEeOcTOQpI3nxpA" base_Package="_3PVdYIPUEeOcTOQpI3nxpA"/>
+  <SimPL:ConfigurationUnit xmi:id="_7YTd4IPUEeOcTOQpI3nxpA" base_Package="_5GB5QIPUEeOcTOQpI3nxpA"/>
+  <SimPL:RelatedConfigUnit xmi:id="_ClTQEIPVEeOcTOQpI3nxpA" base_Dependency="_BiVXMIPVEeOcTOQpI3nxpA"/>
+  <SimPL:RelatedConfigUnit xmi:id="_Fz3d0IPVEeOcTOQpI3nxpA" base_Dependency="_E8i0QIPVEeOcTOQpI3nxpA"/>
+  <SimPL:RelatedConfigUnit xmi:id="_IP40UIPVEeOcTOQpI3nxpA" base_Dependency="_Hh3QsIPVEeOcTOQpI3nxpA"/>
+  <SimPL:HwDevice xmi:id="_QtyNsIPVEeOcTOQpI3nxpA" base_Class="_50WOcIF8EeODbKFxX0opgQ"/>
+  <SimPL:RelatedConfigUnit xmi:id="_UVoeIIPVEeOcTOQpI3nxpA" base_Dependency="_SYW5IIPVEeOcTOQpI3nxpA"/>
+  <SimPL:ConfigurationUnit xmi:id="_m4YyMIPWEeOcTOQpI3nxpA" base_Package="_j8wukIPWEeOcTOQpI3nxpA"/>
+  <SimPL:RelatedConfigUnit xmi:id="_5cC6oIPWEeOcTOQpI3nxpA" base_Dependency="_4g9LYIPWEeOcTOQpI3nxpA"/>
+  <SimPL:Inherit xmi:id="_GEa68IPYEeOcTOQpI3nxpA" base_Dependency="_FJiAAIPYEeOcTOQpI3nxpA"/>
+  <SimPL:ConfigurationUnit xmi:id="_uAqxkIPYEeOcTOQpI3nxpA" base_Package="_pY2R4IPYEeOcTOQpI3nxpA"/>
+  <SimPL:ConfigurationUnit xmi:id="_uAqxkYPYEeOcTOQpI3nxpA" base_Package="_rKE-8IPYEeOcTOQpI3nxpA"/>
+  <SimPL:RelatedConfigUnit xmi:id="_4V9xcIPYEeOcTOQpI3nxpA" base_Dependency="_3hpYkIPYEeOcTOQpI3nxpA"/>
+  <SimPL:RelatedConfigUnit xmi:id="_5oqvcIPYEeOcTOQpI3nxpA" base_Dependency="_460K8IPYEeOcTOQpI3nxpA"/>
+  <SimPL:Inherit xmi:id="_CYtMQIPaEeOcTOQpI3nxpA" base_Dependency="_6-Pl0IPZEeOcTOQpI3nxpA"/>
+  <SimPL:Inherit xmi:id="_CYtzUIPaEeOcTOQpI3nxpA" base_Dependency="_88tdoIPZEeOcTOQpI3nxpA"/>
+  <SimPL:Inherit xmi:id="_CYtzUYPaEeOcTOQpI3nxpA" base_Dependency="_7fzawIPZEeOcTOQpI3nxpA"/>
+  <SimPL:ConfigurationUnit xmi:id="_EfNwUIPbEeOcTOQpI3nxpA" base_Package="_CAr4YIPbEeOcTOQpI3nxpA"/>
+  <SimPL:RelatedConfigUnit xmi:id="_HbO1gIPbEeOcTOQpI3nxpA" base_Dependency="_GgBxgIPbEeOcTOQpI3nxpA"/>
+  <SimPL:Inherit xmi:id="_LKpGgIPbEeOcTOQpI3nxpA" base_Dependency="_KECDwIPbEeOcTOQpI3nxpA"/>
+</xmi:XMI>

@@ -1,0 +1,2 @@
+
+context Transaction inv: self.amount >  50  and  self.points >  50

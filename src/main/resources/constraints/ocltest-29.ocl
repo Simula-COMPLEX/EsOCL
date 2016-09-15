@@ -1,0 +1,4 @@
+package Test
+context Saturn
+inv initial: (self.systemUnit.NumberOfActiveCalls  = 3 ) and self.media.audio.on  = true  and self.conference.PresentationMode = Mode::Sending and self.conference.call->select(call | call.incomingPresentationChannel.Protocol <> VideoProtocol::Off)->size()=2 and self.conference.call->select(call | call.outgoingPresentationChannel.Protocol <> VideoProtocol::Off)->size()=3
+endpackage

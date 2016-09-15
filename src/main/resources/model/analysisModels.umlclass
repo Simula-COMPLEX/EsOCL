@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:uml2tools.notation="http://www.eclipse.org/mdt/uml2tools/gmf/notation/ext/2008">
+  <notation:Diagram xmi:id="_qZ6fQGCXEeOZvIp9WSHLlw" type="UMLClass" measurementUnit="Pixel">
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_qZ6fQWCXEeOZvIp9WSHLlw"/>
+    <styles xmi:type="uml2tools.notation:U2TDiagramCanonicalStyle" xmi:id="_qZ6fQmCXEeOZvIp9WSHLlw"/>
+    <styles xmi:type="notation:FilteringStyle" xmi:id="_qZ6fQ2CXEeOZvIp9WSHLlw"/>
+    <element xmi:type="uml:Package" href="analysisModels.uml#_kDA5w_3fEeKa0Ybm1MXUmA"/>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_vigJsGCXEeOZvIp9WSHLlw" type="UMLClass" measurementUnit="Pixel">
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_vigJsWCXEeOZvIp9WSHLlw"/>
+    <styles xmi:type="uml2tools.notation:U2TDiagramCanonicalStyle" xmi:id="_vigJsmCXEeOZvIp9WSHLlw"/>
+    <styles xmi:type="notation:FilteringStyle" xmi:id="_vigJs2CXEeOZvIp9WSHLlw"/>
+    <element xmi:type="uml:Package" href="analysisModels.uml#_kDBhMf3fEeKa0Ybm1MXUmA"/>
+  </notation:Diagram>
+</xmi:XMI>

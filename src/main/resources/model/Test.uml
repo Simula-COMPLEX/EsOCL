@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_DzhmCv5xEeKcL41_Dkkbug" name="Test">
+  <packageImport xmi:id="_DzhmC_5xEeKcL41_Dkkbug">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DzhmDP5xEeKcL41_Dkkbug" name="Saturn">
+    <ownedAttribute xmi:id="_DzhmDf5xEeKcL41_Dkkbug" name="media" visibility="private" type="_DziMtP5xEeKcL41_Dkkbug" association="_DziM8v5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmDv5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmD_5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmEP5xEeKcL41_Dkkbug" name="systemUnit" visibility="private" type="_DzhmMP5xEeKcL41_Dkkbug" association="_DziM8_5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmEf5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmEv5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmE_5xEeKcL41_Dkkbug" name="conference" visibility="private" type="_DziMov5xEeKcL41_Dkkbug" association="_DziM9P5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmFP5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmFf5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DzhmFv5xEeKcL41_Dkkbug" name="Video">
+    <ownedAttribute xmi:id="_DzhmF_5xEeKcL41_Dkkbug" name="media" visibility="private" type="_DziMtP5xEeKcL41_Dkkbug" association="_DziM9f5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmGP5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmGf5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmGv5xEeKcL41_Dkkbug" name="videoFrameLoss" visibility="private" type="_DziMy_5xEeKcL41_Dkkbug" association="_DziM-P5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmG_5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmHP5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmHf5xEeKcL41_Dkkbug" name="videoFrameLossThreshhold" visibility="private" type="_DziM0P5xEeKcL41_Dkkbug" association="_DziM-f5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmHv5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmH_5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmIP5xEeKcL41_Dkkbug" name="on" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmIf5xEeKcL41_Dkkbug" name="videoQuality" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmIv5xEeKcL41_Dkkbug" name="videoQualityThreshhold" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DzhmI_5xEeKcL41_Dkkbug" name="Audio">
+    <ownedAttribute xmi:id="_DzhmJP5xEeKcL41_Dkkbug" name="media" visibility="private" type="_DziMtP5xEeKcL41_Dkkbug" association="_DziM9v5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmJf5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmJv5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmJ_5xEeKcL41_Dkkbug" name="audioFrameLoss" visibility="private" type="_DziM1f5xEeKcL41_Dkkbug" association="_DziM-v5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmKP5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmKf5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmKv5xEeKcL41_Dkkbug" name="audioFrameLossThreshhold" visibility="private" type="_DziM2v5xEeKcL41_Dkkbug" association="_DziM-_5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmK_5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmLP5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmLf5xEeKcL41_Dkkbug" name="on" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmLv5xEeKcL41_Dkkbug" name="PESQ" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DzhmL_5xEeKcL41_Dkkbug" name="PESQThreshhold" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DzhmMP5xEeKcL41_Dkkbug" name="SystemUnit">
+    <ownedAttribute xmi:id="_DzhmMf5xEeKcL41_Dkkbug" name="saturn" visibility="private" type="_DzhmDP5xEeKcL41_Dkkbug" association="_DziM8_5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DzhmMv5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DzhmM_5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMoP5xEeKcL41_Dkkbug" name="MaximumNumberOfCalls" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMof5xEeKcL41_Dkkbug" name="NumberOfActiveCalls" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziMov5xEeKcL41_Dkkbug" name="Conference">
+    <ownedAttribute xmi:id="_DziMo_5xEeKcL41_Dkkbug" name="saturn" visibility="private" type="_DzhmDP5xEeKcL41_Dkkbug" association="_DziM9P5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMpP5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMpf5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMpv5xEeKcL41_Dkkbug" name="PresentationMode" visibility="private" type="_DziM7v5xEeKcL41_Dkkbug"/>
+    <ownedAttribute xmi:id="_DziMp_5xEeKcL41_Dkkbug" name="call" visibility="private" type="_DziMqv5xEeKcL41_Dkkbug" association="_DziM_P5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMqP5xEeKcL41_Dkkbug" value="3"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMqf5xEeKcL41_Dkkbug" value="3"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziMqv5xEeKcL41_Dkkbug" name="Call">
+    <ownedAttribute xmi:id="_DziMq_5xEeKcL41_Dkkbug" name="conference" visibility="private" type="_DziMov5xEeKcL41_Dkkbug" association="_DziM_P5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMrP5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMrf5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMrv5xEeKcL41_Dkkbug" name="outgoingPresentationChannel" visibility="private" type="_DziMwf5xEeKcL41_Dkkbug" association="_DziM_f5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMr_5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMsP5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMsf5xEeKcL41_Dkkbug" name="incomingPresentationChannel" visibility="private" type="_DziMxv5xEeKcL41_Dkkbug" association="_DziM_v5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMsv5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMs_5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziMtP5xEeKcL41_Dkkbug" name="Media">
+    <ownedAttribute xmi:id="_DziMtf5xEeKcL41_Dkkbug" name="saturn" visibility="private" type="_DzhmDP5xEeKcL41_Dkkbug" association="_DziM8v5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMtv5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMt_5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMuP5xEeKcL41_Dkkbug" name="video" visibility="private" type="_DzhmFv5xEeKcL41_Dkkbug" association="_DziM9f5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMuf5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMuv5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMu_5xEeKcL41_Dkkbug" name="audio" visibility="private" type="_DzhmI_5xEeKcL41_Dkkbug" association="_DziM9v5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMvP5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMvf5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMvv5xEeKcL41_Dkkbug" name="synchronizationMismatch" visibility="private" type="_DziM3_5xEeKcL41_Dkkbug" association="_DziM9_5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMv_5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMwP5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziMwf5xEeKcL41_Dkkbug" name="OutgoingPresentationChannel">
+    <ownedAttribute xmi:id="_DziMwv5xEeKcL41_Dkkbug" name="call" visibility="private" type="_DziMqv5xEeKcL41_Dkkbug" association="_DziM_f5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMw_5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMxP5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMxf5xEeKcL41_Dkkbug" name="Protocol" visibility="private" type="_DziM5f5xEeKcL41_Dkkbug"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziMxv5xEeKcL41_Dkkbug" name="IncomingPresentationChannel">
+    <ownedAttribute xmi:id="_DziMx_5xEeKcL41_Dkkbug" name="call" visibility="private" type="_DziMqv5xEeKcL41_Dkkbug" association="_DziM_v5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMyP5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMyf5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMyv5xEeKcL41_Dkkbug" name="Protocol" visibility="private" type="_DziM5f5xEeKcL41_Dkkbug"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziMy_5xEeKcL41_Dkkbug" name="VideoFrameLoss">
+    <ownedAttribute xmi:id="_DziMzP5xEeKcL41_Dkkbug" name="video" visibility="private" type="_DzhmFv5xEeKcL41_Dkkbug" association="_DziM-P5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziMzf5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziMzv5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziMz_5xEeKcL41_Dkkbug" name="value" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziM0P5xEeKcL41_Dkkbug" name="VideoFrameLossThreshhold">
+    <ownedAttribute xmi:id="_DziM0f5xEeKcL41_Dkkbug" name="video" visibility="private" type="_DzhmFv5xEeKcL41_Dkkbug" association="_DziM-f5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziM0v5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziM0_5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziM1P5xEeKcL41_Dkkbug" name="value" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziM1f5xEeKcL41_Dkkbug" name="AudioFrameLoss">
+    <ownedAttribute xmi:id="_DziM1v5xEeKcL41_Dkkbug" name="audio" visibility="private" type="_DzhmI_5xEeKcL41_Dkkbug" association="_DziM-v5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziM1_5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziM2P5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziM2f5xEeKcL41_Dkkbug" name="value" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziM2v5xEeKcL41_Dkkbug" name="AudioFrameLossThreshhold">
+    <ownedAttribute xmi:id="_DziM2_5xEeKcL41_Dkkbug" name="audio" visibility="private" type="_DzhmI_5xEeKcL41_Dkkbug" association="_DziM-_5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziM3P5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziM3f5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziM3v5xEeKcL41_Dkkbug" name="value" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DziM3_5xEeKcL41_Dkkbug" name="SynchronizationMismatchLength">
+    <ownedAttribute xmi:id="_DziM4P5xEeKcL41_Dkkbug" name="media" visibility="private" type="_DziMtP5xEeKcL41_Dkkbug" association="_DziM9_5xEeKcL41_Dkkbug">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DziM4f5xEeKcL41_Dkkbug" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DziM4v5xEeKcL41_Dkkbug" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziM4_5xEeKcL41_Dkkbug" name="value" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DziM5P5xEeKcL41_Dkkbug" name="unit" visibility="private" type="_DziM6f5xEeKcL41_Dkkbug"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_DziM5f5xEeKcL41_Dkkbug" name="VideoProtocol">
+    <ownedLiteral xmi:id="_DziM5v5xEeKcL41_Dkkbug" name="Off" classifier="_DziM5f5xEeKcL41_Dkkbug"/>
+    <ownedLiteral xmi:id="_DziM5_5xEeKcL41_Dkkbug" name="H323" classifier="_DziM5f5xEeKcL41_Dkkbug"/>
+    <ownedLiteral xmi:id="_DziM6P5xEeKcL41_Dkkbug" name="SIP" classifier="_DziM5f5xEeKcL41_Dkkbug"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_DziM6f5xEeKcL41_Dkkbug" name="TimeUnitKind">
+    <ownedLiteral xmi:id="_DziM6v5xEeKcL41_Dkkbug" name="s" classifier="_DziM6f5xEeKcL41_Dkkbug"/>
+    <ownedLiteral xmi:id="_DziM6_5xEeKcL41_Dkkbug" name="tick" classifier="_DziM6f5xEeKcL41_Dkkbug"/>
+    <ownedLiteral xmi:id="_DziM7P5xEeKcL41_Dkkbug" name="ms" classifier="_DziM6f5xEeKcL41_Dkkbug"/>
+    <ownedLiteral xmi:id="_DziM7f5xEeKcL41_Dkkbug" name="us" classifier="_DziM6f5xEeKcL41_Dkkbug"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_DziM7v5xEeKcL41_Dkkbug" name="Mode">
+    <ownedLiteral xmi:id="_DziM7_5xEeKcL41_Dkkbug" name="Off" classifier="_DziM7v5xEeKcL41_Dkkbug"/>
+    <ownedLiteral xmi:id="_DziM8P5xEeKcL41_Dkkbug" name="Sending" classifier="_DziM7v5xEeKcL41_Dkkbug"/>
+    <ownedLiteral xmi:id="_DziM8f5xEeKcL41_Dkkbug" name="Receiving" classifier="_DziM7v5xEeKcL41_Dkkbug"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM8v5xEeKcL41_Dkkbug" memberEnd="_DzhmDf5xEeKcL41_Dkkbug _DziMtf5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM8_5xEeKcL41_Dkkbug" memberEnd="_DzhmEP5xEeKcL41_Dkkbug _DzhmMf5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM9P5xEeKcL41_Dkkbug" memberEnd="_DzhmE_5xEeKcL41_Dkkbug _DziMo_5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM9f5xEeKcL41_Dkkbug" memberEnd="_DziMuP5xEeKcL41_Dkkbug _DzhmF_5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM9v5xEeKcL41_Dkkbug" memberEnd="_DziMu_5xEeKcL41_Dkkbug _DzhmJP5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM9_5xEeKcL41_Dkkbug" memberEnd="_DziMvv5xEeKcL41_Dkkbug _DziM4P5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM-P5xEeKcL41_Dkkbug" memberEnd="_DzhmGv5xEeKcL41_Dkkbug _DziMzP5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM-f5xEeKcL41_Dkkbug" memberEnd="_DzhmHf5xEeKcL41_Dkkbug _DziM0f5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM-v5xEeKcL41_Dkkbug" memberEnd="_DzhmJ_5xEeKcL41_Dkkbug _DziM1v5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM-_5xEeKcL41_Dkkbug" memberEnd="_DzhmKv5xEeKcL41_Dkkbug _DziM2_5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM_P5xEeKcL41_Dkkbug" memberEnd="_DziMp_5xEeKcL41_Dkkbug _DziMq_5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM_f5xEeKcL41_Dkkbug" memberEnd="_DziMrv5xEeKcL41_Dkkbug _DziMwv5xEeKcL41_Dkkbug"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DziM_v5xEeKcL41_Dkkbug" memberEnd="_DziMsf5xEeKcL41_Dkkbug _DziMx_5xEeKcL41_Dkkbug"/>
+  <profileApplication xmi:id="_DziM__5xEeKcL41_Dkkbug">
+    <eAnnotations xmi:id="_DziNAP5xEeKcL41_Dkkbug" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+    </eAnnotations>
+    <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+  </profileApplication>
+</uml:Package>
