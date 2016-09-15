@@ -62,6 +62,27 @@ public class SolveProblem implements Problem {
 
     List<String> solutions = new ArrayList<>();
 
+    private String getPath() {
+        String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        if (path.lastIndexOf(File.separator) != path.length()) {
+            try {
+                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
+            } catch (Exception e) {
+                path = path.substring(0, path.lastIndexOf("/")) + File.separator;
+            }
+        } else {
+            path = path.substring(0, path.length() - 2);
+            try {
+                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
+            } catch (Exception e) {
+                path = path.substring(0, path.lastIndexOf("/")) + File.separator;
+            }
+        }
+
+        return path;
+    }
+
+
     public SolveProblem(String inputModelPath, String[] inputProfilePaths,
                         File inputOclConstraintsPath) {
 
@@ -91,10 +112,7 @@ public class SolveProblem implements Problem {
             } else {
 
 
-                String path = getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
-
-                path += "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
+                String path = getPath() + "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
 
                 // System.out.println(path);
 
@@ -127,6 +145,7 @@ public class SolveProblem implements Problem {
     }
 
 
+
     public SolveProblem(String inputModelPath, String[] inputProfilePaths,
                         String inputOclConstraintsPath) {
 
@@ -146,22 +165,17 @@ public class SolveProblem implements Problem {
 
 
             File file = new File(getClass().getClassLoader().getResource("lib/org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar").getFile());
-          //  System.out.println(file.getAbsolutePath());
+            //  System.out.println(file.getAbsolutePath());
             if (file.exists()) {
                 model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
                                 inputModelPath),
                         new File(getClass().getClassLoader().getResource("lib/org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar").getFile()));
 
-               // System.out.println("File exists");
+                // System.out.println("File exists");
             } else {
 
-
-                String path = getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
-
-                path += "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
-
-               // System.out.println(path);
+                String path = getPath() + "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
+                // System.out.println(path);
 
                 model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
                                 inputModelPath),

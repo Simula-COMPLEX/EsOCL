@@ -20,7 +20,7 @@ public class Utility {
      */
     private static Utility instance;
     /**
-     * Returns the single instance of the {@link StandaloneFacade}.
+     * Returns the single instance of the {@link Utility}.
      */
     public static Utility INSTANCE = instance();
     Document modelDoc;
@@ -64,8 +64,17 @@ public class Utility {
     }
 
     public double formatValue(double value) {
-        DecimalFormat df = new DecimalFormat(".000000000000000000000");
-        return Double.valueOf(df.format(value));
+        try {
+            DecimalFormat df = new DecimalFormat(".000000000000000000000");
+            return Double.valueOf(df.format(value));
+        } catch (NumberFormatException e) {
+            try {
+                DecimalFormat df = new DecimalFormat(",000000000000000000000");
+                return Double.valueOf(df.format(value));
+            } catch (NumberFormatException e2) {
+                return 0.0;
+            }
+        }
     }
 
     public double formatRealValueWithoutZero(String afterDecimal) {
@@ -74,7 +83,13 @@ public class Utility {
         for (int i = length - 1; i >= 0; i--) {
             if (sBuffer.charAt(i) == '0') sBuffer.deleteCharAt(i);
         }
-        return Double.valueOf(sBuffer.toString());
+
+        try {
+            return Double.valueOf(sBuffer.toString());
+        } catch (NumberFormatException e2) {
+            return 0.0;
+        }
+
     }
 
     public double normalize(double value) {
