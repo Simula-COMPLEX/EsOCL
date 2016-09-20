@@ -1,3 +1,3 @@
 @echo off
 echo "EsOCL"
-java -jar "%cd%"\jars\EsOCL.jar %*
+java -jar %~dp0\jars\EsOCL.jar %* -u %~dp0\jars\

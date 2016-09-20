@@ -175,7 +175,10 @@ public class UMLModelInsGenerator {
                  */
 
                 List<UMLObjectIns> assUoiList = new ArrayList<UMLObjectIns>();
-                int numberOfAssClassIns = Integer.valueOf(ves.getValue());
+                int numberOfAssClassIns = 0;
+                if (ves.getValue() != null) {
+                    numberOfAssClassIns = Integer.valueOf(ves.getValue());
+                }
                 List<ValueElement4Search> assVes4SameClassList = this.vesGenerator
                         .getVesList4Class(ves.getDestinationClass());
                 for (int i = 0; i < numberOfAssClassIns; i++) {

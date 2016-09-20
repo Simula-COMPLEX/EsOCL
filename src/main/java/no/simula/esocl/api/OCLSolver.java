@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OCLSolver {
-
+    public static String umlpath;
     static Logger logger = Logger.getLogger(OCLSolver.class);
 
     public static void main(String[] args) throws ParseException {
@@ -44,8 +44,19 @@ public class OCLSolver {
         option6.setArgs(0);
         options.addOption(option6);
 
+        Option option7 = new Option("u", "uml", false, "UML JAR File");
+        option7.setArgs(1);
+        options.addOption(option7);
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
+
+        if ((cmd.hasOption("u") || cmd.hasOption("uml"))) {
+            umlpath = cmd.getOptionValue("u");
+            if (umlpath == null || umlpath.isEmpty()) {
+                umlpath = cmd.getOptionValue("uml");
+            }
+        }
 
 
         if ((cmd.hasOption("m") || cmd.hasOption("model")) && (cmd.hasOption("c") || cmd.hasOption("constraint") || cmd.hasOption("f") || cmd.hasOption("constraintfile"))) {

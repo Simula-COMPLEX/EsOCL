@@ -1,5 +1,6 @@
 package no.simula.esocl.ocl.distance;
 
+import no.simula.esocl.api.OCLSolver;
 import no.simula.esocl.oclga.EnAndDecoding;
 import no.simula.esocl.oclga.GeneValueScope;
 import no.simula.esocl.oclga.Problem;
@@ -29,6 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SolveProblem implements Problem {
+
     static Logger logger = Logger.getLogger(SolveProblem.class);
     // after loading the model file, it is the parsed model
     IModel model;
@@ -80,6 +82,7 @@ public class SolveProblem implements Problem {
         }
 
         return path;
+
     }
 
 
@@ -114,11 +117,24 @@ public class SolveProblem implements Problem {
 
                 String path = getPath() + "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
 
-                // System.out.println(path);
 
-                model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
-                                inputModelPath),
-                        new File(path));
+                file = new File(path);
+                if (file.exists()) {
+                    model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
+                                    inputModelPath),
+                            file);
+                } else {
+
+                    path = OCLSolver.umlpath + "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
+
+                    model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
+                                    inputModelPath),
+                            file);
+
+                }
+
+                System.out.println("jar Path: " + path);
+
 
             }
 
@@ -143,7 +159,6 @@ public class SolveProblem implements Problem {
             e.printStackTrace();
         }
     }
-
 
 
     public SolveProblem(String inputModelPath, String[] inputProfilePaths,
@@ -175,7 +190,7 @@ public class SolveProblem implements Problem {
             } else {
 
                 String path = getPath() + "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
-                // System.out.println(path);
+                System.out.println("jar Path: " + path);
 
                 model = StandaloneFacade.INSTANCE.loadUMLModel(new File(
                                 inputModelPath),

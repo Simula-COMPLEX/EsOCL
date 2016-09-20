@@ -157,10 +157,25 @@ public class SearchEngineDriver {
             result.setSolution(solutions.get(solutions.size() - 1));
         }
 
-        logger.info("Algo: " + result.getAlgo());
-        logger.info("Result: " + result.getResult());
-        logger.info("Iterations:" + result.getIternations());
-        logger.info("Solution: " + result.getSolution());
+        logger.debug("Constraint: "+constraint);
+        logger.debug("Algo: " + result.getAlgo());
+        logger.debug("Result: " + result.getResult());
+        logger.debug("Iterations:" + result.getIternations());
+        logger.debug("Solution: " + result.getSolution());
+
+
+
+        System.out.println("Constraint: "+constraint);
+        System.out.println("Algo: " + result.getAlgo());
+        System.out.println("Result: " + result.getResult());
+        System.out.println("Iterations:" + result.getIternations());
+        if (result.getSolution()!=null){
+            System.out.println("Solution: ");
+            for (String solution:result.getSolution().split(",")) {
+                System.out.println(solution);
+            }
+        }
+
 
 
         return result;
