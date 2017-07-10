@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.modelinstance;
 
 import org.dresdenocl.essentialocl.types.CollectionType;
@@ -14,20 +26,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class RModelInsObject extends AbstractModelInstanceObject implements
         IModelInstanceObject {
-    /**
-     * The XML {@link Node} adapted by this {@link XmlModelInstanceObject}.
-     */
-    protected AbstUMLModelIns aumi;
 
-    /**
-     * The {@link IModelInstanceFactory} to adapt properties of this {@link XmlModelInstanceObject}.
-     */
-    protected IModelInstanceFactory modelInstanceFactory;
+    private AbstUMLModelIns aumi;
 
-    protected RModelInsObject(AbstUMLModelIns aumi, Type type,
-                              Type originalType, IModelInstanceFactory factory) {
+
+    private IModelInstanceFactory modelInstanceFactory;
+
+    public RModelInsObject(AbstUMLModelIns aumi, Type type,
+                           Type originalType, IModelInstanceFactory factory) {
         super(type, originalType);
         this.aumi = aumi;
         this.modelInstanceFactory = factory;
@@ -39,7 +52,7 @@ public class RModelInsObject extends AbstractModelInstanceObject implements
 
     @Override
     public IModelInstanceElement asType(Type type) throws AsTypeCastException {
-        // TODO Auto-generated method stub
+
         System.out.println("asType() ");
         if (type == null) {
             throw new IllegalArgumentException(
@@ -69,7 +82,7 @@ public class RModelInsObject extends AbstractModelInstanceObject implements
 
     @Override
     public IModelInstanceElement copyForAtPre() throws CopyForAtPreException {
-        // TODO Auto-generated method stub
+
         System.out.println("copyForAtPre() ");
         IModelInstanceElement result;
 
@@ -89,7 +102,7 @@ public class RModelInsObject extends AbstractModelInstanceObject implements
 
     @Override
     public Object getObject() {
-        // TODO Auto-generated method stub
+
         return this.aumi;
     }
 
@@ -125,7 +138,7 @@ public class RModelInsObject extends AbstractModelInstanceObject implements
     @Override
     public IModelInstanceElement getProperty(Property property)
             throws PropertyAccessException, PropertyNotFoundException {
-        // TODO Auto-generated method stub
+
         if (property == null) {
             throw new IllegalArgumentException(
                     "Parameter 'property' must not be null.");
@@ -213,7 +226,7 @@ public class RModelInsObject extends AbstractModelInstanceObject implements
     public IModelInstanceElement invokeOperation(Operation operation,
                                                  List<IModelInstanceElement> args)
             throws OperationNotFoundException, OperationAccessException {
-        // TODO Auto-generated method stub
+
         if (operation == null) {
             throw new IllegalArgumentException(
                     "Parameter 'operation' must not be null.");
@@ -251,4 +264,12 @@ public class RModelInsObject extends AbstractModelInstanceObject implements
         return result;
     }
 
+
+    public AbstUMLModelIns getAumi() {
+        return aumi;
+    }
+
+    public void setAumi(AbstUMLModelIns aumi) {
+        this.aumi = aumi;
+    }
 }

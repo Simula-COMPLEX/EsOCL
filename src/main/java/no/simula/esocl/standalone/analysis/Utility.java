@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.analysis;
 
 import no.simula.esocl.ocl.distance.ValueElement4Search;
@@ -12,6 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class Utility {
 
     public static double K = 1;
@@ -23,8 +40,8 @@ public class Utility {
      * Returns the single instance of the {@link Utility}.
      */
     public static Utility INSTANCE = instance();
-    Document modelDoc;
-    Document[] profileDocs;
+    private Document modelDoc;
+    private Document[] profileDocs;
 
     private static Utility instance() {
 
@@ -44,11 +61,11 @@ public class Utility {
         System.out.println(Utility.instance.formatRealValueWithoutZero(str1));
     }
 
-    public void initialUMLDoc(String inputModelFilePath,
+    public void initialUMLDoc(File inputModelFilePath,
                               String[] inputProfileFilePaths) {
         SAXReader sax = new SAXReader();
         try {
-            this.modelDoc = sax.read(new File(inputModelFilePath));
+            this.modelDoc = sax.read(inputModelFilePath);
             if (inputProfileFilePaths.length != 0) {
                 this.profileDocs = new Document[inputProfileFilePaths.length];
                 for (int i = 0; i < inputProfileFilePaths.length; i++) {
@@ -58,7 +75,6 @@ public class Utility {
             }
 
         } catch (DocumentException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -1,25 +1,42 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.ocl.distance;
 
 import org.dresdenocl.pivotmodel.Property;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class ValueElement4Search {
 
     // the class that has the attribute
-    String sourceClass;
+    private String sourceClass;
     // the associate class
-    String destinationClass;
+    private String destinationClass;
     // the name of attribute or association
-    String attributeName;
+    private String attributeName;
     // the name of enumeration type
-    String enumType;
+    private String enumType;
     // the concrete value of element
-    String value;
+    private String value;
 
-    Property property;
+    private Property property;
 
-    int maxValue, minValue;
+    private int maxValue, minValue;
     // the int label of type
-    int type;
+    private int type;
 
     public String getSourceClass() {
         return sourceClass;
@@ -94,7 +111,7 @@ public class ValueElement4Search {
     }
 
     public ValueElement4Search createNewInstance() {
-        // TODO Auto-generated method stub
+
         ValueElement4Search newVes = new ValueElement4Search();
         newVes.setSourceClass(this.sourceClass);
         newVes.setDestinationClass(this.destinationClass);

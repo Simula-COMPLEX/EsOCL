@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.analysis;
 
 import org.apache.log4j.Logger;
@@ -24,18 +36,23 @@ import org.eclipse.emf.ecore.EObject;
 
 import java.util.*;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class OCLExpUtility {
     public static String OP_COMPLEX_SELECT_SIZE = "op_complex_select_size";
     public static String OP_COMPLEX_SELECT_ITERATE = "op_complex_select_iterate";
     public static String[] OP_BOOLEAN = {"implies", "not", "and", "or", "xor"};
     public static String[] OP_COMPARE = {"=", "<>", "<", "<=", ">", ">="};
-    public static String[] OP_BOUND = {"<", "<=", ">", ">="};
+    private static String[] OP_BOUND = {"<", "<=", ">", ">="};
     public static String[] OP_ITERATE = {"forAll", "exists", "isUnique", "one"};
     public static String[] OP_CHECK = {"includes", "excludes", "includesAll", "excludesAll", "isEmpty"};
-    public static String[] OP_SELECT = {"select", "reject", "collect"};
+    private static String[] OP_SELECT = {"select", "reject", "collect"};
     public static String[] OP_MISCELLANEOUS = {"oclIsTypeOf", "oclIsKindOf",
             "oclIsNew", "oclIsUndefined", "oclIsInvalid"};
-    static Logger logger = Logger.getLogger(OCLExpUtility.class);
+    private static Logger logger = Logger.getLogger(OCLExpUtility.class);
     /**
      * singleton instance
      */
@@ -101,9 +118,9 @@ public class OCLExpUtility {
             return;
         int now_depth = depth;
         for (EObject eObject : contents) {
-            String depthstring = "";
+            StringBuilder depthstring = new StringBuilder();
             for (int i = 0; i < depth; i++) {
-                depthstring += "***";
+                depthstring.append("***");
             }
             EAttribute eatt = eObject.eClass().getEAllAttributes().get(0);
             String name = null;
@@ -120,20 +137,20 @@ public class OCLExpUtility {
 
 //			String name = eObject.eGet(eatt).toString();
 //			ExpressionInOclImpl ex = (ExpressionInOclImpl) eObject;
-            logger.debug(depthstring + " " + eObject.toString());
+            logger.debug(depthstring.toString() + " " + eObject.toString());
             printChild(eObject, ++now_depth);
         }
 
     }
-// add by luhong: build the abstract tree
-//	public void printOclClause4Depth(EObject e) {
-//		int depth = 0;
-//		for (EObject eObject : e.eContents()) {
-//			logger.debug(eObject.toString());
-//			printChild(eObject, ++depth);
-//			depth = 0;
-//		}
-//	}
+
+	/*public void printOclClause4Depth(EObject e) {
+		int depth = 0;
+		for (EObject eObject : e.eContents()) {
+			logger.debug(eObject.toString());
+			printChild(eObject, ++depth);
+			depth = 0;
+		}
+	}*/
 
     public void printOclClause4Depth(EObject e) {
         int depth = 0;
@@ -148,18 +165,19 @@ public class OCLExpUtility {
     }
 
     public String getOppositeOp(String opName) {
-        if (opName.equals("=")) {
-            return "<>";
-        } else if (opName.equals("<>")) {
-            return "=";
-        } else if (opName.equals("<")) {
-            return ">=";
-        } else if (opName.equals("<=")) {
-            return ">";
-        } else if (opName.equals(">")) {
-            return "<=";
-        } else if (opName.equals(">=")) {
-            return "<";
+        switch (opName) {
+            case "=":
+                return "<>";
+            case "<>":
+                return "=";
+            case "<":
+                return ">=";
+            case "<=":
+                return ">";
+            case ">":
+                return "<=";
+            case ">=":
+                return "<";
         }
         return null;
     }
@@ -179,7 +197,7 @@ public class OCLExpUtility {
             }
         }
         if (exp instanceof IteratorExpImpl) {
-            EObject select_iterate_Exp = ((IteratorExpImpl) exp).eContents()
+            EObject select_iterate_Exp = exp.eContents()
                     .get(0);
             if (select_iterate_Exp instanceof IteratorExpImpl) {
                 String select_iterate_Exp_opName = ((IteratorExpImpl) select_iterate_Exp)
@@ -194,8 +212,8 @@ public class OCLExpUtility {
     }
 
     public boolean isBelongToOp(String opName, String[] ops) {
-        for (int i = 0; i < ops.length; i++) {
-            if (ops[i].equals(opName))
+        for (String op : ops) {
+            if (op.equals(opName))
                 return true;
         }
         return false;
@@ -249,7 +267,7 @@ public class OCLExpUtility {
             if (e instanceof OperationCallExpImpl) {
                 OperationCallExpImpl oce = (OperationCallExpImpl) e;
                 if (isBelongToOp(oce.getReferredOperation().getName(),
-                        this.OP_BOUND)) {
+                        OP_BOUND)) {
                     OclExpression rightExp = (OclExpression) oce.eContents()
                             .get(1);
                     if (rightExp instanceof IntegerLiteralExpImpl) {
@@ -295,12 +313,7 @@ public class OCLExpUtility {
         }
     }
 
-    /**
-     * typeArray[i][0] value-1; typeArray[i][1] value; typeArray[i][2] value+1;
-     *
-     * @param oceSet
-     * @return
-     */
+
     public String[][] buildBoundTypeArray(Set<OperationCallExpImpl> oceSet) {
         String[][] typeArray = new String[oceSet.size()][3];
         OperationCallExpImpl[] oceArray = new OperationCallExpImpl[oceSet
@@ -309,22 +322,27 @@ public class OCLExpUtility {
         for (int i = 0; i < oceArray.length; i++) {
             OperationCallExpImpl oce = oceArray[i];
             String opName = oce.getReferredOperation().getName();
-            if (opName.equals("<")) {
-                typeArray[i][0] = "valid";
-                typeArray[i][1] = "invalid";
-                typeArray[i][2] = "invalid";
-            } else if (opName.equals("<=")) {
-                typeArray[i][0] = "valid";
-                typeArray[i][1] = "valid";
-                typeArray[i][2] = "invalid";
-            } else if (opName.equals(">")) {
-                typeArray[i][0] = "invalid";
-                typeArray[i][1] = "invalid";
-                typeArray[i][2] = "valid";
-            } else if (opName.equals(">=")) {
-                typeArray[i][0] = "invalid";
-                typeArray[i][1] = "valid";
-                typeArray[i][2] = "valid";
+            switch (opName) {
+                case "<":
+                    typeArray[i][0] = "valid";
+                    typeArray[i][1] = "invalid";
+                    typeArray[i][2] = "invalid";
+                    break;
+                case "<=":
+                    typeArray[i][0] = "valid";
+                    typeArray[i][1] = "valid";
+                    typeArray[i][2] = "invalid";
+                    break;
+                case ">":
+                    typeArray[i][0] = "invalid";
+                    typeArray[i][1] = "invalid";
+                    typeArray[i][2] = "valid";
+                    break;
+                case ">=":
+                    typeArray[i][0] = "invalid";
+                    typeArray[i][1] = "valid";
+                    typeArray[i][2] = "valid";
+                    break;
             }
         }
         return typeArray;

@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.analysis;
 
 import java.io.IOException;
@@ -6,17 +18,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class ClassLoaderUtil {
-    /**
-     * Thread.currentThread().getContextClassLoader().getResource("")
-     */
 
-    /**
-     * ����Java�ࡣ ʹ��ȫ�޶�����
-     *
-     * @return
-     * @paramclassName
-     */
     public static Class loadClass(String className) {
         try {
             return getClassLoader().loadClass(className);
@@ -25,24 +33,13 @@ public class ClassLoaderUtil {
         }
     }
 
-    /**
-     * �õ��������
-     *
-     * @return
-     */
+
     public static ClassLoader getClassLoader() {
 
         return ClassLoaderUtil.class.getClassLoader();
     }
 
-    /**
-     * �ṩ�����classpath����Դ·���������ļ���������
-     *
-     * @return �ļ�������
-     * @paramrelativePath���봫����Դ�����·�����������classpath��·���������Ҫ����classpath�ⲿ����Դ����Ҫʹ��../������
-     * @throwsIOException
-     * @throwsMalformedURLException
-     */
+
     public static InputStream getStream(String relativePath)
             throws MalformedURLException, IOException {
         if (!relativePath.contains("../")) {
@@ -54,11 +51,7 @@ public class ClassLoaderUtil {
 
     }
 
-    /**
-     * @return
-     * @paramurl
-     * @throwsIOException
-     */
+
     public static InputStream getStream(URL url) throws IOException {
         if (url != null) {
 
@@ -69,12 +62,7 @@ public class ClassLoaderUtil {
         }
     }
 
-    /**
-     * @return
-     * @paramrelativePath���봫����Դ�����·�����������classpath��·���������Ҫ����classpath�ⲿ����Դ����Ҫʹ��../������
-     * @throwsMalformedURLException
-     * @throwsIOException
-     */
+
     public static InputStream getStreamByExtendResource(String relativePath)
             throws MalformedURLException, IOException {
         return ClassLoaderUtil.getStream(ClassLoaderUtil
@@ -82,12 +70,6 @@ public class ClassLoaderUtil {
 
     }
 
-    /**
-     * �ṩ�����classpath����Դ·�����������Զ�������һ��ɢ�б�
-     *
-     * @return
-     * @paramresource
-     */
     public static Properties getProperties(String resource) {
         Properties properties = new Properties();
         try {
@@ -99,22 +81,13 @@ public class ClassLoaderUtil {
         return properties;
     }
 
-    /**
-     * �õ���Class���ڵ�ClassLoader��Classpat�ľ���·���� URL��ʽ��
-     *
-     * @return
-     */
     public static String getAbsolutePathOfClassLoaderClassPath() {
 
         return ClassLoaderUtil.getClassLoader().getResource("").toString();
 
     }
 
-    /**
-     * @paramrelativePath ���봫����Դ�����·�����������classpath��·���������Ҫ����classpath�ⲿ����Դ����Ҫʹ��../������
-     * @return��Դ�ľ���URL
-     * @throwsMalformedURLException
-     */
+
     public static URL getExtendResource(String relativePath)
             throws MalformedURLException {
 

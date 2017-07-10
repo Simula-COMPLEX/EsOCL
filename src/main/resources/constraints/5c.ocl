@@ -1,0 +1,4 @@
+package Test2
+ context A 
+inv initial: self.b->select(b|b.x=0)->size()>6 
+endpackage

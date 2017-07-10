@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.modelinstance;
 
 import org.dresdenocl.model.IModel;
@@ -11,6 +23,11 @@ import org.dresdenocl.pivotmodel.Property;
 
 import java.util.List;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class RModelIns extends AbstractModelInstance {
 
     private static int nameCounter = 0;
@@ -42,7 +59,7 @@ public class RModelIns extends AbstractModelInstance {
     @Override
     public IModelInstanceElement addModelInstanceElement(Object object)
             throws TypeNotFoundInModelException {
-        // TODO Auto-generated method stub
+
         if (object == null) {
             throw new IllegalArgumentException(
                     "Parameter 'object' must not be null.");
@@ -104,7 +121,7 @@ public class RModelIns extends AbstractModelInstance {
     @Override
     public IModelInstanceElement getStaticProperty(Property arg0)
             throws PropertyAccessException, PropertyNotFoundException {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
@@ -112,7 +129,7 @@ public class RModelIns extends AbstractModelInstance {
     public IModelInstanceElement invokeStaticOperation(Operation arg0,
                                                        List<IModelInstanceElement> arg1) throws OperationAccessException,
             OperationNotFoundException {
-        // TODO Auto-generated method stub
+
         return null;
     }
 

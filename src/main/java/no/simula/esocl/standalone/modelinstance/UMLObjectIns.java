@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.modelinstance;
 
 import java.util.Collection;
@@ -5,14 +17,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class UMLObjectIns extends AbstUMLModelIns {
 
     private Map<String, Object> propertyMap = new HashMap<String, Object>();
 
     public UMLObjectIns(String qualifiedName, String value) {
-        // The name is qualified name
         super(qualifiedName, value);
-        // TODO Auto-generated constructor stub
     }
 
     public Object getPropertyObject(String propertyName) {

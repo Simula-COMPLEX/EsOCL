@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.analysis;
 
 import no.simula.esocl.standalone.modelinstance.UMLAttributeIns;
@@ -17,12 +29,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class ModelInsFileWriter {
 
-    static int ins_index = 0, slot_index = 0, value_index = 0, spec_index = 0;
-    Document doc;
-    Element rootElement;
-    List<UMLObjectIns> umlObjectInsList;
+    private static int ins_index = 0, slot_index = 0, value_index = 0, spec_index = 0;
+    private Document doc;
+    private Element rootElement;
+    private List<UMLObjectIns> umlObjectInsList;
 
     private Map<UMLObjectIns, String> insMap = new HashMap<UMLObjectIns, String>();
 
@@ -129,14 +146,14 @@ public class ModelInsFileWriter {
 
             }
         }
-        XMLWriter writer = null;// ����дXML�Ķ���
+        XMLWriter writer = null;
         OutputFormat format = OutputFormat.createPrettyPrint();
         try {
             writer = new XMLWriter(new FileWriter(filePath), format);
             writer.write(this.doc);
             writer.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
     }

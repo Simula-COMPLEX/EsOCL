@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.analysis;
 
 import org.dresdenocl.essentialocl.expressions.OclExpression;
@@ -14,8 +26,13 @@ import org.eclipse.emf.ecore.EObject;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class BDC4IterateOp {
-    OclInterpreter interpreter;
+    private OclInterpreter interpreter;
     private Utility utility = Utility.INSTANCE;
     private OCLExpUtility oclExpUtility = OCLExpUtility.INSTANCE;
 
@@ -210,12 +227,12 @@ public class BDC4IterateOp {
         BDC4BooleanOp bdc4BooleanOp = new BDC4BooleanOp(interpreter);
         int count = 0;
         double temp = 0, temp_not = 0;
-        for (int i = 0; i < envArray.length; i++) {
+        for (IModelInstanceElement anEnvArray : envArray) {
             this.interpreter.setEnviromentVariable(oneIterators.get(0)
-                    .getName(), envArray[i]);
+                    .getName(), anEnvArray);
             if (selectParaExp != null) {
                 this.interpreter.setEnviromentVariable(
-                        selectIterator.getName(), envArray[i]);
+                        selectIterator.getName(), anEnvArray);
                 // d(p)
                 temp += bdc4BooleanOp.andOp(env, selectParaExp, oneParaExp);
                 OclAny oneParaResult = this.interpreter.doSwitch(oneParaExp);

@@ -1,12 +1,29 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.oclga;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class SSGA extends Search {
-    protected int population_size;
-    protected double xover_rate;
+    private int population_size;
+    private double xover_rate;
+    double fitness = 0d;
 
     public SSGA() {
         population_size = 100;
@@ -46,8 +63,10 @@ public class SSGA extends Search {
                 best = population[i].fitness_value;
                 reportImprovement();
 
-                if (best == 0d)
+                if (best == 0d) {
+                    fitness = best;
                     return population[i].problem.decoding(population[i].v);
+                }
             }
         }
 
@@ -87,12 +106,16 @@ public class SSGA extends Search {
             Individual[] offspring = xover(father, mother);
 
             mutateAndEvaluateOffspring(offspring[0]);
-            if (offspring[0].fitness_value == 0d)
+            if (offspring[0].fitness_value == 0d) {
+                fitness = offspring[0].fitness_value;
                 return offspring[0].problem.decoding(offspring[0].v);
+            }
 
             mutateAndEvaluateOffspring(offspring[1]);
-            if (offspring[1].fitness_value == 0d)
+            if (offspring[1].fitness_value == 0d) {
+                fitness = offspring[0].fitness_value;
                 return offspring[1].problem.decoding(offspring[1].v);
+            }
 
             double off_min = Math.min(offspring[0].fitness_value, offspring[1].fitness_value);
             double par_min = Math.min(father.fitness_value, mother.fitness_value);
@@ -108,6 +131,8 @@ public class SSGA extends Search {
                 reportImprovement();
             }
         }
+
+        fitness = population[0].fitness_value;
 
         //return the best, ie minimal similarity
         Arrays.sort(population);
@@ -187,4 +212,8 @@ public class SSGA extends Search {
         return "SSGA";
     }
 
+    @Override
+    public double getFitness() {
+        return fitness;
+    }
 }

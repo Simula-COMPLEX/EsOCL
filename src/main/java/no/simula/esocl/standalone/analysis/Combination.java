@@ -1,8 +1,25 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.analysis;
 
 import java.util.ArrayList;
 import java.util.BitSet;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class Combination {
 
     private ArrayList<String> combList = new ArrayList<String>();
@@ -35,16 +52,7 @@ public class Combination {
 
     }
 
-    /**
-     * 1��start ��һ��trueƬ�ε���ʼλ��end��ֹλ
-     * 2���ѵ�һ��trueƬ�ζ���false
-     * 3�������0�±���ʼ���Ե�һ��trueƬ��Ԫ��������һΪ�±��λ�ö���true
-     * 4���ѵ�һ��trueƬ��end��ֹλ��true
-     *
-     * @param bs �����Ƿ���ʾ�ı�־λ
-     * @param m  ���鳤��
-     * @return boolean �Ƿ����������
-     */
+
     private boolean moveNext(BitSet bs, int m) {
         int start = -1;
         while (start < m)
@@ -67,12 +75,7 @@ public class Combination {
         return true;
     }
 
-    /**
-     * ������ɵ���Ͻ��
-     *
-     * @param array ����
-     * @param bs    ����Ԫ���Ƿ���ʾ�ı�־λ����
-     */
+
     private void printAll(String[] array, BitSet bs) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < array.length; i++)

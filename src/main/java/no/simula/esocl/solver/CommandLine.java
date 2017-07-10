@@ -1,17 +1,31 @@
-package no.simula.esocl.api;
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
 
-import no.simula.esocl.experiment.Result;
-import no.simula.esocl.experiment.SearchEngineDriver;
+package no.simula.esocl.solver;
+
+import no.simula.esocl.ocl.distance.Result;
 import org.apache.commons.cli.*;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
-public class OCLSolver {
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
+public class CommandLine {
     public static String umlpath;
-    static Logger logger = Logger.getLogger(OCLSolver.class);
+    static Logger logger = Logger.getLogger(CommandLine.class);
 
     public static void main(String[] args) throws ParseException {
 
@@ -49,7 +63,7 @@ public class OCLSolver {
         options.addOption(option7);
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cmd = parser.parse(options, args);
+        org.apache.commons.cli.CommandLine cmd = parser.parse(options, args);
 
         if ((cmd.hasOption("u") || cmd.hasOption("uml"))) {
             umlpath = cmd.getOptionValue("u");
@@ -60,6 +74,9 @@ public class OCLSolver {
 
 
         if ((cmd.hasOption("m") || cmd.hasOption("model")) && (cmd.hasOption("c") || cmd.hasOption("constraint") || cmd.hasOption("f") || cmd.hasOption("constraintfile"))) {
+
+            OCLSolver searchEngineDriver = new OCLSolver();
+
             String model = cmd.getOptionValue("m");
             if (model == null || model.isEmpty()) {
                 model = cmd.getOptionValue("model");
@@ -99,10 +116,10 @@ public class OCLSolver {
                 }
                 System.out.println(constraint);
 
-                OCLSolver oclSolver = new OCLSolver();
                 try {
-                    Result result = oclSolver.solveConstraint(model, constraint, new String[]{algorithm}, Integer.parseInt(generations));
-                    //   System.out.println(result.getResult());
+                    Result result = searchEngineDriver.solveConstraint(model, constraint, new String[]{algorithm}, Integer.parseInt(generations));
+
+                    searchEngineDriver.printResults(result);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -128,10 +145,14 @@ public class OCLSolver {
                         return;
                     }
 
-                    OCLSolver oclSolver = new OCLSolver();
+
                     try {
-                        Result result = oclSolver.solveConstraint(model, file, new String[]{algorithm}, Integer.parseInt(generations));
-                        //   System.out.println(result.getResult());
+
+
+                        Result result = searchEngineDriver.solveConstraint(model, file, new String[]{algorithm}, Integer.parseInt(generations));
+                        searchEngineDriver.printResults(result);
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -151,56 +172,6 @@ public class OCLSolver {
             return;
         }
 
-
-    }
-
-
-    public Result solveConstraint(String inputModel, File constraint, String alogs[], Integer iterations) throws Exception {
-
-        Map<String, Integer> alogkeys = new HashMap<>();
-        alogkeys.put("AVM", 0);
-        alogkeys.put("SSGA", 1);
-        alogkeys.put("OpOEA", 2);
-        alogkeys.put("RandomSearch", 3);
-
-        for (String algo : alogs) {
-
-            int alogokey = alogkeys.get(algo);
-            SearchEngineDriver searchEngineDriver = new SearchEngineDriver();
-            Result result = searchEngineDriver.solveConstraint(inputModel, constraint, alogokey, 0, 500);
-            if (result.getResult()) {
-                return result;
-            }
-        }
-
-        Result result = new Result();
-        result.setResult(false);
-        return result;
-
-    }
-
-    public Result solveConstraint(String inputModel, String constraint, String alogs[], Integer iterations) throws Exception {
-
-        Map<String, Integer> alogkeys = new HashMap<>();
-        alogkeys.put("AVM", 0);
-        alogkeys.put("SSGA", 1);
-        alogkeys.put("OpOEA", 2);
-        alogkeys.put("RandomSearch", 3);
-
-
-        for (String algo : alogs) {
-
-            int alogokey = alogkeys.get(algo);
-            SearchEngineDriver searchEngineDriver = new SearchEngineDriver();
-            Result result = searchEngineDriver.solveConstraint(inputModel, constraint, alogokey, 0, 500);
-            if (result.getResult()) {
-                return result;
-            }
-        }
-
-        Result result = new Result();
-        result.setResult(false);
-        return result;
 
     }
 

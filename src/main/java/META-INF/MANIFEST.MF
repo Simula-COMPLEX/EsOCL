@@ -27,5 +27,5 @@ Class-Path: axis.jar saaj.jar jaxrpc.jar wsdl4j.jar alf-base.jar poi-3
  .0-20130528.130634-1.jar org.dresdenocl.examples.university-3.4.1-201
  51210.224234-1.jar org.dresdenocl.examples.royalandloyal-3.4.1-201512
  10.224545-1.jar
-Main-Class: no.simula.esocl.api.OCLSolver
+Main-Class: no.simula.esocl.solver.CommandLine
 

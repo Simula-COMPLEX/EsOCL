@@ -1,9 +1,26 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.oclga;
 
 import java.util.ArrayList;
 
-
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class AVM_NoNegative extends Search {
+    double fitness = 0d;
 
     @Override
     public String[] getSolution(Problem problem) {
@@ -34,6 +51,7 @@ public class AVM_NoNegative extends Search {
             }
         }
 
+        fitness = best.fitness_value;
         return best.problem.decoding(best.v);
     }
 
@@ -181,5 +199,10 @@ public class AVM_NoNegative extends Search {
     @Override
     public String getShortName() {
         return "AVM";
+    }
+
+    @Override
+    public double getFitness() {
+        return fitness;
     }
 }

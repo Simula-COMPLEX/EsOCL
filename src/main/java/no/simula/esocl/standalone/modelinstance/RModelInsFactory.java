@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.modelinstance;
 
 import org.dresdenocl.essentialocl.types.CollectionType;
@@ -15,6 +27,11 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 
     /**
@@ -39,7 +56,7 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
     @Override
     public IModelInstanceElement createModelInstanceElement(Object adapted)
             throws TypeNotFoundInModelException {
-        // TODO Auto-generated method stub
+
         IModelInstanceElement result = null;
 
         UMLObjectIns auoi = (UMLObjectIns) adapted;
@@ -232,7 +249,7 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
         IModelInstanceInteger result;
 
 		/*
-		 * Use the java basis types here because the adaptation of a node would
+         * Use the java basis types here because the adaptation of a node would
 		 * not help. If you adapt a node, cast it to integer and then to string,
 		 * you have to alter the nodes' value to get the right result such as
 		 * '1' except of '1.23', or null in many cases!
@@ -270,7 +287,7 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
         IModelInstanceReal result;
 
 		/*
-		 * Use the java basis types here because the adaptation of a node would
+         * Use the java basis types here because the adaptation of a node would
 		 * not help. If you adapt a node, cast it to real and then to string,
 		 * you have to alter the nodes' value to get the right result such as
 		 * '1' except of '1.0', or null in many cases!
@@ -308,7 +325,7 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
         IModelInstanceString result;
 
 		/*
-		 * Use the java basis types here because the adaptation of a node would
+         * Use the java basis types here because the adaptation of a node would
 		 * not help. If you adapt a node, cast it to integer and then to string,
 		 * you have to alter the nodes' value to get the right result such as
 		 * 'truefalse' except of null!

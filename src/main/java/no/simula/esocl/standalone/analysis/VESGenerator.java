@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.standalone.analysis;
 
 import no.simula.esocl.ocl.distance.ValueElement4Search;
@@ -17,6 +29,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
 public class VESGenerator {
 
     /**
@@ -152,7 +169,7 @@ public class VESGenerator {
                 if (!ves.getSourceClass().equals(ves.getDestinationClass()))
                     ves.setValue(""
                             + Utility.INSTANCE.getFixedNumberOfCardinality(ves));
-              logger.debug("ves min "+ves.getMinValue() + " ves max " + ves.getMaxValue());
+                logger.debug("ves min " + ves.getMinValue() + " ves max " + ves.getMaxValue());
 
             }
             this.initialVesForSearchList.add(ves);

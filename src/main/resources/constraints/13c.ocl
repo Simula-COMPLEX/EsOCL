@@ -1,0 +1,4 @@
+package Test2
+context A
+inv initial: self.b->select(b|b.x<>47)->forAll(b|b.x*b.x<>-100)
+endpackage
