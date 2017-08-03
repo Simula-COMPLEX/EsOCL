@@ -27,15 +27,6 @@ public class Arrange {
     public Arrange() {
     }
 
-    public static void main(String args[]) {
-        String list[] = {"1", "2", "3", "4", "5"};
-        Arrange ts = new Arrange();
-        ts.perm(list, 0, list.length - 1);
-        for (int i = 0; i < ts.getArrangeList().size(); i++) {
-            System.out.println(ts.getArrangeList().get(i));
-        }
-        System.out.println("total:" + ts.total);
-    }
 
     private void swap(String list[], int k, int i) {
         String c3 = list[k];

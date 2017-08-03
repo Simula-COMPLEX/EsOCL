@@ -40,7 +40,7 @@ public class UMLAttributeIns extends AbstUMLModelIns {
 
 
     public String getClassName() {
-        String[] qualifiedNames = this.qualifiedName.split("::");
+        String[] qualifiedNames = this.getQualifiedName().split("::");
         return qualifiedNames[qualifiedNames.length - 2];
     }
 

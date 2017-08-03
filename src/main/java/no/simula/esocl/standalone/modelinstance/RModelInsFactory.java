@@ -64,11 +64,9 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
         try {
             type = this.model.findType(auoi.getQualifiedNameList());
         } catch (ModelAccessException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        result = (IModelInstanceElement) this.createModelInstanceElement(auoi,
-                type);
+        result = createModelInstanceElement(auoi, type);
 
         return result;
     }
@@ -104,12 +102,8 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 			/* Probably adapt a literal. */
             if (type instanceof Enumeration) {
 
-                result = this.createModelInstanceEnumerationLiteral(
-                        (UMLAttributeIns) temp, (Enumeration) type);
-            }
-
-			/* Else probably adapt a primitive type. */
-            else if (type instanceof PrimitiveType) {
+                result = createModelInstanceEnumerationLiteral((UMLAttributeIns) temp, (Enumeration) type);
+            } else if (type instanceof PrimitiveType) {
 
                 switch (((PrimitiveType) type).getKind()) {
 
@@ -133,26 +127,22 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
                                 (UMLAttributeIns) temp, type);
                         break;
                 }
-                // end select.
+
             } else {
                 /* Probably use a cached result. */
-                if (this.cacheModelInstanceObjects.containsKey(temp)) {
-                    result = this.cacheModelInstanceObjects.get(temp);
+                if (cacheModelInstanceObjects.containsKey(temp)) {
+                    result = cacheModelInstanceObjects.get(temp);
                 } else {
                     result = this.createModelInstanceObject(
                             (AbstUMLModelIns) temp, type);
-
-					/* Add the result to the cache. */
-                    this.cacheModelInstanceObjects.put(temp,
+                    cacheModelInstanceObjects.put(temp,
                             (IModelInstanceObject) result);
                 }
-                // end else.
             }
         }
 
         if (type instanceof CollectionType && adapted instanceof Collection<?>) {
-            result = BasisJavaModelInstanceFactory
-                    .createModelInstanceCollection(
+            result = BasisJavaModelInstanceFactory.createModelInstanceCollection(
                             (Collection<IModelInstanceElement>) adapted,
                             (CollectionType) type);
         }
@@ -162,10 +152,10 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 
     /**
      * <p>
-     * Creates an {@link IModelInstanceBoolean} for a given {@link Node} and a
+     * Creates an {@link IModelInstanceBoolean} for a given {@link UMLAttributeIns} and a
      * given {@link Type}.
      *
-     * @param uppe The {@link Node} that shall be adapted.
+     * @param uppe The {@link UMLAttributeIns} that shall be adapted.
      * @param type The {@link Type} of the {@link IModelInstanceBoolean} in the
      *             {@link IModel}.
      * @return The created {@link IModelInstanceBoolean}.
@@ -182,13 +172,13 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 		 * 'true', 'false' or null in all other cases!
 		 */
         if (uppe == null || uppe.getValue() == null) {
-            result = super.createModelInstanceBoolean(null);
+            result = createModelInstanceBoolean(null);
         } else if (uppe.getValue().trim().equalsIgnoreCase("true")) {
-            result = super.createModelInstanceBoolean(true);
+            result = createModelInstanceBoolean(true);
         } else if (uppe.getValue().trim().equalsIgnoreCase("false")) {
-            result = super.createModelInstanceBoolean(false);
+            result = createModelInstanceBoolean(false);
         } else {
-            result = super.createModelInstanceBoolean(null);
+            result = createModelInstanceBoolean(null);
         }
 
         return result;
@@ -197,10 +187,10 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
     /**
      * <p>
      * Creates an {@link IModelInstanceEnumerationLiteral} for the given
-     * {@link Node} and the given {@link Enumeration}.
+     * {@link UMLAttributeIns} and the given {@link Enumeration}.
      * </p>
      *
-     * @param uppe        The {@link Node} for that an
+     * @param uppe        The {@link UMLAttributeIns} for that an
      *                    {@link IModelInstanceEnumerationLiteral} shall be created.
      * @param enumeration The {@link Enumeration} type for that the
      *                    {@link IModelInstanceEnumerationLiteral} shall be created.
@@ -212,7 +202,7 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
         IModelInstanceEnumerationLiteral result;
 
         if (uppe == null || uppe.getValue() == null) {
-            result = super.createModelInstanceEnumerationLiteral(null);
+            result = createModelInstanceEnumerationLiteral(null);
         } else {
             EnumerationLiteral literal;
             literal = null;
@@ -227,7 +217,7 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
             }
             // end for.
 
-            result = super.createModelInstanceEnumerationLiteral(literal);
+            result = createModelInstanceEnumerationLiteral(literal);
         }
 
         return result;
@@ -235,10 +225,10 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 
     /**
      * <p>
-     * Creates an {@link IModelInstanceInteger} for a given {@link Node} and a
+     * Creates an {@link IModelInstanceInteger} for a given {@link UMLAttributeIns} and a
      * given {@link Type}.
      *
-     * @param uppe The {@link Node} that shall be adapted.
+     * @param uppe The {@link UMLAttributeIns} that shall be adapted.
      * @param type The {@link Type} of the {@link IModelInstanceInteger} in the
      *             {@link IModel}.
      * @return The created {@link IModelInstanceInteger}.
@@ -255,7 +245,7 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 		 * '1' except of '1.23', or null in many cases!
 		 */
         if (uppe == null || uppe.getValue() == null) {
-            result = super.createModelInstanceInteger(null);
+            result = createModelInstanceInteger(null);
         } else {
             Long longValue;
             try {
@@ -265,7 +255,7 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
                 longValue = null;
             }
 
-            result = super.createModelInstanceInteger(longValue);
+            result = createModelInstanceInteger(longValue);
         }
 
         return result;
@@ -273,10 +263,10 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 
     /**
      * <p>
-     * Creates an {@link IModelInstanceReal} for a given {@link Node} and a
+     * Creates an {@link IModelInstanceReal} for a given {@link UMLAttributeIns} and a
      * given {@link Type}.
      *
-     * @param uppe The {@link Node} that shall be adapted.
+     * @param uppe The {@link UMLAttributeIns} that shall be adapted.
      * @param type The {@link Type} of the {@link IModelInstanceReal} in the
      *             {@link IModel}.
      * @return The created {@link IModelInstanceReal}.
@@ -293,17 +283,17 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 		 * '1' except of '1.0', or null in many cases!
 		 */
         if (uppe == null || uppe.getValue() == null) {
-            result = super.createModelInstanceReal(null);
+            result = createModelInstanceReal(null);
         } else {
             Double doubleValue;
 
             try {
-                doubleValue = new Double(Double.parseDouble(uppe.getValue()));
+                doubleValue = Double.parseDouble(uppe.getValue());
             } catch (NumberFormatException e) {
                 doubleValue = null;
             }
 
-            result = super.createModelInstanceReal(doubleValue);
+            result = createModelInstanceReal(doubleValue);
         }
 
         return result;
@@ -311,10 +301,10 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 
     /**
      * <p>
-     * Creates an {@link IModelInstanceString} for a given {@link Node} and a
+     * Creates an {@link IModelInstanceString} for a given {@link UMLAttributeIns} and a
      * given {@link Type}.
      *
-     * @param uppe The {@link Node} that shall be adapted.
+     * @param uppe The {@link UMLAttributeIns} that shall be adapted.
      * @param type The {@link Type} of the {@link IModelInstanceString} in the
      *             {@link IModel}.
      * @return The created {@link IModelInstanceString}.
@@ -331,9 +321,9 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 		 * 'truefalse' except of null!
 		 */
         if (uppe == null || uppe.getValue() == null) {
-            result = super.createModelInstanceString(null);
+            result = createModelInstanceString(null);
         } else {
-            result = super.createModelInstanceString(uppe.getValue());
+            result = createModelInstanceString(uppe.getValue());
         }
 
         return result;

@@ -81,7 +81,7 @@ public class BDC4CompareOp {
                             * Math.abs(left_asc.length - right_asc.length)
                             + (Utility.K / 2));
                 else
-                    return utility.K;
+                    return Utility.K;
             }
         }
         // handle the collection with relation operator
@@ -132,8 +132,8 @@ public class BDC4CompareOp {
         return compareOp4Numeric(leftResult, rightResult, opName);
     }
 
-    public Double handleCollectionEquality(IModelInstanceObject env,
-                                           OclAny left, OclAny right, String opName) {
+    private Double handleCollectionEquality(IModelInstanceObject env,
+                                            OclAny left, OclAny right, String opName) {
         this.interpreter.setEnviromentVariable("self", env);
         // obtain the collection elements from the interpretation result
         Collection<IModelInstanceElement> leftInsCol = oclExpUtility
@@ -169,9 +169,9 @@ public class BDC4CompareOp {
         }
     }
 
-    public double handleComplexSelectSizeOp(IModelInstanceObject env,
-                                            OperationCallExpImpl sizeExp, double leftResult,
-                                            double rightResult, String opName) {
+    private double handleComplexSelectSizeOp(IModelInstanceObject env,
+                                             OperationCallExpImpl sizeExp, double leftResult,
+                                             double rightResult, String opName) {
         // obtain the select part of select->size expression
         EObject selectExp = sizeExp.eContents().get(0);
         // obtain the source elements for selection e.g. the self part of self->select
@@ -200,40 +200,42 @@ public class BDC4CompareOp {
                 rightResult, opName) == 0)
             return 0;
         // if not, calculate the distance
-        if (opName.equals(">") || opName.equals(">=")) {
-            if ((opName.equals(">") && (selfSize - rightResult) <= 0)
-                    || (opName.equals(">=") && (selfSize - rightResult) < 0))
-                return rightResult - selfSize + Utility.K;
-            else {
-                return utility.normalize(rightResult - leftResult + Utility.K
-                        + utility.normalize(temp));
-            }// end else
-        }// end if
-        else if (opName.equals("<") || opName.equals("<=")) {
-            if ((opName.equals("<") && (selfSize - rightResult) >= 0)
-                    || (opName.equals("<=") && (selfSize - rightResult) > 0))
-                return rightResult - selfSize + Utility.K;
-            else {
-                return utility.normalize(rightResult - leftResult + Utility.K
-                        + utility.normalize(temp_not));
-            }// end else
-        }// end else if
-        else if (opName.equals("<>")) {
-            if (leftResult == 0)
-                return temp;
-            else if ((leftResult - selfSize) == 0)
-                return temp_not;
-            else if (leftResult >= 0 && (leftResult - selfSize) <= 0)
-                return Math.min(temp, temp_not);
-        }// end else if
-        else if (opName.equals("=")) {
-            if ((leftResult - rightResult) > 0)
-                return leftResult - rightResult + Utility.K
-                        + utility.normalize(temp_not);
-            else if ((leftResult - rightResult) < 0)
-                return rightResult - selfSize + Utility.K
-                        + utility.normalize(temp);
-        } // end else if
+        switch (opName) {
+            case ">":
+            case ">=":
+                if ((opName.equals(">") && (selfSize - rightResult) <= 0)
+                        || (opName.equals(">=") && (selfSize - rightResult) < 0))
+                    return rightResult - selfSize + Utility.K;
+                else {
+                    return utility.normalize(rightResult - leftResult + Utility.K
+                            + utility.normalize(temp));
+                }// end else
+            case "<":
+            case "<=":
+                if ((opName.equals("<") && (selfSize - rightResult) >= 0)
+                        || (opName.equals("<=") && (selfSize - rightResult) > 0))
+                    return rightResult - selfSize + Utility.K;
+                else {
+                    return utility.normalize(rightResult - leftResult + Utility.K
+                            + utility.normalize(temp_not));
+                }// end else
+            case "<>":
+                if (leftResult == 0)
+                    return temp;
+                else if ((leftResult - selfSize) == 0)
+                    return temp_not;
+                else if (leftResult >= 0 && (leftResult - selfSize) <= 0)
+                    return Math.min(temp, temp_not);
+                break;
+            case "=":
+                if ((leftResult - rightResult) > 0)
+                    return leftResult - rightResult + Utility.K
+                            + utility.normalize(temp_not);
+                else if ((leftResult - rightResult) < 0)
+                    return rightResult - selfSize + Utility.K
+                            + utility.normalize(temp);
+                break;
+        }
 
         return -1;
     }
@@ -251,11 +253,8 @@ public class BDC4CompareOp {
         } else if (opName.equals("<>")) {
             if (diversity != 0)
                 return 0.0;
-            else if (diversity == 0)
-                return utility.formatValue(Utility.K
-                        * utility.normalize(1 + Math.abs(diversity)));
-            else
-                return Utility.K;
+            else return utility.formatValue(Utility.K
+                    * utility.normalize(1 + Math.abs(diversity)));
         } else if (opName.equals("<")) {
             if (diversity < 0)
                 return 0.0;

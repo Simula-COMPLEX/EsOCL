@@ -24,19 +24,9 @@ import java.util.List;
  */
 public class BDCManager {
 
-    OclInterpreter interpreter;
+    private OclInterpreter interpreter;
 
-    List<IModelInstanceObject> modelInstanceObjects;
-
-
-    private Utility utility = Utility.INSTANCE;
-
-    private OCLExpUtility oclExpUtility = OCLExpUtility.INSTANCE;
-
-
-    public void setOclInterpreter(OclInterpreter interpreter) {
-        this.interpreter = interpreter;
-    }
+    private List<IModelInstanceObject> modelInstanceObjects;
 
     public OclInterpreter getInterpreter() {
         return interpreter;
@@ -50,10 +40,7 @@ public class BDCManager {
         return modelInstanceObjects;
     }
 
-    public void setModelInstanceObjects(
-            List<IModelInstanceObject> modelInstanceObjects) {
+    public void setModelInstanceObjects(List<IModelInstanceObject> modelInstanceObjects) {
         this.modelInstanceObjects = modelInstanceObjects;
     }
-
-
 }

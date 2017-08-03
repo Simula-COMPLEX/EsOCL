@@ -18,7 +18,7 @@ package no.simula.esocl.oclga;
  * @since 2017-07-03
  */
 public class RandomSearch extends Search {
-    private  double fitness = 0d;
+    private double fitness = 0d;
 
     @Override
     public String[] getSolution(Problem problem) {

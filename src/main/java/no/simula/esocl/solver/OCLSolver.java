@@ -15,12 +15,10 @@ package no.simula.esocl.solver;
 import no.simula.esocl.ocl.distance.DisplayResult;
 import no.simula.esocl.ocl.distance.Result;
 import no.simula.esocl.ocl.distance.SolveProblem;
-import no.simula.esocl.ocl.distance.ValueElement4Search;
 import no.simula.esocl.oclga.*;
 import no.simula.esocl.standalone.analysis.OCLExpUtility;
 import no.simula.esocl.standalone.analysis.Utility;
 import no.simula.esocl.standalone.modelinstance.RModelInsObject;
-import no.simula.esocl.standalone.modelinstance.UMLObjectIns;
 import org.apache.log4j.Logger;
 import org.dresdenocl.modelinstancetype.exception.PropertyAccessException;
 import org.dresdenocl.modelinstancetype.exception.PropertyNotFoundException;
@@ -29,12 +27,8 @@ import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
 import org.dresdenocl.modelinstancetype.types.base.*;
 import org.dresdenocl.pivotmodel.EnumerationLiteral;
 import org.dresdenocl.pivotmodel.Property;
-import org.eclipse.osgi.framework.internal.reliablefile.ReliableFileInputStream;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,20 +40,23 @@ import java.util.Map;
  * @since 2017-07-03
  */
 public class OCLSolver {
+    public static final int AVM = 0;
+    public static final int SSGA = 1;
+    public static final int OpOEA = 2;
+    public static final int RandomSearch = 3;
+    private static final Map<String, Integer> alogkeys = new HashMap<>();
+
+
     private static int boundValueStratergy = 0;
     private static Logger logger = Logger.getLogger(OCLSolver.class);
-    private String inputModelPath;
-    private File inputOclConstraintsPath;
-    private String constraint;
-    private int searchAlgorithm = 0;
-    private Integer iterations;
 
-    public static int AVM = 0;
-    public static int SSGA = 1;
-    public static int OpOEA = 2;
-    public static int RandomSearch = 3;
 
-    private Map<String, Integer> alogkeys = new HashMap<>();
+    static {
+        alogkeys.put("AVM", OCLSolver.AVM);
+        alogkeys.put("SSGA", OCLSolver.SSGA);
+        alogkeys.put("OpOEA", OCLSolver.OpOEA);
+        alogkeys.put("RandomSearch", OCLSolver.RandomSearch);
+    }
 
 
     private Search[] s = new Search[]{new AVM(),
@@ -73,20 +70,74 @@ public class OCLSolver {
         DisplayResult.boundValueTypes = null;
         DisplayResult.resultList = null;
 
-        alogkeys.put("AVM", OCLSolver.AVM);
-        alogkeys.put("SSGA", OCLSolver.SSGA);
-        alogkeys.put("OpOEA", OCLSolver.OpOEA);
-        alogkeys.put("RandomSearch", OCLSolver.RandomSearch);
 
+    }
+
+    /**
+     * solveConstraint method takes path of UML model , OCL constraint, participant Algorithms and maximum number of
+     * iterations and return {@link Result}
+     *
+     * @param inputModel       path of UML Model
+     * @param constraint       ocl constraint
+     * @param searchAlgorithms search Algorithms used to find solution {AVM , SSGA, OpOEA, RandomSearch;}
+     * @param iterations       maximum number of iteration for each algorithm
+     * @return {@link Result}
+     */
+    public Result solveConstraint(String inputModel, String constraint, String searchAlgorithms[], Integer iterations) throws Exception {
+        return solveConstraint(inputModel, constraint, searchAlgorithmKeys(searchAlgorithms), iterations);
+    }
+
+    /**
+     * solveConstraint method takes path of UML model , OCL constraint, participant Algorithms keys and maximum number of
+     * iterations and return {@link Result}
+     *
+     * @param inputModel       path of UML Model
+     * @param constraint       ocl constraint
+     * @param searchAlgorithms keys search Algorithms used to find solution {AVM = 0, SSGA = 1, OpOEA = 2, RandomSearch = 3;}
+     * @param iterations       maximum number of iteration for each algorithm
+     * @return {@link Result}
+     */
+
+    public Result solveConstraint(String inputModel, String constraint, int searchAlgorithms[], int iterations) throws Exception {
+
+
+        for (int alogokey : searchAlgorithms) {
+            OCLSolver searchEngineDriver = new OCLSolver();
+            Result result = searchEngineDriver.solveConstraint(inputModel, constraint, alogokey, iterations);
+            if (result.getResult()) {
+                return result;
+            }
+        }
+
+        Result result = new Result();
+        result.setResult(false);
+        return result;
+
+
+    }
+
+
+    /**
+     * solveConstraint method takes path of UML model , OCL constraint, participant Algorithms keys and maximum number of
+     * iterations and return {@link Result}
+     *
+     * @param inputModel      path of UML Model
+     * @param constraint      ocl constraint
+     * @param searchAlgorithm key search Algorithm used to find solution {AVM = 0, SSGA = 1, OpOEA = 2, RandomSearch = 3;}
+     * @param iterations      maximum number of iteration
+     * @return {@link Result}
+     */
+    public Result solveConstraint(String inputModel, String constraint, int searchAlgorithm, Integer iterations) throws Exception {
+
+
+        String[] inputProfilePaths = {};
+        SolveProblem xp = new SolveProblem(new File(inputModel),
+                inputProfilePaths, constraint);
+        return runSearch(xp, searchAlgorithm, iterations);
     }
 
 
     public Result solveConstraint(String inputModel, File constraint, String searchAlgorithm[], Integer iterations) throws Exception {
-        return solveConstraint(inputModel, constraint, searchAlgorithmKeys(searchAlgorithm), iterations);
-    }
-
-
-    public Result solveConstraint(String inputModel, String constraint, String searchAlgorithm[], Integer iterations) throws Exception {
         return solveConstraint(inputModel, constraint, searchAlgorithmKeys(searchAlgorithm), iterations);
     }
 
@@ -108,71 +159,26 @@ public class OCLSolver {
 
     }
 
-    public Result solveConstraint(String inputModel, String constraint, int searchAlgorithm[], int iterations) throws Exception {
-
-
-        for (int alogokey : searchAlgorithm) {
-            OCLSolver searchEngineDriver = new OCLSolver();
-            Result result = searchEngineDriver.solveConstraint(inputModel, constraint, alogokey, iterations);
-            if (result.getResult()) {
-                return result;
-            }
-        }
-
-        Result result = new Result();
-        result.setResult(false);
-        return result;
-
-
-    }
-
-
     public Result solveConstraint(String inputModel, File constraint, int searchAlgorithm, Integer iterations) throws Exception {
-        this.inputModelPath = inputModel;
-        this.searchAlgorithm = searchAlgorithm;
-        this.inputOclConstraintsPath = constraint;
-        this.iterations = iterations;
-
-
-        StringBuilder sb = new StringBuilder(512);
-        try {
-            Reader r = new InputStreamReader(new ReliableFileInputStream(constraint), "UTF-8");
-            int c = 0;
-            while ((c = r.read()) != -1) {
-                sb.append((char) c);
-            }
-        } catch (IOException e) {
-
-        }
-
-        this.constraint = sb.toString();
 
 
         String[] inputProfilePaths = {};
-        SolveProblem xp = new SolveProblem(new File(inputModelPath),
+        SolveProblem xp = new SolveProblem(new File(inputModel),
                 inputProfilePaths, constraint);
-        return runSearch(xp);
-    }
-
-    public Result solveConstraint(String inputModel, String constraint, int searchAlgorithm, Integer iterations) throws Exception {
-        this.inputModelPath = inputModel;
-        this.searchAlgorithm = searchAlgorithm;
-        this.constraint = constraint;
-        this.iterations = iterations;
-
-        String[] inputProfilePaths = {};
-        SolveProblem xp = new SolveProblem(new File(inputModelPath),
-                inputProfilePaths, constraint);
-        return runSearch(xp);
+        return runSearch(xp, searchAlgorithm, iterations);
     }
 
 
-    public Result runSearch(SolveProblem xp) throws Exception {
+    private Result runSearch(SolveProblem xp, int searchAlgorithm, int iterations) throws Exception {
         Result result = null;
 
+        Search search = s[searchAlgorithm];
+        search.setMaxIterations(iterations);
+
+
         xp.processProblem();
-        if (this.boundValueStratergy == 0) {
-            result = searchProcess(xp);
+        if (boundValueStratergy == 0) {
+            result = searchProcess(xp, search);
             // This class will store the final model instance
             DisplayResult.resultList = new ArrayList<>();
             DisplayResult.resultList.add(xp.getUmlModelInsGenerator()
@@ -195,7 +201,7 @@ public class OCLSolver {
                 // modify the right part value of comparison expression
                 OCLExpUtility.INSTANCE.generateBoundValue(i);
 
-                results.add(searchProcess(xp));
+                results.add(searchProcess(xp, search));
 
                 // restore the right part value of comparison expression
                 OCLExpUtility.INSTANCE.restoreOriginalValue();
@@ -218,9 +224,9 @@ public class OCLSolver {
         return result;
     }
 
-    public Result searchProcess(SolveProblem xp) {
-        Search sv = s[this.searchAlgorithm];
-        sv.setMaxIterations(iterations);
+    private Result searchProcess(SolveProblem xp, Search sv) {
+
+
         Search.validateConstraints(xp);
         String[] value = sv.search(xp);
 
@@ -239,57 +245,43 @@ public class OCLSolver {
 
 
         Result result = new Result();
-        result.setConstraint(constraint);
+        if (xp.getConstraint() != null) {
+            result.setConstraint(xp.getConstraint().getSpecification().getBody());
+        }
         result.setResult(found);
-        result.setAlgo(sv.getShortName());
-        result.setIternations(steps);
+        result.setSearchAlgorithms(sv.getShortName());
+        result.setIterations(steps);
         result.setSolutions(xp.getSolutions());
         if (!result.getSolutions().isEmpty()) {
             result.setSolution(result.getSolutions().get(result.getSolutions().size() - 1));
         }
 
 
-        result.setObjects(xp.getObjects());
-        if (!result.getObjects().isEmpty()) {
-            result.setObject(result.getObjects().get(result.getObjects().size() - 1));
+        result.setSolutionObjects(xp.getObjects());
+        if (!result.getSolutionObjects().isEmpty()) {
+            result.setFinalSolutionObject(result.getSolutionObjects().get(result.getSolutionObjects().size() - 1));
         }
 
 
         return result;
     }
 
-
     public void printResults(Result result) {
 
         System.out.println();
         System.out.println("Constraint: " + result.getConstraint());
-        System.out.println("Algo: " + result.getAlgo());
+        System.out.println("Algo: " + result.getSearchAlgorithms());
         System.out.println("Result: " + result.getResult());
-        System.out.println("Iterations:" + result.getIternations());
+        System.out.println("Iterations:" + result.getIterations());
 
 
         System.out.println("\nModelInstance:");
         try {
-            printObject(result.getObject(), 0);
-/*
-            for (IModelInstanceElement element:result.getObjects()
-                 ) {
-
-                printObject(element);
-            }*/
-
+            printObject(result.getFinalSolutionObject(), 0);
         } catch (PropertyAccessException | PropertyNotFoundException e) {
         }
 
-
-     /*   if (result.getSolution() != null) {
-            System.out.println("\nDetail Solution: \n");
-            System.out.println(result.getSolution());
-        }
-*/
-
     }
-
 
     private void printObject(IModelInstanceElement modelInstanceObject, int depth) throws PropertyAccessException, PropertyNotFoundException {
         if (modelInstanceObject == null) return;
@@ -379,12 +371,10 @@ public class OCLSolver {
             } else if (instanceElement instanceof RModelInsObject) {
 
 
-
                 RModelInsObject rModelInsObject = (RModelInsObject) instanceElement;
 
                 System.out.println(depthPrint(depth) + "Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName());
                 printObject(rModelInsObject, depth + 1);
-
 
 
             } else {
@@ -405,7 +395,6 @@ public class OCLSolver {
         System.out.println();
     }
 
-
     private String depthPrint(int depth) {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -415,7 +404,6 @@ public class OCLSolver {
         return stringBuilder.toString();
 
     }
-
 
     private int[] searchAlgorithmKeys(String searchAlgorithm[]) {
 
@@ -427,7 +415,7 @@ public class OCLSolver {
         return algos;
     }
 
-    public boolean getOptimizedValueofAttributes(SolveProblem xp,
+    /*public boolean getOptimizedValueofAttributes(SolveProblem xp,
                                                  ValueElement4Search[] assgnedValue4Attribute,
                                                  ValueElement4Search[] OptimizedValueofAttributes) {
         boolean isSolved = false;
@@ -454,5 +442,5 @@ public class OCLSolver {
         }
         xp.getAssignVlue();
         return isSolved;
-    }
+    }*/
 }

@@ -53,11 +53,10 @@ public class EnAndDecoding {
      * during the encoding, we encoding the value type of String to a array that with the max length
      * for example, when the String length scope is [1, 20], then the arry is 20
      */
-    public static ArrayList<GeneValueScope> generateGeneValueList(ValueElement4Search[] constraints) {
+    private static ArrayList<GeneValueScope> generateGeneValueList(ValueElement4Search[] constraints) {
         int individualLen = 0;
 
-        for (int i = 0; i < constraints.length; i++) {
-            ValueElement4Search element = constraints[i];
+        for (ValueElement4Search element : constraints) {
             if (element.getType() == 2) {
                 addCommonGene(element);               //add the gene of the length of string
                 addStringGene(element.getMaxValue()); //add the gene of all the alphabet of the string
@@ -88,10 +87,10 @@ public class EnAndDecoding {
     When type of ValueElement4Search is 1 the type of GeneValueScope need to set to be 1 as a CATEGORICAL type
     or else, set type to 0, as a double type
     */
-    public static void addCommonGene(ValueElement4Search element) {
+    private static void addCommonGene(ValueElement4Search element) {
         GeneValueScope gene = new GeneValueScope();
-        gene.minValue = element.getMinValue();
-        gene.maxValue = element.getMaxValue();
+        gene.setMinValue(element.getMinValue());
+        gene.setMaxValue(element.getMaxValue());
 
         switch (element.getType()) {
             case 0:
@@ -113,35 +112,35 @@ public class EnAndDecoding {
         geneValueList.add(gene);
     }
 
-    public static void addStringGene(int len) {
+    private static void addStringGene(int len) {
         for (int i = 0; i < len; i++) {
             GeneValueScope gene = new GeneValueScope();
-            gene.minValue = 1;
-            gene.maxValue = 127;
+            gene.setMinValue(1);
+            gene.setMaxValue(127);
             gene.type = Problem.NUMERICAL_TYPE;
 
             geneValueList.add(gene);
         }
     }
 
-    public static void addDoubleGene(ValueElement4Search element) {
+    private static void addDoubleGene(ValueElement4Search element) {
         GeneValueScope BeforeDotGene = new GeneValueScope();
-        BeforeDotGene.minValue = element.getMinValue();
-        BeforeDotGene.maxValue = element.getMaxValue() - 1;
+        BeforeDotGene.setMinValue(element.getMinValue());
+        BeforeDotGene.setMaxValue(element.getMaxValue() - 1);
         BeforeDotGene.setEncodedConstraintType(GeneValueScope.EncodedConstraintType.Double);
         BeforeDotGene.type = Problem.NUMERICAL_TYPE;
 
         geneValueList.add(BeforeDotGene);
 
         GeneValueScope afterDotGene = new GeneValueScope();
-        afterDotGene.minValue = 0;
-        afterDotGene.maxValue = Integer.MAX_VALUE - 100;
+        afterDotGene.setMinValue(0);
+        afterDotGene.setMaxValue(Integer.MAX_VALUE - 100);
         afterDotGene.type = Problem.NUMERICAL_TYPE;
 
         geneValueList.add(afterDotGene);
     }
 
-    public static ArrayList<GeneValueScope> getGeneValueList() {
+    private static ArrayList<GeneValueScope> getGeneValueList() {
         return geneValueList;
     }
 
@@ -158,7 +157,7 @@ public class EnAndDecoding {
 
             if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.String) {
                 retString[index] = decodingString(i, v[i], v);
-                i = i + geneValue.maxValue;
+                i = i + geneValue.getMaxValue();
             } else if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.Double) {
                 retString[index] = decodingDouble(i, v);
                 i = i + 1;
@@ -172,8 +171,8 @@ public class EnAndDecoding {
         return retString;
     }
 
-    public String decodingDouble(int index, int[] v) {
-        String doubleStr = new String();
+    private String decodingDouble(int index, int[] v) {
+        String doubleStr = "";
 
         String realPart = String.valueOf(v[index]);
         String dotPart = String.valueOf(v[index + 1]);
@@ -182,15 +181,15 @@ public class EnAndDecoding {
         return doubleStr;
     }
 
-    public String decodingString(int index, int len, int[] v) {
-        String str = new String();
+    private String decodingString(int index, int len, int[] v) {
+        StringBuilder str = new StringBuilder();
 
         for (int i = 1; i < len + 1; i++) {
             char character = (char) v[index + i];
-            str += character;
+            str.append(character);
         }
         System.out.println(len + " after decoding: " + str);
-        return str;
+        return str.toString();
     }
 
     /*

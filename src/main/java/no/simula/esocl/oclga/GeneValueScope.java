@@ -19,13 +19,10 @@ package no.simula.esocl.oclga;
  */
 public class GeneValueScope {
 
-    public int minValue;
-
-    public int maxValue;
-    public EncodedConstraintType encodedConstraintType;
-
-
     public int type;  //thye value of the type is consistent with the value defined in Problem
+    private int minValue;
+    private int maxValue;
+    private EncodedConstraintType encodedConstraintType;
 
     public int getMinValue() {
         return minValue;

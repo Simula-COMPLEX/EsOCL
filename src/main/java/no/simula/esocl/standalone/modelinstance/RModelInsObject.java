@@ -239,7 +239,7 @@ public class RModelInsObject extends AbstractModelInstanceObject implements
         }
         // no else.
 
-        throw new OperationNotFoundException("aaaaaaaaaaaaaaaaaaaaaaaa");
+        throw new OperationNotFoundException("Operation Not Found Exception ");
     }
 
     public boolean isUndefined() {

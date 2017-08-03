@@ -55,10 +55,9 @@ public class AVM extends Search {
         return best.problem.decoding(removeNegativeValue(best).v);
     }
 
-    public Individual removeNegativeValue(Individual best) {
+    private Individual removeNegativeValue(Individual best) {
         ArrayList<GeneValueScope> cons =
                 best.getEecodedConstraints();
-        int value[] = new int[best.v.length];
 
         for (int i = 0; i < best.v.length; i++) {
             if (best.v[i] < cons.get(i).getMinValue())
@@ -70,7 +69,7 @@ public class AVM extends Search {
         return best;
     }
 
-    protected void applyAVMSearch(Individual ind) {
+    private void applyAVMSearch(Individual ind) {
         ArrayList<GeneValueScope> cons = ind.getEecodedConstraints();
         final int[] directions = new int[]{-1, +1};
 

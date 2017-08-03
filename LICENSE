@@ -41,12 +41,12 @@ a) Subject to the terms of this Agreement, each Contributor hereby grants
 Recipient a non-exclusive, worldwide, royalty-free copyright license to
 reproduce, prepare derivative works of, publicly display, publicly perform,
 distribute and sublicense the Contribution of such Contributor, if any, and such
-derivative works, in source code and object code form.
+derivative works, in source code and finalSolutionObject code form.
 
 b) Subject to the terms of this Agreement, each Contributor hereby grants
 Recipient a non-exclusive, worldwide, royalty-free patent license under Licensed
 Patents to make, use, sell, offer to sell, import and otherwise transfer the
-Contribution of such Contributor, if any, in source code and object code form.
+Contribution of such Contributor, if any, in source code and finalSolutionObject code form.
 This patent license shall apply to the combination of the Contribution and the
 Program if, at the time the Contribution is added by the Contributor, such
 addition of the Contribution causes such combination to be covered by the
@@ -71,7 +71,7 @@ this Agreement.
 
 3. REQUIREMENTS
 
-A Contributor may choose to distribute the Program in object code form under its
+A Contributor may choose to distribute the Program in finalSolutionObject code form under its
 own license agreement, provided that:
 
 a) it complies with the terms and conditions of this Agreement; and

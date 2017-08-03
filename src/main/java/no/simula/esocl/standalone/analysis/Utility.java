@@ -145,9 +145,7 @@ public class Utility {
             if (index == null) {
                 break;
             }
-            for (int i = 0; i < index.length; i++) {
-                result[count][i] = index[i];
-            }
+            System.arraycopy(index, 0, result[count], 0, index.length);
             count++;
             index = getNextIndexArray(index, max);
         }

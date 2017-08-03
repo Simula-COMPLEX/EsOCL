@@ -50,7 +50,6 @@ public class RModelIns extends AbstractModelInstance {
             try {
                 this.addModelInstanceElement(umi);
             } catch (TypeNotFoundInModelException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -82,7 +81,7 @@ public class RModelIns extends AbstractModelInstance {
     /**
      * <p>
      * Adds an already adapted {@link IModelInstanceObject} to this
-     * {@link IModelInstance}.
+     * {@link IModelInstanceObject}.
      * </p>
      */
     protected void addModelInstanceObject(IModelInstanceObject imiObject) {

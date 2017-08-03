@@ -23,13 +23,37 @@ import java.util.List;
  */
 public class Result {
 
+    /**
+     * OCL constraint
+     */
     private String constraint;
+    /**
+     * Search Result
+     */
     private Boolean result;
-    private String algo;
-    private Integer iternations;
+    /**
+     * Search Algorithms which find result
+     */
+    private String searchAlgorithms;
+    /**
+     * Number of iteration used to find solution
+     */
+    private Integer iterations;
+    /**
+     * All Solution Object
+     */
+    private List<IModelInstanceObject> solutionObjects;
+    /**
+     * Object with final solution
+     */
+    private IModelInstanceObject finalSolutionObject;
+    /**
+     * final Solution variables
+     */
     private String solution;
-    private List<IModelInstanceObject> objects;
-    private IModelInstanceObject object;
+    /**
+     * All Solution variables
+     */
     private List<String> solutions;
 
 
@@ -49,20 +73,20 @@ public class Result {
         this.result = result;
     }
 
-    public String getAlgo() {
-        return algo;
+    public String getSearchAlgorithms() {
+        return searchAlgorithms;
     }
 
-    public void setAlgo(String algo) {
-        this.algo = algo;
+    public void setSearchAlgorithms(String searchAlgorithms) {
+        this.searchAlgorithms = searchAlgorithms;
     }
 
-    public Integer getIternations() {
-        return iternations;
+    public Integer getIterations() {
+        return iterations;
     }
 
-    public void setIternations(Integer iternations) {
-        this.iternations = iternations;
+    public void setIterations(Integer iterations) {
+        this.iterations = iterations;
     }
 
     public String getSolution() {
@@ -81,19 +105,19 @@ public class Result {
         this.solutions = solutions;
     }
 
-    public List<IModelInstanceObject> getObjects() {
-        return objects;
+    public List<IModelInstanceObject> getSolutionObjects() {
+        return solutionObjects;
     }
 
-    public void setObjects(List<IModelInstanceObject> objects) {
-        this.objects = objects;
+    public void setSolutionObjects(List<IModelInstanceObject> solutionObjects) {
+        this.solutionObjects = solutionObjects;
     }
 
-    public IModelInstanceObject getObject() {
-        return object;
+    public IModelInstanceObject getFinalSolutionObject() {
+        return finalSolutionObject;
     }
 
-    public void setObject(IModelInstanceObject object) {
-        this.object = object;
+    public void setFinalSolutionObject(IModelInstanceObject finalSolutionObject) {
+        this.finalSolutionObject = finalSolutionObject;
     }
 }

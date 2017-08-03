@@ -42,14 +42,14 @@ public class BDC4IterateOp {
 
     public double handleIteratorOp(IModelInstanceObject env,
                                    IteratorExpImpl iteratorExp) {
-        this.interpreter.setEnviromentVariable("self", env);
+        interpreter.setEnviromentVariable("self", env);
         // obtain the operator name of iteration expression
         String opName = iteratorExp.getName();
         EList<EObject> contents = iteratorExp.eContents();
         // obtain the result elements of left part in the check expression e.g. the self part of
         // self->forAll
         Collection<IModelInstanceElement> envCol = oclExpUtility
-                .getResultCollection(this.interpreter.doSwitch(contents.get(0)));
+                .getResultCollection(interpreter.doSwitch(contents.get(0)));
         int envColsize = envCol.size();
         // transform the collection to array
         IModelInstanceElement[] envArray = new IModelInstanceElement[envColsize];
@@ -64,14 +64,15 @@ public class BDC4IterateOp {
         }
         // argument expression for each iteration
         OclExpression paraExp = (OclExpression) contents.get(1);
-        if (opName.equals("forAll")) {
-            return forAllOp(env, envArray, iterators, null, paraExp, null);
-        } else if (opName.equals("exists")) {
-            return existsOp(env, envArray, iterators, null, paraExp, null);
-        } else if (opName.equals("isUnique")) {
-            return isUniqueOp(envArray, iterators, paraExp);
-        } else if (opName.equals("one")) {
-            return oneOp(env, envArray, iterators, null, paraExp, null);
+        switch (opName) {
+            case "forAll":
+                return forAllOp(env, envArray, iterators, null, paraExp, null);
+            case "exists":
+                return existsOp(env, envArray, iterators, null, paraExp, null);
+            case "isUnique":
+                return isUniqueOp(envArray, iterators, paraExp);
+            case "one":
+                return oneOp(env, envArray, iterators, null, paraExp, null);
         }
 
         return -1;
@@ -100,17 +101,22 @@ public class BDC4IterateOp {
         OclExpression selectParaExp = (OclExpression) selectExp.eContents()
                 .get(1);
         double distance = -1;
-        if (opName.equals("forAll")) {
-            distance = forAllOp(env, envArray, iterateIterators,
-                    selectIterator, iterateParaExp, selectParaExp);
-        } else if (opName.equals("exists")) {
-            distance = existsOp(env, envArray, iterateIterators,
-                    selectIterator, iterateParaExp, selectParaExp);
-        } else if (opName.equals("isUnique")) {
-            distance = isUniqueOp(envArray, iterateIterators, iterateParaExp);
-        } else if (opName.equals("one")) {
-            distance = oneOp(env, envArray, iterateIterators, selectIterator,
-                    iterateParaExp, selectParaExp);
+        switch (opName) {
+            case "forAll":
+                distance = forAllOp(env, envArray, iterateIterators,
+                        selectIterator, iterateParaExp, selectParaExp);
+                break;
+            case "exists":
+                distance = existsOp(env, envArray, iterateIterators,
+                        selectIterator, iterateParaExp, selectParaExp);
+                break;
+            case "isUnique":
+                distance = isUniqueOp(envArray, iterateIterators, iterateParaExp);
+                break;
+            case "one":
+                distance = oneOp(env, envArray, iterateIterators, selectIterator,
+                        iterateParaExp, selectParaExp);
+                break;
         }
         return distance;
     }
@@ -126,20 +132,20 @@ public class BDC4IterateOp {
             return 0;
         else {
             double temp = 0;
-            /**
-             *  build the combination with repetition for index array
-             *
-             *  input = {0,1}
-             *  e.g. the result is {0,0},{0,1},{1,0},{1,1}
+            /*
+               build the combination with repetition for index array
+
+               input = {0,1}
+               e.g. the result is {0,0},{0,1},{1,0},{1,1}
              */
 
             int[][] envComb = utility.combInArrayDup(input, iteratorSize);
-            for (int i = 0; i < envComb.length; i++) {
+            for (int[] anEnvComb : envComb) {
 
                 for (int j = 0; j < iteratorSize; j++) {
                     this.interpreter.setEnviromentVariable(
                             forAllIterators.get(j).getName(),
-                            envArray[envComb[i][j]]);
+                            envArray[anEnvComb[j]]);
                 }
 
                 BDC4BooleanOp bdc4BoolOp = new BDC4BooleanOp(this.interpreter);
@@ -150,7 +156,7 @@ public class BDC4IterateOp {
                     for (int j = 0; j < forAllIterators.size(); j++) {
                         this.interpreter.setEnviromentVariable(
                                 selectIterator.getName(),
-                                envArray[envComb[i][j]]);
+                                envArray[anEnvComb[j]]);
                         temp = utility.normalize(Math.min(temp,
                                 bdc4BoolOp.notOp(env, selectParaExp)));
                     }
@@ -169,10 +175,10 @@ public class BDC4IterateOp {
         double temp = 0, min_value = 1;
         // Composition with replication
         int[][] envComb = utility.combInArrayDup(input, existsIteratorSize);
-        for (int i = 0; i < envComb.length; i++) {
+        for (int[] anEnvComb : envComb) {
             for (int j = 0; j < existsIteratorSize; j++) {
                 this.interpreter.setEnviromentVariable(existsIterators.get(j)
-                        .getName(), envArray[envComb[i][j]]);
+                        .getName(), envArray[anEnvComb[j]]);
             }
             BDC4BooleanOp bdc4BoolOp = new BDC4BooleanOp(this.interpreter);
             if (selectParaExp == null)
@@ -182,7 +188,7 @@ public class BDC4IterateOp {
                 temp = bdc4BoolOp.handleBooleanOp(env, existsParaExp);
                 for (int j = 0; j < existsIteratorSize; j++) {
                     this.interpreter.setEnviromentVariable(
-                            selectIterator.getName(), envArray[envComb[i][j]]);
+                            selectIterator.getName(), envArray[anEnvComb[j]]);
                     temp = utility.normalize(temp
                             + bdc4BoolOp.handleBooleanOp(env, selectParaExp));
                 }
@@ -195,21 +201,21 @@ public class BDC4IterateOp {
         return min_value;
     }
 
-    public double isUniqueOp(IModelInstanceElement[] envArray,
-                             List<Variable> uniqueIterators, OclExpression uniqueParaExp) {
+    private double isUniqueOp(IModelInstanceElement[] envArray,
+                              List<Variable> uniqueIterators, OclExpression uniqueParaExp) {
         int[] input = utility.genIndexArray(envArray.length);
         double temp = 0;
         int envColsize = envArray.length;
         BDC4CompareOp bdc4CompOp = new BDC4CompareOp(this.interpreter);
         int[][] envComb = Utility.INSTANCE.getArrangeOrCombine(input);
-        for (int i = 0; i < envComb.length; i++) {
+        for (int[] anEnvComb : envComb) {
             this.interpreter.setEnviromentVariable(uniqueIterators.get(0)
-                    .getName(), envArray[envComb[i][0]]);
+                    .getName(), envArray[anEnvComb[0]]);
             double leftValue = oclExpUtility
                     .getResultNumericValue(this.interpreter.doSwitch(
                             uniqueParaExp).getModelInstanceElement());
             this.interpreter.setEnviromentVariable(uniqueIterators.get(0)
-                    .getName(), envArray[envComb[i][1]]);
+                    .getName(), envArray[anEnvComb[1]]);
             double rightValue = oclExpUtility
                     .getResultNumericValue(this.interpreter.doSwitch(
                             uniqueParaExp).getModelInstanceElement());
@@ -220,10 +226,10 @@ public class BDC4IterateOp {
 
     }
 
-    public double oneOp(IModelInstanceObject env,
-                        IModelInstanceElement[] envArray, List<Variable> oneIterators,
-                        Variable selectIterator, OclExpression oneParaExp,
-                        OclExpression selectParaExp) {
+    private double oneOp(IModelInstanceObject env,
+                         IModelInstanceElement[] envArray, List<Variable> oneIterators,
+                         Variable selectIterator, OclExpression oneParaExp,
+                         OclExpression selectParaExp) {
         BDC4BooleanOp bdc4BooleanOp = new BDC4BooleanOp(interpreter);
         int count = 0;
         double temp = 0, temp_not = 0;

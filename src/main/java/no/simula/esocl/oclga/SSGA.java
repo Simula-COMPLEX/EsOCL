@@ -21,9 +21,9 @@ import java.util.Arrays;
  * @since 2017-07-03
  */
 public class SSGA extends Search {
+    double fitness = 0d;
     private int population_size;
     private double xover_rate;
-    double fitness = 0d;
 
     public SSGA() {
         population_size = 100;

@@ -118,20 +118,21 @@ public class BDC4BooleanOp {
             else if (b_result.oclIsUndefined().isTrue())
                 this.numOfUndClauses++;
             // distance calculation for and, or, implies, xor expression
-            if (opName.equals("and")) {
-                return andOp(env, A_exp, B_exp);
-            } else if (opName.equals("or")) {
-                return orOp(env, A_exp, B_exp);
-            } else if (opName.equals("implies")) {
-                return impliesOp(env, A_exp, B_exp);
-            } else if (opName.equals("xor")) {
-                return xorOp(env, A_exp, B_exp);
+            switch (opName) {
+                case "and":
+                    return andOp(env, A_exp, B_exp);
+                case "or":
+                    return orOp(env, A_exp, B_exp);
+                case "implies":
+                    return impliesOp(env, A_exp, B_exp);
+                case "xor":
+                    return xorOp(env, A_exp, B_exp);
             }
         }
         return -1;
     }
 
-    public double simplePropOrMiscOp(IModelInstanceObject env, OclExpression exp) {
+    private double simplePropOrMiscOp(IModelInstanceObject env, OclExpression exp) {
         this.interpreter.setEnviromentVariable("self", env);
         OclAny result = this.interpreter.doSwitch(exp);
 
@@ -152,29 +153,29 @@ public class BDC4BooleanOp {
             return 0;
     }
 
-    public double andOp(IModelInstanceObject env, OclExpression A_exp,
-                        OclExpression B_exp) {
+    double andOp(IModelInstanceObject env, OclExpression A_exp,
+                 OclExpression B_exp) {
         double A_bdc = handleBooleanOp(env, A_exp);
         double B_bdc = handleBooleanOp(env, B_exp);
         return numOfUndClauses + utility.normalize(A_bdc + B_bdc);
     }
 
-    public double orOp(IModelInstanceObject env, OclExpression A_exp,
-                       OclExpression B_exp) {
+    private double orOp(IModelInstanceObject env, OclExpression A_exp,
+                        OclExpression B_exp) {
         double A_bdc = handleBooleanOp(env, A_exp);
         double B_bdc = handleBooleanOp(env, B_exp);
         return numOfUndClauses + utility.normalize(Math.min(A_bdc, B_bdc));
     }
 
-    public double impliesOp(IModelInstanceObject env, OclExpression A_exp,
-                            OclExpression B_exp) {
+    private double impliesOp(IModelInstanceObject env, OclExpression A_exp,
+                             OclExpression B_exp) {
         double notA_bdc = notOp(env, A_exp);
         double B_bdc = handleBooleanOp(env, B_exp);
         return numOfUndClauses + utility.normalize(Math.min(notA_bdc, B_bdc));
     }
 
-    public double xorOp(IModelInstanceObject env, OclExpression A_exp,
-                        OclExpression B_exp) {
+    private double xorOp(IModelInstanceObject env, OclExpression A_exp,
+                         OclExpression B_exp) {
         double A_bdc = handleBooleanOp(env, A_exp);
         double notA_bdc = notOp(env, A_exp);
         double B_bdc = handleBooleanOp(env, B_exp);

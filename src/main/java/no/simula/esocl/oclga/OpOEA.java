@@ -22,6 +22,7 @@ public class OpOEA extends SSGA {
     public OpOEA() {
     }
 
+    @Override
     public String[] getSolution(Problem problem) {
         Individual current = Individual.getRandomIndividual(problem);
         current.evaluate();

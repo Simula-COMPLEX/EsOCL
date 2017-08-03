@@ -13,6 +13,7 @@
 package no.simula.esocl.standalone.modelinstance;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,8 +23,8 @@ import java.util.List;
  */
 public class AbstUMLModelIns {
 
-    String qualifiedName;
-    String value;
+    private String qualifiedName;
+    private String value;
 
     public AbstUMLModelIns(String qualifiedName, String value) {
         this.qualifiedName = qualifiedName;
@@ -49,11 +50,9 @@ public class AbstUMLModelIns {
     }
 
     public List<String> getQualifiedNameList() {
-        List<String> qualifiedNameList = new ArrayList<String>();
+        List<String> qualifiedNameList = new ArrayList<>();
         String[] qualifiedNames = this.qualifiedName.split("::");
-        for (String qualifiedName : qualifiedNames) {
-            qualifiedNameList.add(qualifiedName);
-        }
+        qualifiedNameList.addAll(Arrays.asList(qualifiedNames));
         return qualifiedNameList;
 
     }

@@ -55,7 +55,7 @@ public class AVM_NoNegative extends Search {
         return best.problem.decoding(best.v);
     }
 
-    protected void applyAVMSearch(Individual ind) {
+    private void applyAVMSearch(Individual ind) {
         ArrayList<GeneValueScope> cons = ind.getEecodedConstraints();
         final int[] directions = new int[]{-1, +1};
 

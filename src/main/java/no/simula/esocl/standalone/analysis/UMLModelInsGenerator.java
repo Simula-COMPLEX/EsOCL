@@ -39,20 +39,19 @@ public class UMLModelInsGenerator {
      * this list is initialized for recording the attribute information after confirming the
      * instance number
      */
-    List<UMLAttributeIns> attributeInsList = new ArrayList<UMLAttributeIns>();
+    private List<UMLAttributeIns> attributeInsList = new ArrayList<UMLAttributeIns>();
     /**
      * this list contains the class instance
      */
-    List<UMLObjectIns> umlObjectInsList;
+    private List<UMLObjectIns> umlObjectInsList;
 
-    VESGenerator vesGenerator;
-    StringBuilder solution = new StringBuilder();
+    private VESGenerator vesGenerator;
+    private StringBuilder solution = new StringBuilder();
 
     public UMLModelInsGenerator(VESGenerator vesGenerator) {
         this.vesGenerator = vesGenerator;
-        this.umlObjectInsList = new ArrayList<UMLObjectIns>();
-        //logger.setLevel(Level.OFF);
-        // PropertyConfigurator.configure("Eslog4j.properties");
+        this.umlObjectInsList = new ArrayList<>();
+
     }
 
     public List<UMLObjectIns> getUmlObjectInsList() {
@@ -63,41 +62,53 @@ public class UMLModelInsGenerator {
     /**
      * reassign the value of each attribute
      *
-     * @param valueStrs the search engine transfer the value string to calculate the fitness
-     * @return
+     * @param solutions the search engine transfer the value string to calculate the fitness
      */
-    public List<UMLObjectIns> getReAssignedUMLObjects(String[] valueStrs) {
+    public void reAssignedUMLObjects(String[] solutions) {
         solution = new StringBuilder();
         // the order of value is consistent with the attributeInsList
-        logger.debug("*******************Assign the value into the class instance (" + i++ + ")*******************");
+        logger.debug("******************* Building the class Instance (" + i++ + ")*******************");
+
+
         for (int i = 0; i < this.attributeInsList.size(); i++) {
+
             Type type = this.attributeInsList.get(i).getType();
+
             if (type instanceof UML2PrimitiveType) {
+
                 String typeValue = ((UML2PrimitiveType) type).getKind()
                         .getName();
-                if (typeValue.equals("Integer")) {
-                    this.attributeInsList.get(i).setValue(
-                            "" + Double.valueOf(valueStrs[i]).intValue());
-                } else if (typeValue.equals("Boolean")) {
-                    double temp = Double.valueOf(valueStrs[i]);
-                    if ((temp - 1.0) == 0) {
-                        this.attributeInsList.get(i).setValue("true");
-                    } else {
-                        this.attributeInsList.get(i).setValue("false");
-                    }
-                } else if (typeValue.equals("String")) {
-                    this.attributeInsList.get(i).setValue(valueStrs[i]);
-                } else if (typeValue.equals("Real")) {
-                    this.attributeInsList.get(i).setValue(valueStrs[i]);
+
+                switch (typeValue) {
+                    case "Integer":
+                        this.attributeInsList.get(i).setValue(
+                                "" + Double.valueOf(solutions[i]).intValue());
+                        break;
+                    case "Boolean":
+                        double temp = Double.valueOf(solutions[i]);
+                        if ((temp - 1.0) == 0) {
+                            this.attributeInsList.get(i).setValue("true");
+                        } else {
+                            this.attributeInsList.get(i).setValue("false");
+                        }
+                        break;
+                    case "String":
+                        this.attributeInsList.get(i).setValue(solutions[i]);
+                        break;
+                    case "Real":
+                        this.attributeInsList.get(i).setValue(solutions[i]);
+                        break;
                 }
 
-                //logger.debug("Primitive Property: "+ this.attributeInsList.get(i).getName() +" Value: "+ this.attributeInsList.get(i).getValue());
 
             } else if (type instanceof UML2Enumeration) {
                 UML2Enumeration enumType = (UML2Enumeration) type;
-                String lieralName = enumType.getOwnedLiteral()
-                        .get(Double.valueOf(valueStrs[i]).intValue()).getName();
-                this.attributeInsList.get(i).setValue(lieralName);
+
+                String literalName = enumType.getOwnedLiteral()
+
+                        .get(Double.valueOf(solutions[i]).intValue()).getName();
+
+                this.attributeInsList.get(i).setValue(literalName);
             }
 
             solution.append("Attribute: ");
@@ -106,11 +117,11 @@ public class UMLModelInsGenerator {
             solution.append(this.attributeInsList.get(i).getValue());
             solution.append(" , ");
 
-            logger.debug("Assigned attr name: "
+            logger.debug("Attribute name: "
                     + this.attributeInsList.get(i).getName()
-                    + " value: " + this.attributeInsList.get(i).getValue());
+                    + "  --------  Assigned Value: " + this.attributeInsList.get(i).getValue());
         }
-        return umlObjectInsList;
+
     }
 
     public ValueElement4Search[] getVes4InsNumberArray() {

@@ -46,12 +46,12 @@ public class OCLExpUtility {
     public static String OP_COMPLEX_SELECT_ITERATE = "op_complex_select_iterate";
     public static String[] OP_BOOLEAN = {"implies", "not", "and", "or", "xor"};
     public static String[] OP_COMPARE = {"=", "<>", "<", "<=", ">", ">="};
-    private static String[] OP_BOUND = {"<", "<=", ">", ">="};
     public static String[] OP_ITERATE = {"forAll", "exists", "isUnique", "one"};
     public static String[] OP_CHECK = {"includes", "excludes", "includesAll", "excludesAll", "isEmpty"};
-    private static String[] OP_SELECT = {"select", "reject", "collect"};
     public static String[] OP_MISCELLANEOUS = {"oclIsTypeOf", "oclIsKindOf",
             "oclIsNew", "oclIsUndefined", "oclIsInvalid"};
+    private static String[] OP_BOUND = {"<", "<=", ">", ">="};
+    private static String[] OP_SELECT = {"select", "reject", "collect"};
     private static Logger logger = Logger.getLogger(OCLExpUtility.class);
     /**
      * singleton instance
@@ -144,7 +144,7 @@ public class OCLExpUtility {
     }
 
 	/*public void printOclClause4Depth(EObject e) {
-		int depth = 0;
+        int depth = 0;
 		for (EObject eObject : e.eContents()) {
 			logger.debug(eObject.toString());
 			printChild(eObject, ++depth);
