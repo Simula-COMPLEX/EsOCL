@@ -37,7 +37,7 @@ public class CommandLine {
         option1.setArgs(1);
         options.addOption(option1);
 
-        Option option2 = new Option("c", "constraint", true, "OCL Constraint (Example \"Context constraint inv : \")");
+        Option option2 = new Option("c", "constraint", true, "OCL Constraint");
         option2.setArgs(1);
         options.addOption(option2);
 
@@ -45,7 +45,7 @@ public class CommandLine {
         option3.setArgs(1);
         options.addOption(option3);
 
-        Option option4 = new Option("a", "algorithm", true, "Search Algorithm (AVM, SSGA, OpOEA, RandomSearch) default AVM");
+        Option option4 = new Option("a", "algorithm", true, "Search Algorithm(AVM, SSGA, OpOEA, RandomSearch) default AVM");
         option4.setArgs(1);
         options.addOption(option4);
 

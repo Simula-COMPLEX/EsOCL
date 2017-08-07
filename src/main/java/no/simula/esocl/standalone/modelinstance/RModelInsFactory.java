@@ -143,8 +143,8 @@ public class RModelInsFactory extends BasisJavaModelInstanceFactory {
 
         if (type instanceof CollectionType && adapted instanceof Collection<?>) {
             result = BasisJavaModelInstanceFactory.createModelInstanceCollection(
-                            (Collection<IModelInstanceElement>) adapted,
-                            (CollectionType) type);
+                    (Collection<IModelInstanceElement>) adapted,
+                    (CollectionType) type);
         }
 
         return result;

@@ -130,9 +130,9 @@ public class OCLSolver {
     public Result solveConstraint(String inputModel, String constraint, int searchAlgorithm, Integer iterations) throws Exception {
 
 
-        String[] inputProfilePaths = {};
+
         SolveProblem xp = new SolveProblem(new File(inputModel),
-                inputProfilePaths, constraint);
+                constraint);
         return runSearch(xp, searchAlgorithm, iterations);
     }
 
@@ -162,9 +162,8 @@ public class OCLSolver {
     public Result solveConstraint(String inputModel, File constraint, int searchAlgorithm, Integer iterations) throws Exception {
 
 
-        String[] inputProfilePaths = {};
         SolveProblem xp = new SolveProblem(new File(inputModel),
-                inputProfilePaths, constraint);
+                constraint);
         return runSearch(xp, searchAlgorithm, iterations);
     }
 

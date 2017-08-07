@@ -2,7 +2,6 @@ package no.simula.esocl.test;
 
 
 import junit.framework.TestCase;
-import no.simula.esocl.solver.CommandLine;
 import no.simula.esocl.ocl.distance.Result;
 import no.simula.esocl.solver.OCLSolver;
 import org.junit.Assert;

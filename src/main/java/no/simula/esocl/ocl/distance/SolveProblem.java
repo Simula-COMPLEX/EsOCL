@@ -74,13 +74,13 @@ public class SolveProblem implements Problem {
     private List<String> solutions = new ArrayList<>();
     private List<IModelInstanceObject> instancesObjects = new ArrayList<>();
 
-    public SolveProblem(File inputModelPath, String[] inputProfilePaths,
+    public SolveProblem(File inputModelPath,
                         File inputOclConstraintsPath) {
 
-
+        String[] inputProfilePaths = {};
         Utility.INSTANCE.initialUMLDoc(inputModelPath, inputProfilePaths);
         for (String inputProfileFilePath : inputProfilePaths) {
-            logger.debug("The profle file path:: " + inputProfileFilePath);
+            logger.debug("The profile file path:: " + inputProfileFilePath);
         }
         try {
 
@@ -105,18 +105,17 @@ public class SolveProblem implements Problem {
             OCLExpUtility.INSTANCE.printOclClause4Depth(constraint);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
 
-    public SolveProblem(File inputModelPath, String[] inputProfilePaths,
-                        String inputOclConstraintsPath) {
+    public SolveProblem(File inputModelPath, String inputOclConstraintsPath) {
 
-
+        String[] inputProfilePaths = {};
         Utility.INSTANCE.initialUMLDoc(inputModelPath, inputProfilePaths);
         for (String inputProfileFilePath : inputProfilePaths) {
-            logger.debug("The profle file path:: " + inputProfileFilePath);
+            logger.debug("The profile file path:: " + inputProfileFilePath);
         }
         try {
 
@@ -141,7 +140,7 @@ public class SolveProblem implements Problem {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -164,83 +163,6 @@ public class SolveProblem implements Problem {
             return bdc4BoolOp.handleBooleanOp(imiObject, (OclExpression) e);
         }
         return -1;
-    }
-
-    private String getPath() {
-        String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-        if (path.lastIndexOf(File.separator) != path.length()) {
-            try {
-                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
-            } catch (Exception e) {
-                path = path.substring(0, path.lastIndexOf("/")) + File.separator;
-            }
-        } else {
-            path = path.substring(0, path.length() - 2);
-            try {
-                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
-            } catch (Exception e) {
-                path = path.substring(0, path.lastIndexOf("/")) + File.separator;
-            }
-        }
-
-        return path;
-
-    }
-
-    public Constraint getConstraint() {
-        return constraint;
-    }
-
-    //4)	Generate the model instances and initial the attribute array
-    public void processProblem() {
-
-        // obtain the initial attribute array
-        this.initialVesForSearchList = this.vesGenerator.buildInitialVes(model);
-
-        // after fixing the association number, we can get the final attribute array
-        this.valueOfConstraints = getAllAttributeConstraints();
-
-        this.geneValueScopeList = encodingAndDecoding.encoding(this
-                .getConstraints());
-    }
-
-
-    public void processProblem(ValueElement4Search[] assgnedValue4Attribute,
-                               ValueElement4Search[] OptimizedValueofAttributes) {
-
-        this.OptimizedValueofAttributes = OptimizedValueofAttributes;
-        // obtain the initial attribute array
-        this.initialVesForSearchList = this.vesGenerator.buildInitialVes(model);
-
-        // assign the value
-        for (ValueElement4Search ves : this.initialVesForSearchList) {
-            for (ValueElement4Search assign_ves : assgnedValue4Attribute) {
-                if (ves.getAttributeName()
-                        .equals(assign_ves.getAttributeName())) {
-                    ves.setValue(assign_ves.getValue());
-                    ves.setMinValue(Integer.parseInt(assign_ves.getValue()));
-                    ves.setMaxValue(Integer.parseInt(assign_ves.getValue()));
-                }
-            }
-        }
-
-        // after fixing the association number, we can get the final attribute array
-        this.valueOfConstraints = getAllAttributeConstraints();
-
-        this.geneValueScopeList = encodingAndDecoding.encoding(this
-                .getConstraints());
-    }
-
-    public void getAssignVlue() {
-        for (ValueElement4Search ves : this.OptimizedValueofAttributes) {
-            List<Integer> result = new ArrayList<Integer>();
-            for (int i = 0; i < this.valueOfConstraints.length; i++) {
-                if (ves.getAttributeName().equals(
-                        this.valueOfConstraints[i].getAttributeName()))
-                    result.add(i);
-            }
-            ves.setValue(this.optiValue[result.get(0)]);
-        }
     }
 
     public double getFitness(String[] solutionValues) {
@@ -314,6 +236,63 @@ public class SolveProblem implements Problem {
         return -1;
     }
 
+    public Constraint getConstraint() {
+        return constraint;
+    }
+
+    //4)	Generate the model instances and initial the attribute array
+    public void processProblem() {
+
+        // obtain the initial attribute array
+        this.initialVesForSearchList = this.vesGenerator.buildInitialVes(model);
+
+        // after fixing the association number, we can get the final attribute array
+        this.valueOfConstraints = getAllAttributeConstraints();
+
+        this.geneValueScopeList = encodingAndDecoding.encoding(this
+                .getConstraints());
+    }
+
+
+    public void processProblem(ValueElement4Search[] assgnedValue4Attribute,
+                               ValueElement4Search[] OptimizedValueofAttributes) {
+
+        this.OptimizedValueofAttributes = OptimizedValueofAttributes;
+        // obtain the initial attribute array
+        this.initialVesForSearchList = this.vesGenerator.buildInitialVes(model);
+
+        // assign the value
+        for (ValueElement4Search ves : this.initialVesForSearchList) {
+            for (ValueElement4Search assign_ves : assgnedValue4Attribute) {
+                if (ves.getAttributeName()
+                        .equals(assign_ves.getAttributeName())) {
+                    ves.setValue(assign_ves.getValue());
+                    ves.setMinValue(Integer.parseInt(assign_ves.getValue()));
+                    ves.setMaxValue(Integer.parseInt(assign_ves.getValue()));
+                }
+            }
+        }
+
+        // after fixing the association number, we can get the final attribute array
+        this.valueOfConstraints = getAllAttributeConstraints();
+
+        this.geneValueScopeList = encodingAndDecoding.encoding(this
+                .getConstraints());
+    }
+
+    public void getAssignVlue() {
+        for (ValueElement4Search ves : this.OptimizedValueofAttributes) {
+            List<Integer> result = new ArrayList<Integer>();
+            for (int i = 0; i < this.valueOfConstraints.length; i++) {
+                if (ves.getAttributeName().equals(
+                        this.valueOfConstraints[i].getAttributeName()))
+                    result.add(i);
+            }
+            ves.setValue(this.optiValue[result.get(0)]);
+        }
+    }
+
+
     /*
      * get all the attributes after the class is instanced based on "classInstanceValue"
      */
@@ -379,6 +358,10 @@ public class SolveProblem implements Problem {
 
     }
 
+    /**
+     * return UML jar file use to parse UML model
+     */
+
     private File UMLRecourse() {
 
         String UML_JAR = "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
@@ -405,5 +388,28 @@ public class SolveProblem implements Problem {
         }
     }
 
+    /**
+     * build the path of jar file File From class path
+     */
+    private String getPath() {
+        String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        if (path.lastIndexOf(File.separator) != path.length()) {
+            try {
+                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
+            } catch (Exception e) {
+                path = path.substring(0, path.lastIndexOf("/")) + File.separator;
+            }
+        } else {
+            path = path.substring(0, path.length() - 2);
+            try {
+                path = path.substring(0, path.lastIndexOf(File.separator)) + File.separator;
+            } catch (Exception e) {
+                path = path.substring(0, path.lastIndexOf("/")) + File.separator;
+            }
+        }
+
+        return path;
+
+    }
 
 }
