@@ -21,21 +21,34 @@ import org.dresdenocl.pivotmodel.Property;
  */
 public class ValueElement4Search {
 
-    // the class that has the attribute
+    /**
+     * class that has the attribute
+     */
     private String sourceClass;
-    // the associate class
+    /**
+     * associate class
+     */
     private String destinationClass;
-    // the name of attribute or association
+    /**
+     * name of attribute or association
+     */
     private String attributeName;
-    // the name of enumeration type
+    /**
+     * the name of enumeration type
+     */
     private String enumType;
-    // the concrete value of element
+
+    /**
+     * concrete value of element
+     */
     private String value;
 
     private Property property;
 
     private int maxValue, minValue;
-    // the int label of type
+    /**
+     * int label of type
+     */
     private int type;
 
     public String getSourceClass() {

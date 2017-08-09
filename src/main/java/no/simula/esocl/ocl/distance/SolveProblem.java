@@ -12,30 +12,24 @@
 
 package no.simula.esocl.ocl.distance;
 
-import no.simula.esocl.oclga.EnAndDecoding;
+import no.simula.esocl.oclga.EncodingDecoding;
 import no.simula.esocl.oclga.GeneValueScope;
 import no.simula.esocl.oclga.Problem;
 import no.simula.esocl.solver.CommandLine;
-import no.simula.esocl.standalone.analysis.*;
+import no.simula.esocl.standalone.analysis.OCLExpUtility;
+import no.simula.esocl.standalone.analysis.UMLModelInsGenerator;
+import no.simula.esocl.standalone.analysis.Utility;
+import no.simula.esocl.standalone.analysis.VESGenerator;
 import no.simula.esocl.standalone.modelinstance.RModelIns;
 import no.simula.esocl.standalone.modelinstance.UMLObjectIns;
 import org.apache.log4j.Logger;
-import org.dresdenocl.essentialocl.expressions.OclExpression;
-import org.dresdenocl.essentialocl.expressions.impl.IteratorExpImpl;
-import org.dresdenocl.essentialocl.expressions.impl.LetExpImpl;
-import org.dresdenocl.essentialocl.expressions.impl.OperationCallExpImpl;
-import org.dresdenocl.essentialocl.standardlibrary.OclBoolean;
-import org.dresdenocl.interpreter.IInterpretationResult;
 import org.dresdenocl.interpreter.OclInterpreterPlugin;
-import org.dresdenocl.interpreter.internal.OclInterpreter;
 import org.dresdenocl.model.IModel;
 import org.dresdenocl.modelinstance.IModelInstance;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
 import org.dresdenocl.pivotmodel.Constraint;
-import org.dresdenocl.pivotmodel.Expression;
 import org.dresdenocl.standalone.facade.StandaloneFacade;
 import org.dresdenocl.tools.template.exception.TemplateException;
-import org.eclipse.emf.ecore.EObject;
 
 import java.io.File;
 import java.net.URL;
@@ -48,7 +42,7 @@ import java.util.List;
  * @since 2017-07-03
  */
 public class SolveProblem implements Problem {
-
+    private String UML_JAR = "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
     private static Logger logger = Logger.getLogger(SolveProblem.class);
 
     private IModel model;
@@ -61,15 +55,13 @@ public class SolveProblem implements Problem {
 
     private ArrayList<GeneValueScope> geneValueScopeList;
 
-    private EnAndDecoding encodingAndDecoding = new EnAndDecoding();
+    private EncodingDecoding encodingAndDecoding = new EncodingDecoding();
 
     private VESGenerator vesGenerator;
 
     private UMLModelInsGenerator umlModelInsGenerator;
 
-    private ValueElement4Search[] OptimizedValueofAttributes;
 
-    private String[] optiValue;
 
     private List<String> solutions = new ArrayList<>();
     private List<IModelInstanceObject> instancesObjects = new ArrayList<>();
@@ -85,20 +77,25 @@ public class SolveProblem implements Problem {
         try {
 
             initDresden();
+
+            File UMLRecourse = UMLRecourse();
+            if (UMLRecourse == null || !UMLRecourse.exists()) {
+                logger.error("Please add " + UML_JAR + " into resource");
+                return;
+            }
+
+
             model = StandaloneFacade.INSTANCE.loadUMLModel(
-                    inputModelPath, UMLRecourse());
+                    inputModelPath, UMLRecourse);
 
 
             // obtain the ocl constraints based on the model
-            this.constraint = StandaloneFacade.INSTANCE.parseOclConstraints(
+            constraint = StandaloneFacade.INSTANCE.parseOclConstraints(
                     model, inputOclConstraintsPath).get(0);
 
 
-            Expression ex = constraint.getSpecification();
-
-            this.vesGenerator = new VESGenerator(this.constraint);
-            this.umlModelInsGenerator = new UMLModelInsGenerator(
-                    this.vesGenerator);
+            vesGenerator = new VESGenerator(constraint);
+            umlModelInsGenerator = new UMLModelInsGenerator(vesGenerator);
             OCLExpUtility.INSTANCE.setVesGenerator(vesGenerator);
             new OclInterpreterPlugin();
 
@@ -120,19 +117,24 @@ public class SolveProblem implements Problem {
         try {
 
             initDresden();
+
+            File UMLRecourse = UMLRecourse();
+            if (UMLRecourse == null || !UMLRecourse.exists()) {
+                logger.error("Please add " + UML_JAR + " into resource");
+                return;
+            }
+
+
             model = StandaloneFacade.INSTANCE.loadUMLModel(
-                    inputModelPath, UMLRecourse());
+                    inputModelPath, UMLRecourse);
 
 
-            this.constraint = StandaloneFacade.INSTANCE.parseOclConstraints(
+            constraint = StandaloneFacade.INSTANCE.parseOclConstraints(
                     model, inputOclConstraintsPath).get(0);
 
 
-            Expression ex = constraint.getSpecification();
-
-            this.vesGenerator = new VESGenerator(this.constraint);
-            this.umlModelInsGenerator = new UMLModelInsGenerator(
-                    this.vesGenerator);
+            vesGenerator = new VESGenerator(this.constraint);
+            umlModelInsGenerator = new UMLModelInsGenerator(vesGenerator);
             OCLExpUtility.INSTANCE.setVesGenerator(vesGenerator);
             new OclInterpreterPlugin();
 
@@ -144,153 +146,46 @@ public class SolveProblem implements Problem {
         }
     }
 
+
     /**
-     * Identify the different kind of expressions and calculate the distance
-     *
-     * @param exp       OCL expression
-     * @param imiObject model instance
-     * @param bdc
+     * Initial the attribute array and Generate the model instances
      */
-    private static double classifyExp(Expression exp, IModelInstanceObject imiObject, BDCManager bdc) {
-        EObject e = exp.eContents().get(0);
-        if (e instanceof LetExpImpl) {
-            // if it is a let expression, we only handle the expression after the key word "in"
-            e = e.eContents().get(0);
-        }
-        if (e instanceof OperationCallExpImpl || e instanceof IteratorExpImpl) {
-            // we consider the expression as a expression which returns true or false
-            BDC4BooleanOp bdc4BoolOp = new BDC4BooleanOp(bdc.getInterpreter());
-            return bdc4BoolOp.handleBooleanOp(imiObject, (OclExpression) e);
-        }
-        return -1;
-    }
-
-    public double getFitness(String[] solutionValues) {
-        try {
-            this.optiValue = solutionValues;
-
-            umlModelInsGenerator.reAssignedUMLObjects(solutionValues);
-
-
-            List<UMLObjectIns> objects = umlModelInsGenerator.getUmlObjectInsList();
-            String solution = umlModelInsGenerator.getSolution();
-
-
-            IModelInstance modelInstance = new RModelIns(model, objects);
-            OclInterpreter interpreter = new OclInterpreter(modelInstance);
-
-            // Initial the calculator
-            BDCManager bdc = new BDCManager();
-            bdc.setInterpreter(interpreter);
-            bdc.setModelInstanceObjects(modelInstance.getAllModelInstanceObjects());
-
-            logger.debug("---Calculate the fitness---");
-
-            for (IModelInstanceObject imiObject : modelInstance.getAllModelInstanceObjects()) {
-
-                try {
-
-
-                    // Interpret the OCL constraint
-                    IInterpretationResult result = interpreter.interpretConstraint(this.constraint,
-                            imiObject);
-
-                    boolean resultBool = false;
-
-                    if (result != null) {
-
-                        if (result.getResult() instanceof OclBoolean) {
-                            if (((OclBoolean) result.getResult()).isTrue()) {
-                                resultBool = true;
-
-                                instancesObjects.add(imiObject);
-                                solutions.add(solution);
-                            }
-
-                        }
-
-
-                        logger.debug(result.getConstraint().getSpecification().getBody() + ": " + result.getResult());
-
-                        // Get the OCL expression
-                        Expression exp = this.constraint.getSpecification();
-
-                        // Classify the OCL expression
-                        double distance = classifyExp(exp, imiObject, bdc);
-                        logger.debug("the fitness: " + distance);
-
-
-                        if (!resultBool && distance == 0d) {
-                            return -1;
-                        }
-
-                        return distance;
-                    }
-                } catch (Exception e) {
-                    logger.error("Instance not interpreted");
-                }
-            }
-        } catch (Exception e) {
-            logger.error(e);
-        }
-        return -1;
-    }
-
-    public Constraint getConstraint() {
-        return constraint;
-    }
-
-    //4)	Generate the model instances and initial the attribute array
     public void processProblem() {
 
         // obtain the initial attribute array
-        this.initialVesForSearchList = this.vesGenerator.buildInitialVes(model);
+        initialVesForSearchList = vesGenerator.buildInitialVes();
 
         // after fixing the association number, we can get the final attribute array
-        this.valueOfConstraints = getAllAttributeConstraints();
+        valueOfConstraints = getAllAttributeConstraints();
 
-        this.geneValueScopeList = encodingAndDecoding.encoding(this
-                .getConstraints());
+        geneValueScopeList = encodingAndDecoding.encoding(getConstraintElements4Search());
     }
 
 
-    public void processProblem(ValueElement4Search[] assgnedValue4Attribute,
-                               ValueElement4Search[] OptimizedValueofAttributes) {
+    /**
+     * Interpret ocl constraint and return distance
+     *
+     * @param solutionValues values of variables
+     */
 
-        this.OptimizedValueofAttributes = OptimizedValueofAttributes;
-        // obtain the initial attribute array
-        this.initialVesForSearchList = this.vesGenerator.buildInitialVes(model);
+    public double getFitness(String[] solutionValues) {
 
-        // assign the value
-        for (ValueElement4Search ves : this.initialVesForSearchList) {
-            for (ValueElement4Search assign_ves : assgnedValue4Attribute) {
-                if (ves.getAttributeName()
-                        .equals(assign_ves.getAttributeName())) {
-                    ves.setValue(assign_ves.getValue());
-                    ves.setMinValue(Integer.parseInt(assign_ves.getValue()));
-                    ves.setMaxValue(Integer.parseInt(assign_ves.getValue()));
-                }
-            }
+        umlModelInsGenerator.reAssignedUMLObjects(solutionValues);
+
+
+        List<UMLObjectIns> objects = umlModelInsGenerator.getUmlObjectInsList();
+        String solution = umlModelInsGenerator.getSolution();
+
+        IModelInstance modelInstance = new RModelIns(model, objects);
+        double distance = FitnessCalculator.getFitness(model, constraint, modelInstance);
+
+        if (distance != -1) {
+            instancesObjects.addAll(modelInstance.getAllModelInstanceObjects());
+            solutions.add(solution);
         }
-
-        // after fixing the association number, we can get the final attribute array
-        this.valueOfConstraints = getAllAttributeConstraints();
-
-        this.geneValueScopeList = encodingAndDecoding.encoding(this
-                .getConstraints());
+        return distance;
     }
 
-    public void getAssignVlue() {
-        for (ValueElement4Search ves : this.OptimizedValueofAttributes) {
-            List<Integer> result = new ArrayList<Integer>();
-            for (int i = 0; i < this.valueOfConstraints.length; i++) {
-                if (ves.getAttributeName().equals(
-                        this.valueOfConstraints[i].getAttributeName()))
-                    result.add(i);
-            }
-            ves.setValue(this.optiValue[result.get(0)]);
-        }
-    }
 
 
     /*
@@ -299,7 +194,7 @@ public class SolveProblem implements Problem {
     private ValueElement4Search[] getAllAttributeConstraints() {
         logger.debug("*******************Build the concreate number of class instance*******************");
 
-        for (ValueElement4Search initialVes : this.initialVesForSearchList) {
+        for (ValueElement4Search initialVes : initialVesForSearchList) {
             if (!initialVes.getSourceClass().equals(
                     initialVes.getDestinationClass()))
                 logger.debug("the value of Association:: "
@@ -307,21 +202,17 @@ public class SolveProblem implements Problem {
                         + initialVes.getDestinationClass() + " number: "
                         + initialVes.getValue());
         }
-        return this.umlModelInsGenerator.getVes4InsNumberArray();
+        return umlModelInsGenerator.getVes4InsNumberArray();
     }
 
-    public List<ValueElement4Search> getInitialVesList() {
-        return initialVesForSearchList;
+
+    @Override
+    public ValueElement4Search[] getConstraintElements4Search() {
+
+        return valueOfConstraints;
     }
 
-    public ValueElement4Search[] getConstraints() {
 
-        return this.valueOfConstraints;
-    }
-
-    public UMLModelInsGenerator getUmlModelInsGenerator() {
-        return umlModelInsGenerator;
-    }
 
     @Override
     public ArrayList<GeneValueScope> getGeneConstraints() {
@@ -332,8 +223,7 @@ public class SolveProblem implements Problem {
     @Override
     public String[] decoding(int v[]) {
 
-
-        return encodingAndDecoding.decoding(v, this.getConstraints());
+        return encodingAndDecoding.decoding(v, this.getConstraintElements4Search());
     }
 
     @Override
@@ -364,7 +254,7 @@ public class SolveProblem implements Problem {
 
     private File UMLRecourse() {
 
-        String UML_JAR = "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
+
         URL url = getClass().getClassLoader().getResource("lib/" + UML_JAR);
         if (url != null) {
             File file = new File(url.getFile());
@@ -375,7 +265,19 @@ public class SolveProblem implements Problem {
                 if (file.exists()) {
                     return file;
                 } else {
-                    return new File(CommandLine.umlpath + UML_JAR);
+
+                    if (CommandLine.umlpath != null && !CommandLine.umlpath.isEmpty()) {
+                        return new File(CommandLine.umlpath + UML_JAR);
+                    } else {
+
+                        url = getClass().getClassLoader().getResource(UML_JAR);
+                        if (url != null) {
+                            file = new File(url.getFile());
+                            if (file.exists()) {
+                                return file;
+                            }
+                        }
+                    }
                 }
             }
         } else {
@@ -386,6 +288,7 @@ public class SolveProblem implements Problem {
                 return new File(CommandLine.umlpath + UML_JAR);
             }
         }
+        return null;
     }
 
     /**
@@ -412,4 +315,12 @@ public class SolveProblem implements Problem {
 
     }
 
+
+    public Constraint getConstraint() {
+        return constraint;
+    }
+
+    public UMLModelInsGenerator getUmlModelInsGenerator() {
+        return umlModelInsGenerator;
+    }
 }

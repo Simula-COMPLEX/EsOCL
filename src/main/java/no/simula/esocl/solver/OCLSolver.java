@@ -14,12 +14,12 @@ package no.simula.esocl.solver;
 
 import no.simula.esocl.ocl.distance.DisplayResult;
 import no.simula.esocl.ocl.distance.Result;
+import no.simula.esocl.ocl.distance.SearchRunner;
 import no.simula.esocl.ocl.distance.SolveProblem;
 import no.simula.esocl.oclga.*;
 import no.simula.esocl.standalone.analysis.OCLExpUtility;
 import no.simula.esocl.standalone.analysis.Utility;
 import no.simula.esocl.standalone.modelinstance.RModelInsObject;
-import org.apache.log4j.Logger;
 import org.dresdenocl.modelinstancetype.exception.PropertyAccessException;
 import org.dresdenocl.modelinstancetype.exception.PropertyNotFoundException;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceElement;
@@ -29,9 +29,7 @@ import org.dresdenocl.pivotmodel.EnumerationLiteral;
 import org.dresdenocl.pivotmodel.Property;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,10 +45,6 @@ public class OCLSolver {
     private static final Map<String, Integer> alogkeys = new HashMap<>();
 
 
-    private static int boundValueStratergy = 0;
-    private static Logger logger = Logger.getLogger(OCLSolver.class);
-
-
     static {
         alogkeys.put("AVM", OCLSolver.AVM);
         alogkeys.put("SSGA", OCLSolver.SSGA);
@@ -58,10 +52,6 @@ public class OCLSolver {
         alogkeys.put("RandomSearch", OCLSolver.RandomSearch);
     }
 
-
-    private Search[] s = new Search[]{new AVM(),
-            new SSGA(100, 0.75), new OpOEA(),
-            new RandomSearch()};
 
     public OCLSolver() {
 
@@ -100,19 +90,14 @@ public class OCLSolver {
 
     public Result solveConstraint(String inputModel, String constraint, int searchAlgorithms[], int iterations) throws Exception {
 
-
         for (int alogokey : searchAlgorithms) {
-            OCLSolver searchEngineDriver = new OCLSolver();
-            Result result = searchEngineDriver.solveConstraint(inputModel, constraint, alogokey, iterations);
+            Result result = new OCLSolver().solveConstraint(inputModel, constraint, alogokey, iterations);
             if (result.getResult()) {
                 return result;
             }
         }
 
-        Result result = new Result();
-        result.setResult(false);
-        return result;
-
+        return new Result();
 
     }
 
@@ -130,7 +115,6 @@ public class OCLSolver {
     public Result solveConstraint(String inputModel, String constraint, int searchAlgorithm, Integer iterations) throws Exception {
 
 
-
         SolveProblem xp = new SolveProblem(new File(inputModel),
                 constraint);
         return runSearch(xp, searchAlgorithm, iterations);
@@ -144,17 +128,16 @@ public class OCLSolver {
     public Result solveConstraint(String inputModel, File constraint, int searchAlgorithm[], int iterations) throws Exception {
 
 
-        for (int alogokey : searchAlgorithm) {
-            OCLSolver searchEngineDriver = new OCLSolver();
-            Result result = searchEngineDriver.solveConstraint(inputModel, constraint, alogokey, iterations);
+        for (int alogoKey : searchAlgorithm) {
+
+            Result result = new OCLSolver().solveConstraint(inputModel, constraint, alogoKey, iterations);
             if (result.getResult()) {
                 return result;
             }
         }
 
-        Result result = new Result();
-        result.setResult(false);
-        return result;
+
+        return new Result();
 
 
     }
@@ -162,108 +145,45 @@ public class OCLSolver {
     public Result solveConstraint(String inputModel, File constraint, int searchAlgorithm, Integer iterations) throws Exception {
 
 
-        SolveProblem xp = new SolveProblem(new File(inputModel),
-                constraint);
-        return runSearch(xp, searchAlgorithm, iterations);
+        SolveProblem problem = new SolveProblem(new File(inputModel), constraint);
+
+        return runSearch(problem, searchAlgorithm, iterations);
     }
 
 
-    private Result runSearch(SolveProblem xp, int searchAlgorithm, int iterations) throws Exception {
-        Result result = null;
-
-        Search search = s[searchAlgorithm];
-        search.setMaxIterations(iterations);
-
-
-        xp.processProblem();
-        if (boundValueStratergy == 0) {
-            result = searchProcess(xp, search);
-            // This class will store the final model instance
-            DisplayResult.resultList = new ArrayList<>();
-            DisplayResult.resultList.add(xp.getUmlModelInsGenerator()
-                    .getUmlObjectInsList());
-        } else {
-            /**
-             * if we confirm the number of comparison expression, we can calculate the times for
-             * running the search process
-             */
-            int iterateTime = OCLExpUtility.INSTANCE.buildIndexArray4Bound(xp
-                    .getConstraint());
-            // it stores the type information of bound value for each comparison expression
-            DisplayResult.boundValueTypes = OCLExpUtility.INSTANCE
-                    .getTypeArray();
-            DisplayResult.resultList = new ArrayList<>();
-
-
-            List<Result> results = new ArrayList<>();
-            for (int i = 0; i < iterateTime; i++) {
-                // modify the right part value of comparison expression
-                OCLExpUtility.INSTANCE.generateBoundValue(i);
-
-                results.add(searchProcess(xp, search));
-
-                // restore the right part value of comparison expression
-                OCLExpUtility.INSTANCE.restoreOriginalValue();
-                DisplayResult.resultList.add(xp.getUmlModelInsGenerator()
-                        .getUmlObjectInsList());
+    private Result runSearch(SolveProblem problem, int searchAlgorithm, Integer iterations) throws Exception {
+        Search search = null;
+        switch (searchAlgorithm) {
+            case 0: {
+                search = new AVM();
+                break;
             }
 
-
-            for (Result tempResult : results) {
-                if (tempResult.getResult()) {
-                    result = tempResult;
-                    break;
-                }
+            case 1: {
+                search = new SSGA(100, 0.75);
+                break;
             }
 
+            case 2: {
+                search = new OpOEA();
+                break;
+            }
+            case 3: {
+                search = new RandomSearch();
+                break;
+            }
 
         }
 
 
-        return result;
+        if (search != null) {
+            search.setMaxIterations(iterations);
+            return new SearchRunner().runSearch(problem, search);
+        }
+
+        return null;
     }
 
-    private Result searchProcess(SolveProblem xp, Search sv) {
-
-
-        Search.validateConstraints(xp);
-        String[] value = sv.search(xp);
-
-        for (String str : value) {
-            logger.debug(str);
-        }
-
-        boolean found = sv.getFitness() == 0d;
-
-
-        if (!found) {
-            found = xp.getFitness(value) == 0d;
-        }
-
-        int steps = sv.getIteration();
-
-
-        Result result = new Result();
-        if (xp.getConstraint() != null) {
-            result.setConstraint(xp.getConstraint().getSpecification().getBody());
-        }
-        result.setResult(found);
-        result.setSearchAlgorithms(sv.getShortName());
-        result.setIterations(steps);
-        result.setSolutions(xp.getSolutions());
-        if (!result.getSolutions().isEmpty()) {
-            result.setSolution(result.getSolutions().get(result.getSolutions().size() - 1));
-        }
-
-
-        result.setSolutionObjects(xp.getObjects());
-        if (!result.getSolutionObjects().isEmpty()) {
-            result.setFinalSolutionObject(result.getSolutionObjects().get(result.getSolutionObjects().size() - 1));
-        }
-
-
-        return result;
-    }
 
     public void printResults(Result result) {
 

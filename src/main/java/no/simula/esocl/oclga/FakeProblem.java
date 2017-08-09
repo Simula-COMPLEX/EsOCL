@@ -26,7 +26,7 @@ import java.util.List;
 public class FakeProblem implements Problem {
 
     @Override
-    public ValueElement4Search[] getConstraints() {
+    public ValueElement4Search[] getConstraintElements4Search() {
         ValueElement4Search[] m = new ValueElement4Search[2];
 
         return m;

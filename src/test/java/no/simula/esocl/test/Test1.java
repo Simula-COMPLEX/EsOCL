@@ -11,8 +11,8 @@ public class Test1 {
     @Test
     public void test1() {
 
-        String inputModelPath = "/Users/hammad/git/EsOCL/src/main/resources/model/Test.uml";
-        File constraint = new File("/Users/hammad/git/EsOCL/src/main/resources/constraints/ocltest-1.ocl");
+        String inputModelPath = "src/main/resources/model/Test.uml";
+        File constraint = new File("src/main/resources/constraints/ocltest-1.ocl");
         OCLSolver oclSolver = new OCLSolver();
         try {
             Result result = oclSolver.solveConstraint(inputModelPath, constraint, new int[]{OCLSolver.AVM, OCLSolver.OpOEA}, 5000);
@@ -26,8 +26,8 @@ public class Test1 {
     @Test
     public void test2() {
 
-        String inputModelPath = "/Users/hammad/git/EsOCL/src/main/resources/model/Test.uml";
-        File constraint = new File("/Users/hammad/git/EsOCL/src/main/resources/constraints/ocltest-2.ocl");
+        String inputModelPath = "src/main/resources/model/Test.uml";
+        File constraint = new File("src/main/resources/constraints/ocltest-2.ocl");
         OCLSolver oclSolver = new OCLSolver();
         try {
             Result result = oclSolver.solveConstraint(inputModelPath, constraint, new int[]{OCLSolver.AVM, OCLSolver.OpOEA}, 5000);
@@ -41,8 +41,8 @@ public class Test1 {
     @Test
     public void test3() {
 
-        String inputModelPath = "/Users/hammad/git/EsOCL/src/main/resources/model/Test.uml";
-        File constraint = new File("/Users/hammad/git/EsOCL/src/main/resources/constraints/ocltest-3.ocl");
+        String inputModelPath = "src/main/resources/model/Test.uml";
+        File constraint = new File("src/main/resources/constraints/ocltest-3.ocl");
         OCLSolver oclSolver = new OCLSolver();
         try {
             Result result = oclSolver.solveConstraint(inputModelPath, constraint, new int[]{OCLSolver.AVM, OCLSolver.OpOEA}, 5000);

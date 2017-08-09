@@ -28,8 +28,8 @@ public class OpOEA extends SSGA {
         current.evaluate();
         this.increaseIteration();
 
-        if (current.fitness_value == 0d)
-            return current.problem.decoding(current.v);
+        if (current.getFitness_value() == 0d)
+            return current.getProblem().decoding(current.getV());
 
         Individual tmp = Individual.getRandomIndividual(problem);
 
@@ -38,19 +38,19 @@ public class OpOEA extends SSGA {
             tmp.copyDataFrom(current);
             mutateAndEvaluateOffspring(tmp);
 
-            if (tmp.fitness_value == 0d)
-                return tmp.problem.decoding(tmp.v);
+            if (tmp.getFitness_value() == 0d)
+                return tmp.getProblem().decoding(tmp.getV());
 
-            if (tmp.fitness_value <= current.fitness_value) {
+            if (tmp.getFitness_value() <= current.getFitness_value()) {
                 current.copyDataFrom(tmp);
 
-                if (tmp.fitness_value < current.fitness_value)
+                if (tmp.getFitness_value() < current.getFitness_value())
                     reportImprovement();
             }
         }
 
-        fitness = current.fitness_value;
-        return current.problem.decoding(current.v);
+        fitness = current.getFitness_value();
+        return current.getProblem().decoding(current.getV());
     }
 
     @Override

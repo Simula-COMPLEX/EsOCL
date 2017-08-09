@@ -19,7 +19,6 @@ import org.dresdenocl.essentialocl.types.SetType;
 import org.dresdenocl.metamodels.uml2.internal.model.UML2Class;
 import org.dresdenocl.metamodels.uml2.internal.model.UML2Enumeration;
 import org.dresdenocl.metamodels.uml2.internal.model.UML2PrimitiveType;
-import org.dresdenocl.model.IModel;
 import org.dresdenocl.pivotmodel.Constraint;
 import org.dresdenocl.pivotmodel.Property;
 import org.dresdenocl.pivotmodel.Type;
@@ -36,29 +35,23 @@ import java.util.Map;
  */
 public class VESGenerator {
 
+    private static Logger logger = Logger.getLogger(VESGenerator.class);
+
     /**
      * this list is initialized for recording the needed attribute information from .uml model
      */
-    List<ValueElement4Search> initialVesForSearchList = new ArrayList<ValueElement4Search>();
+    private List<ValueElement4Search> initialVesForSearchList = new ArrayList<>();
 
-    Map<String, List<ValueElement4Search>> iniVesGroupByClassMap = new HashMap<String, List<ValueElement4Search>>();
+    private Map<String, List<ValueElement4Search>> iniVesGroupByClassMap = new HashMap<>();
     /**
      * enumeration types in the .uml file
      */
-    List<UML2Enumeration> enumerationList = new ArrayList<UML2Enumeration>();
+    private List<UML2Enumeration> enumerationList = new ArrayList<>();
     /**
      * OCL constraints parsed from .ocl file
      */
-    Constraint constraint = null;
+    private Constraint constraint = null;
 
-    /**
-     * generate the initial veslist base on the .uml model
-     *
-     * @param model
-     * @return
-     */
-
-    Logger logger = Logger.getLogger(VESGenerator.class);
 
     public VESGenerator(Constraint constraint) {
         this.constraint = constraint;
@@ -78,7 +71,7 @@ public class VESGenerator {
         return constraint;
     }
 
-    public List<ValueElement4Search> buildInitialVes(IModel model) {
+    public List<ValueElement4Search> buildInitialVes() {
         logger.debug("*******************Initial the VES array*******************");
         // OCLExpUtility.INSTANCE.printOclClause4Depth(cons.getSpecification());
         List<PropertyCallExpImpl> propCallList = OCLExpUtility.INSTANCE
@@ -191,22 +184,24 @@ public class VESGenerator {
     }
 
     /**
-     * obtain the int label of each type
-     *
-     * @param type
-     * @return
+     * obtain the integer label of each type
+     * @param type  {@link Type}  type of property
+     * @return int integer code
      */
+
     public int value4PPType(Type type) {
         if (type instanceof UML2PrimitiveType) {
-            String typeValue = ((UML2PrimitiveType) type).getKind().getName();
-            if (typeValue.equals("Integer"))
-                return 0;
-            else if (typeValue.equals("Boolean"))
-                return 1;
-            else if (typeValue.equals("String"))
-                return 2;
-            else if (typeValue.equals("Real"))
-                return 3;
+            String typeName = ((UML2PrimitiveType) type).getKind().getName();
+            switch (typeName) {
+                case "Integer":
+                    return 0;
+                case "Boolean":
+                    return 1;
+                case "String":
+                    return 2;
+                case "Real":
+                    return 3;
+            }
         } else if (type instanceof UML2Enumeration) {
             return 1;
         }
@@ -214,14 +209,15 @@ public class VESGenerator {
     }
 
     /**
-     * find the UML2Enumeration from the this.enumerationList based on the type name
+     * find the UML2Enumeration from the enumerationList based on the type name
      *
-     * @param enumName
-     * @return
+     * @param enumerationName Enumeration Name
+     * @return UML2Enumeration
      */
-    public UML2Enumeration getEnumeration(String enumName) {
+
+    public UML2Enumeration getEnumeration(String enumerationName) {
         for (UML2Enumeration enumeration : this.enumerationList) {
-            if (enumeration.getQualifiedName().equals(enumName))
+            if (enumeration.getQualifiedName().equals(enumerationName))
                 return enumeration;
         }
         return null;

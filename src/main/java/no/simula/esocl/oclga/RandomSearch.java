@@ -26,8 +26,8 @@ public class RandomSearch extends Search {
         best.evaluate();
         this.increaseIteration();
 
-        if (best.fitness_value == 0d)
-            return best.problem.decoding(best.v);
+        if (best.getFitness_value() == 0d)
+            return best.getProblem().decoding(best.getV());
 
 
         //init first generation
@@ -36,19 +36,19 @@ public class RandomSearch extends Search {
             current.evaluate();
             this.increaseIteration();
 
-            if (current.fitness_value == 0d) {
-                fitness = current.fitness_value;
-                return current.problem.decoding(current.v);
+            if (current.getFitness_value() == 0d) {
+                fitness = current.getFitness_value();
+                return current.getProblem().decoding(current.getV());
             }
 
-            if (current.fitness_value < best.fitness_value) {
+            if (current.getFitness_value() < best.getFitness_value()) {
                 best.copyDataFrom(current);
                 reportImprovement();
             }
         }
 
-        fitness = best.fitness_value;
-        return best.problem.decoding(best.v);
+        fitness = best.getFitness_value();
+        return best.getProblem().decoding(best.getV());
     }
 
     @Override

@@ -19,10 +19,23 @@ package no.simula.esocl.oclga;
  */
 public class GeneValueScope {
 
-    public int type;  //thye value of the type is consistent with the value defined in Problem
+    /**
+     * value of the type is consistent with the value defined in Problem
+     */
+    public int type;
     private int minValue;
     private int maxValue;
     private EncodedConstraintType encodedConstraintType;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    enum EncodedConstraintType {String, Double}
 
     public int getMinValue() {
         return minValue;
@@ -40,14 +53,6 @@ public class GeneValueScope {
         this.maxValue = maxValue;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public EncodedConstraintType getEncodedConstraintType() {
         return encodedConstraintType;
     }
@@ -55,7 +60,4 @@ public class GeneValueScope {
     public void setEncodedConstraintType(EncodedConstraintType encodedConstraintType) {
         this.encodedConstraintType = encodedConstraintType;
     }
-
-    enum EncodedConstraintType {String, Double}
-
 }

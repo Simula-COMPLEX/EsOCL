@@ -39,7 +39,7 @@ public class UMLModelInsGenerator {
      * this list is initialized for recording the attribute information after confirming the
      * instance number
      */
-    private List<UMLAttributeIns> attributeInsList = new ArrayList<UMLAttributeIns>();
+    private List<UMLAttributeIns> attributeInsList = new ArrayList<>();
     /**
      * this list contains the class instance
      */
@@ -165,8 +165,9 @@ public class UMLModelInsGenerator {
      * to generate the UMLObjectIns from the ves4ClassList based on the association value it is the
      * recursive process
      *
-     * @return
+     * @return UMLObjectIns
      */
+
     public UMLObjectIns buildUMLObjectFromVesList(
             List<ValueElement4Search> initialVes4SameClassList, String className) {
         if (initialVes4SameClassList == null)
@@ -197,7 +198,7 @@ public class UMLModelInsGenerator {
                 }
 
             } else {
-                /**
+                /*
                  * handle the local association property with out overall analysis e.g. we only
                  * analyze the situation like A--*B---*C
                  */

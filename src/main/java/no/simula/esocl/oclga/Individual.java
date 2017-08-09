@@ -21,11 +21,14 @@ import java.util.ArrayList;
  */
 
 public class Individual implements Comparable<Individual> {
-    int[] v;    //Array is used to store the value of the constraints, this value is generated according to the array valueofconstraints[][]
-    //This array is also used to represent the chromosome
 
-    double fitness_value;
-    Problem problem;
+    /**
+     * Array is used to store the value of the constraints, this value is generated according to the array valueofconstraints[][]
+     * This array is also used to represent the chromosome
+     */
+    private int[] v;
+    private double fitness_value;
+    private Problem problem;
 
     public Individual(Problem p) {
         problem = p;
@@ -42,9 +45,8 @@ public class Individual implements Comparable<Individual> {
         return ind;
     }
 
-    /*
-     */
-    public static Individual randomGenerateValue(Individual ind) {
+
+    private static void randomGenerateValue(Individual ind) {
         //compute the length of individual
         ind.v = new int[ind.problem.getGeneConstraints().size()];
 
@@ -53,7 +55,6 @@ public class Individual implements Comparable<Individual> {
             ind.v[i] = randomGenerateValue(geneValue);
         }
 
-        return ind;
     }
 
     /*
@@ -63,7 +64,7 @@ public class Individual implements Comparable<Individual> {
     3 represent types of double
     */
     public static int randomGenerateValue(GeneValueScope constraint) {
-        int value = 0;
+        int value;
         int min = constraint.getMinValue();
         int max = constraint.getMaxValue();
         int type = constraint.getType();
@@ -76,16 +77,11 @@ public class Individual implements Comparable<Individual> {
     }
 
     public int compareTo(Individual other) {
-        if (this.fitness_value == other.fitness_value)
-            return 0;
-        else if (this.fitness_value > other.fitness_value)
-            return 1;
-        else
-            return -1;
+        return Double.compare(this.fitness_value, other.fitness_value);
     }
 
     public void evaluate() {
-        //System.out.println("error");
+
         fitness_value = problem.getFitness(problem.decoding(this.v));
     }
 
@@ -93,22 +89,37 @@ public class Individual implements Comparable<Individual> {
         return this.problem.getGeneConstraints();
     }
 
-    public Individual getCopy() {
-        Individual copy = new Individual(problem);
-        copy.v = v.clone();
-        copy.fitness_value = fitness_value;
-
-        return copy;
-    }
 
     public void copyDataFrom(Individual other) {
         this.problem = other.problem;
 
-        for (int i = 0; i < v.length; i++)
-            this.v[i] = other.v[i];
+        System.arraycopy(other.v, 0, this.v, 0, v.length);
 
         this.fitness_value = other.fitness_value;
     }
 
 
+    public int[] getV() {
+        return v;
+    }
+
+    public void setV(int[] v) {
+        this.v = v;
+    }
+
+    public double getFitness_value() {
+        return fitness_value;
+    }
+
+    public void setFitness_value(double fitness_value) {
+        this.fitness_value = fitness_value;
+    }
+
+    public Problem getProblem() {
+        return problem;
+    }
+
+    public void setProblem(Problem problem) {
+        this.problem = problem;
+    }
 }

@@ -21,35 +21,15 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2017-07-03
  */
-public class EnAndDecoding {
+public class EncodingDecoding {
 
     private static ArrayList<GeneValueScope> geneValueList;
 
-    public EnAndDecoding() {
-        geneValueList = new ArrayList<GeneValueScope>();
+    public EncodingDecoding() {
+        geneValueList = new ArrayList<>();
     }
 
-	/*
-    public int[] removeNegativeValue(int v[], ArrayList<GeneValueScope> geneValueList)
-	{
-		ArrayList<GeneValueScope> cons = geneValueList;
-		int value[] = new int[v.length];
-		
-		for(int i=0; i<v.length; i++)
-		{
-			if(v[i] < cons.get(i).getMinValue())
-				value[i] = cons.get(i).getMinValue();
-		    else if(v[i] > cons.get(i).getMaxValue())
-		    	value[i] = cons.get(i).getMaxValue();
-		    else
-		    	value[i] = v[i];
-		}
-		
-		return value;
-	}
-	*/
-
-    /*
+    /**
      * during the encoding, we encoding the value type of String to a array that with the max length
      * for example, when the String length scope is [1, 20], then the arry is 20
      */
@@ -73,20 +53,20 @@ public class EnAndDecoding {
         return getGeneValueList();
     }
 
-    /*
-    For the ValueElement4Search
-    0 represent types of int
-    1 represent types of boolean and enumeration
-    2 represent types of string
-    3 represent types of double
-
-    but for GeneValueScope
-    NUMERICAL_TYPE = 0;
-    CATEGORICAL_TYPE = 1;
-
-    When type of ValueElement4Search is 1 the type of GeneValueScope need to set to be 1 as a CATEGORICAL type
-    or else, set type to 0, as a double type
-    */
+    /**
+     * For the ValueElement4Search
+     * 0 represent types of int
+     * 1 represent types of boolean and enumeration
+     * 2 represent types of string
+     * 3 represent types of double
+     * <p>
+     * but for GeneValueScope
+     * NUMERICAL_TYPE = 0;
+     * CATEGORICAL_TYPE = 1;
+     * <p>
+     * When type of ValueElement4Search is 1 the type of GeneValueScope need to set to be 1 as a CATEGORICAL type
+     * or else, set type to 0, as a double type
+     */
     private static void addCommonGene(ValueElement4Search element) {
         GeneValueScope gene = new GeneValueScope();
         gene.setMinValue(element.getMinValue());
@@ -110,6 +90,39 @@ public class EnAndDecoding {
         }
 
         geneValueList.add(gene);
+    }
+
+    /**
+     * encoding the ValueElement4Search[] constraints
+     */
+    public ArrayList<GeneValueScope> encoding(ValueElement4Search[] constraints) {
+        return generateGeneValueList(constraints);
+    }
+
+    /**
+     * decoding the ValueElement4Search[] constraints
+     */
+    public String[] decoding(int[] v, ValueElement4Search[] constraints) {
+        String retString[] = new String[constraints.length];
+        int index = 0; //indicate the index of the origin constraint
+
+        for (int i = 0; i < geneValueList.size(); i++) {
+            GeneValueScope geneValue = geneValueList.get(i);
+
+            if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.String) {
+                retString[index] = decodingString(i, v[i], v);
+                i = i + geneValue.getMaxValue();
+            } else if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.Double) {
+                retString[index] = decodingDouble(i, v);
+                i = i + 1;
+            } else {
+                retString[index] = String.valueOf(v[i]);
+            }
+
+            index++;
+        }
+
+        return retString;
     }
 
     private static void addStringGene(int len) {
@@ -144,32 +157,6 @@ public class EnAndDecoding {
         return geneValueList;
     }
 
-    public static void setGeneValueList(ArrayList<GeneValueScope> geneValueList) {
-        EnAndDecoding.geneValueList = geneValueList;
-    }
-
-    public String[] decoding(int[] v, ValueElement4Search[] constraints) {
-        String retString[] = new String[constraints.length];
-        int index = 0; //indicate the index of the origin constraint
-
-        for (int i = 0; i < geneValueList.size(); i++) {
-            GeneValueScope geneValue = geneValueList.get(i);
-
-            if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.String) {
-                retString[index] = decodingString(i, v[i], v);
-                i = i + geneValue.getMaxValue();
-            } else if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.Double) {
-                retString[index] = decodingDouble(i, v);
-                i = i + 1;
-            } else {
-                retString[index] = String.valueOf(v[i]);
-            }
-
-            index++;
-        }
-
-        return retString;
-    }
 
     private String decodingDouble(int index, int[] v) {
         String doubleStr = "";
@@ -192,11 +179,5 @@ public class EnAndDecoding {
         return str.toString();
     }
 
-    /*
-     * encoding the ValueElement4Search[] constraints
-     */
-    public ArrayList<GeneValueScope> encoding(ValueElement4Search[] constraints) {
-        return generateGeneValueList(constraints);
-    }
 
 }

@@ -24,7 +24,14 @@ import java.util.List;
  */
 public class BDCManager {
 
+    /**
+     * Dresden OCL interpreter
+     */
     private OclInterpreter interpreter;
+
+    /**
+     * Dresden OCL model instances
+     */
 
     private List<IModelInstanceObject> modelInstanceObjects;
 

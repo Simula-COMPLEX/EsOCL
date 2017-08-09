@@ -29,7 +29,7 @@ public abstract class Search {
     private int current_iteration;
 
     public static void validateConstraints(Problem p) {
-        ValueElement4Search[] c = p.getConstraints();
+        ValueElement4Search[] c = p.getConstraintElements4Search();
         if (!areConstraintsValid(c))
             throw new RuntimeException("This Problem has invalid constraints");
     }
