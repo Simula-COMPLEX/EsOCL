@@ -92,39 +92,6 @@ public class EncodingDecoding {
         geneValueList.add(gene);
     }
 
-    /**
-     * encoding the ValueElement4Search[] constraints
-     */
-    public ArrayList<GeneValueScope> encoding(ValueElement4Search[] constraints) {
-        return generateGeneValueList(constraints);
-    }
-
-    /**
-     * decoding the ValueElement4Search[] constraints
-     */
-    public String[] decoding(int[] v, ValueElement4Search[] constraints) {
-        String retString[] = new String[constraints.length];
-        int index = 0; //indicate the index of the origin constraint
-
-        for (int i = 0; i < geneValueList.size(); i++) {
-            GeneValueScope geneValue = geneValueList.get(i);
-
-            if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.String) {
-                retString[index] = decodingString(i, v[i], v);
-                i = i + geneValue.getMaxValue();
-            } else if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.Double) {
-                retString[index] = decodingDouble(i, v);
-                i = i + 1;
-            } else {
-                retString[index] = String.valueOf(v[i]);
-            }
-
-            index++;
-        }
-
-        return retString;
-    }
-
     private static void addStringGene(int len) {
         for (int i = 0; i < len; i++) {
             GeneValueScope gene = new GeneValueScope();
@@ -157,6 +124,38 @@ public class EncodingDecoding {
         return geneValueList;
     }
 
+    /**
+     * encoding the ValueElement4Search[] constraints
+     */
+    public ArrayList<GeneValueScope> encoding(ValueElement4Search[] constraints) {
+        return generateGeneValueList(constraints);
+    }
+
+    /**
+     * decoding the ValueElement4Search[] constraints
+     */
+    public String[] decoding(int[] v, ValueElement4Search[] constraints) {
+        String retString[] = new String[constraints.length];
+        int index = 0; //indicate the index of the origin constraint
+
+        for (int i = 0; i < geneValueList.size(); i++) {
+            GeneValueScope geneValue = geneValueList.get(i);
+
+            if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.String) {
+                retString[index] = decodingString(i, v[i], v);
+                i = i + geneValue.getMaxValue();
+            } else if (geneValue.getEncodedConstraintType() == GeneValueScope.EncodedConstraintType.Double) {
+                retString[index] = decodingDouble(i, v);
+                i = i + 1;
+            } else {
+                retString[index] = String.valueOf(v[i]);
+            }
+
+            index++;
+        }
+
+        return retString;
+    }
 
     private String decodingDouble(int index, int[] v) {
         String doubleStr = "";

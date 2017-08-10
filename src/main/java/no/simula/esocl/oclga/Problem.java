@@ -13,7 +13,7 @@
 package no.simula.esocl.oclga;
 
 import no.simula.esocl.ocl.distance.ValueElement4Search;
-import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
+import org.dresdenocl.modelinstance.IModelInstance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +41,9 @@ public interface Problem {
     double getFitness(String[] value);
 
 
-    List<String> getSolutions();
+    List<String> getStringInstances();
 
-    List<IModelInstanceObject> getObjects();
+    List<IModelInstance> getObjects();
 
 
 }

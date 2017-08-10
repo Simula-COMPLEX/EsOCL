@@ -42,154 +42,186 @@ public class VESGenerator {
      */
     private List<ValueElement4Search> initialVesForSearchList = new ArrayList<>();
 
-    private Map<String, List<ValueElement4Search>> iniVesGroupByClassMap = new HashMap<>();
+
+    private Map<String, List<ValueElement4Search>> valueElement4SearchByClass = new HashMap<>();
+
     /**
      * enumeration types in the .uml file
      */
+
     private List<UML2Enumeration> enumerationList = new ArrayList<>();
+
     /**
-     * OCL constraints parsed from .ocl file
+     * OCL constraints
      */
     private Constraint constraint = null;
 
 
     public VESGenerator(Constraint constraint) {
         this.constraint = constraint;
-        // logger.setLevel(Level.OFF);
-        // PropertyConfigurator.configure("Eslog4j.properties");
     }
 
-    public List<ValueElement4Search> getInitialVesForSearchList() {
-        return initialVesForSearchList;
-    }
-
-    public Map<String, List<ValueElement4Search>> getIniVesGroupByClassMap() {
-        return iniVesGroupByClassMap;
-    }
-
-    public Constraint getConstraint() {
-        return constraint;
-    }
 
     public List<ValueElement4Search> buildInitialVes() {
-        logger.debug("*******************Initial the VES array*******************");
+        logger.debug("");
+        logger.debug("*******************Initial the Value Element 4 Search List *******************");
+
         // OCLExpUtility.INSTANCE.printOclClause4Depth(cons.getSpecification());
-        List<PropertyCallExpImpl> propCallList = OCLExpUtility.INSTANCE
-                .getPropertyInCons(this.constraint);
-        for (PropertyCallExpImpl propCall : propCallList) {
-            UML2Class vesCla = (UML2Class) propCall.getSourceType();
-            Property p = propCall.getReferredProperty();
-            ValueElement4Search ves = new ValueElement4Search();
-            ves.setProperty(p);
-            ves.setSourceClass(vesCla.getQualifiedName());
-            if (p.getType() instanceof UML2PrimitiveType
-                    || p.getType() instanceof UML2Enumeration) {
-                logger.debug("Add a VES:: ClassName= "
-                        + vesCla.getQualifiedName() + " AttrName= "
-                        + p.getName() + " AttrType= " + p.getType().getName());
-                ves.setDestinationClass(vesCla.getQualifiedName());
-                ves.setAttributeName(p.getQualifiedName());
-                ves.setType(value4PPType(p.getType()));
-                // if the type of property is Enumeration, we should
-                // configure the type name.
-                if (p.getType() instanceof UML2Enumeration) {
-                    ves.setEnumType(((UML2Enumeration) p.getType())
-                            .getQualifiedName());
-                    this.enumerationList.add((UML2Enumeration) p.getType());
-                }
-                // configure the min or max value of each type
-                switch (value4PPType(p.getType())) {
-                    case 0:
-                        ves.setMinValue(-100);
-                        ves.setMaxValue(100);
-                        break;
-                    case 1:
-                        ves.setMinValue(0);
-                        if (ves.getEnumType() == null) {
-                            ves.setMaxValue(1);
-                        } else {
-                            UML2Enumeration enumType = (UML2Enumeration) p
-                                    .getType();
-                            ves.setMaxValue(enumType.getOwnedLiteral().size() - 1);
-                        }
-                        break;
-                    case 2:
-                        ves.setMinValue(1);
-                        ves.setMaxValue(100);
-                        break;
-                    case 3:
-                        ves.setMinValue(0);
-                        ves.setMaxValue(100);
-                        break;
-                }
-            }// end if
-            else if (p.getType() instanceof SetType
-                    || p.getType() instanceof UML2Class) {
-                logger.debug("Add a VES:: ClassName= "
-                        + vesCla.getQualifiedName() + " AttrName= "
-                        + p.getName() + " AttrType= " + p.getType().getName());
-                if (p.getType() instanceof SetType) {
-                    Type elementType = ((SetType) p.getType()).getElementType();
-                    // the type of property is association
-                    if (elementType instanceof UML2Class)
-                        ves.setDestinationClass(elementType.getQualifiedName());
-                    else
-                        // the type of property is primitivetype
-                        ves.setDestinationClass(vesCla.getQualifiedName());
-                } else
-                    ves.setDestinationClass(p.getType().getQualifiedName());
-                ves.setAttributeName(p.getQualifiedName());
-                ves.setType(0);
-                int LowValue = 0;
-                String upperValue = "";
-                try {
-                    LowValue = Integer.valueOf(Utility.INSTANCE
-                            .getLowAndUpperValueForProperty(p.getOwningType()
-                                    .getName(), p.getName(), "model")[0]);
 
-                    upperValue = Utility.INSTANCE
-                            .getLowAndUpperValueForProperty(p.getOwningType()
-                                    .getName(), p.getName(), "model")[1];
-                } catch (NumberFormatException e) {
-                    //e.printStackTrace();
-                    // by default value is zero
-                }
-                ves.setMinValue(LowValue);
-                if (upperValue == null || upperValue.isEmpty() || upperValue.equals("*"))
-                    ves.setMaxValue(100);
-                else
-                    ves.setMaxValue(Integer.valueOf(upperValue));
-                if (!ves.getSourceClass().equals(ves.getDestinationClass()))
-                    ves.setValue(""
-                            + Utility.INSTANCE.getFixedNumberOfCardinality(ves));
-                logger.debug("ves min " + ves.getMinValue() + " ves max " + ves.getMaxValue());
+        List<PropertyCallExpImpl> propertyCallExps = OCLExpUtility.INSTANCE.getPropertyInCons(constraint);
 
+        for (PropertyCallExpImpl propertyCallExp : propertyCallExps) {
+            ValueElement4Search valueElement4Search = new ValueElement4Search();
+
+            UML2Class sourceClass = (UML2Class) propertyCallExp.getSourceType();
+            valueElement4Search.setSourceClass(sourceClass.getQualifiedName());
+
+            Property property = propertyCallExp.getReferredProperty();
+            Type propertyType = property.getType();
+            valueElement4Search.setProperty(property);
+
+
+            if (propertyType instanceof UML2PrimitiveType || propertyType instanceof UML2Enumeration) {
+
+                valueElement4SearchPrimitiveOrEnumeration(valueElement4Search, sourceClass.getQualifiedName(), property.getQualifiedName(), propertyType);
+
+
+            } else if (propertyType instanceof SetType || propertyType instanceof UML2Class) {
+
+                valueElement4SearchSetOrClass(valueElement4Search, sourceClass, property, propertyType);
             }
-            this.initialVesForSearchList.add(ves);
-            List<ValueElement4Search> existVesList = this.iniVesGroupByClassMap
-                    .get(vesCla.getQualifiedName());
+
+
+            initialVesForSearchList.add(valueElement4Search);
+            List<ValueElement4Search> existVesList = valueElement4SearchByClass.get(sourceClass.getQualifiedName());
             if (existVesList != null) {
-                existVesList.add(ves);
+                existVesList.add(valueElement4Search);
             } else {
-                List<ValueElement4Search> vesList = new ArrayList<ValueElement4Search>();
-                vesList.add(ves);
-                this.iniVesGroupByClassMap.put(vesCla.getQualifiedName(),
-                        vesList);
-
-
+                List<ValueElement4Search> valueElement4SearchList = new ArrayList<>();
+                valueElement4SearchList.add(valueElement4Search);
+                valueElement4SearchByClass.put(sourceClass.getQualifiedName(), valueElement4SearchList);
             }
         }
 
         return initialVesForSearchList;
     }
 
+
+    private void valueElement4SearchPrimitiveOrEnumeration(ValueElement4Search valueElement4Search, String sourceClass, String property, Type propertyType) {
+        valueElement4Search.setDestinationClass(sourceClass);
+        valueElement4Search.setAttributeName(property);
+        valueElement4Search.setType(value4PPType(propertyType));
+
+
+        // if the type of property is Enumeration, we should  configure the type name.
+        if (propertyType instanceof UML2Enumeration) {
+            valueElement4Search.setEnumType(propertyType.getQualifiedName());
+            enumerationList.add((UML2Enumeration) propertyType);
+        }
+
+
+        // configure the min or max value of each type
+        switch (value4PPType(propertyType)) {
+            case 0: {
+                valueElement4Search.setMinValue(-100);
+                valueElement4Search.setMaxValue(100);
+                break;
+            }
+            case 1: {
+                valueElement4Search.setMinValue(0);
+                if (valueElement4Search.getEnumType() == null) {
+                    valueElement4Search.setMaxValue(1);
+                } else {
+                    UML2Enumeration enumType = (UML2Enumeration) propertyType;
+                    valueElement4Search.setMaxValue(enumType.getOwnedLiteral().size() - 1);
+                }
+                break;
+            }
+            case 2: {
+                valueElement4Search.setMinValue(1);
+                valueElement4Search.setMaxValue(100);
+                break;
+            }
+            case 3: {
+                valueElement4Search.setMinValue(0);
+                valueElement4Search.setMaxValue(100);
+                break;
+            }
+        }
+
+
+        logger.debug("Adding a VES:: ClassName= " + sourceClass
+                + " Attribute Name= " + property
+                + " Attribute Type= " + propertyType.getName());
+
+    }
+
+
+    private void valueElement4SearchSetOrClass(ValueElement4Search valueElement4Search, UML2Class sourceClass, Property property, Type propertyType) {
+        valueElement4Search.setAttributeName(property.getQualifiedName());
+        valueElement4Search.setType(0);
+
+        if (propertyType instanceof SetType) {
+            Type elementType = ((SetType) propertyType).getElementType();
+            // the type of property is association
+            if (elementType instanceof UML2Class) {
+                valueElement4Search.setDestinationClass(elementType.getQualifiedName());
+            } else {
+                // the type of property is primitivetype
+                valueElement4Search.setDestinationClass(sourceClass.getQualifiedName());
+            }
+        } else {
+            valueElement4Search.setDestinationClass(propertyType.getQualifiedName());
+        }
+
+
+        int LowValue = 0;
+
+        try {
+            LowValue = Integer.valueOf(Utility.INSTANCE
+                    .getLowAndUpperValueForProperty(property.getOwningType()
+                            .getName(), property.getName(), "model")[0]);
+
+
+        } catch (NumberFormatException e) {
+
+        }
+        valueElement4Search.setMinValue(LowValue);
+
+
+        String upperValue = Utility.INSTANCE
+                .getLowAndUpperValueForProperty(property.getOwningType()
+                        .getName(), property.getName(), "model")[1];
+        if (upperValue == null || upperValue.isEmpty() || upperValue.equals("*")) {
+            valueElement4Search.setMaxValue(100);
+        } else {
+            valueElement4Search.setMaxValue(Integer.valueOf(upperValue));
+        }
+
+        if (!valueElement4Search.getSourceClass().equals(valueElement4Search.getDestinationClass())) {
+            valueElement4Search.setValue(""
+                    + Utility.INSTANCE.getFixedNumberOfCardinality(valueElement4Search));
+        }
+
+
+        logger.debug("Adding a VES:: ClassName= " + sourceClass.getQualifiedName()
+                + " Attribute Name= " + property.getName()
+                + " Attribute Type= " + propertyType.getName());
+
+        logger.debug("VES Min " + valueElement4Search.getMinValue() + " VES Max " + valueElement4Search.getMaxValue());
+
+
+    }
+
+
     /**
      * obtain the integer label of each type
-     * @param type  {@link Type}  type of property
+     *
+     * @param type {@link Type}  type of property
      * @return int integer code
      */
 
-    public int value4PPType(Type type) {
+    private int value4PPType(Type type) {
         if (type instanceof UML2PrimitiveType) {
             String typeName = ((UML2PrimitiveType) type).getKind().getName();
             switch (typeName) {
@@ -223,17 +255,48 @@ public class VESGenerator {
         return null;
     }
 
-    public List<ValueElement4Search> getVesList4Class(String className) {
-        return this.iniVesGroupByClassMap.get(className);
+    public List<ValueElement4Search> getValueElement4SearchByClass(String className) {
+        return valueElement4SearchByClass.get(className);
     }
 
-    public ValueElement4Search getVes(List<ValueElement4Search> vesList,
-                                      String attrName) {
-        for (ValueElement4Search ves : vesList) {
+    public ValueElement4Search getValueElement4Search(List<ValueElement4Search> valueElement4SearchList, String attrName) {
+        for (ValueElement4Search ves : valueElement4SearchList) {
             if (ves.getAttributeName().equals(attrName))
                 return ves;
         }
         return null;
     }
 
+
+    public List<ValueElement4Search> getInitialVesForSearchList() {
+        return initialVesForSearchList;
+    }
+
+    public void setInitialVesForSearchList(List<ValueElement4Search> initialVesForSearchList) {
+        this.initialVesForSearchList = initialVesForSearchList;
+    }
+
+    public Map<String, List<ValueElement4Search>> getValueElement4SearchByClass() {
+        return valueElement4SearchByClass;
+    }
+
+    public void setValueElement4SearchByClass(Map<String, List<ValueElement4Search>> valueElement4SearchByClass) {
+        this.valueElement4SearchByClass = valueElement4SearchByClass;
+    }
+
+    public List<UML2Enumeration> getEnumerationList() {
+        return enumerationList;
+    }
+
+    public void setEnumerationList(List<UML2Enumeration> enumerationList) {
+        this.enumerationList = enumerationList;
+    }
+
+    public Constraint getConstraint() {
+        return constraint;
+    }
+
+    public void setConstraint(Constraint constraint) {
+        this.constraint = constraint;
+    }
 }

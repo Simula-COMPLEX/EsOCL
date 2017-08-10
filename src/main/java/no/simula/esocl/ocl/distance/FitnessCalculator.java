@@ -1,3 +1,15 @@
+/* ****************************************************************************
+ * Copyright (c) 2017 Simula Research Laboratory AS.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ * Shaukat Ali  shaukat@simula.no
+ **************************************************************************** */
+
 package no.simula.esocl.ocl.distance;
 
 import no.simula.esocl.standalone.analysis.BDC4BooleanOp;
@@ -17,9 +29,22 @@ import org.dresdenocl.pivotmodel.Constraint;
 import org.dresdenocl.pivotmodel.Expression;
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * @author Shaukat Ali
+ * @version 1.0
+ * @since 2017-07-03
+ */
+
 public class FitnessCalculator {
 
     private static Logger logger = Logger.getLogger(FitnessCalculator.class);
+
+    /**
+     * @param model         UML model
+     * @param constraint    OCL constraint
+     * @param modelInstance UML Instance
+     * @return solution fitness
+     */
 
     public static double getFitness(IModel model, Constraint constraint, IModelInstance modelInstance) {
         try {
@@ -32,7 +57,8 @@ public class FitnessCalculator {
             bdcManager.setInterpreter(interpreter);
             bdcManager.setModelInstanceObjects(modelInstance.getAllModelInstanceObjects());
 
-            logger.debug("---Calculate the fitness---");
+            logger.debug("");
+            logger.debug("          *******************Calculate the fitness of solution *******************");
 
             for (IModelInstanceObject modelInstanceObject : modelInstance.getAllModelInstanceObjects()) {
 
@@ -49,10 +75,7 @@ public class FitnessCalculator {
                         if (interpretationResult.getResult() instanceof OclBoolean) {
                             if (((OclBoolean) interpretationResult.getResult()).isTrue()) {
                                 resultBool = true;
-
-
                             }
-
                         }
 
 
@@ -63,7 +86,7 @@ public class FitnessCalculator {
 
                         // Classify the OCL expression
                         double distance = classifyExp(exp, modelInstanceObject, bdcManager);
-                        logger.debug("the fitness: " + distance);
+                        logger.debug("fitness of Solution: " + distance);
 
 
                         if (!resultBool && distance == 0d) {

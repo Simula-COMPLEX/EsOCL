@@ -2,7 +2,7 @@
 =====
 
 Evolutionary Solver for OCL (EsOCL) is a practical and scalable search-based constraint solver for the Object 
-Constraint Language (OCL) that provides a solution for various model-driven engineering problems such as test data 
+Constraint Language (OCL) that provides a stringSolution for various model-driven engineering problems such as test data 
 generation for Model-based Testing (MBT), configuration for product lines, and model-transformation testing. 
 EsOCL is developed in Java that interacts with an existing library, an OCL evaluator, called the Dresden OCL Software 
 (DOS), which provides APIs to parse an d evaluate an OCL expression based on an object model. Our tool only requires 

@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class UMLObjectIns extends AbstUMLModelIns {
 
-    private Map<String, Object> propertyMap = new HashMap<String, Object>();
+    private Map<String, Object> propertyMap = new HashMap<>();
 
     public UMLObjectIns(String qualifiedName, String value) {
         super(qualifiedName, value);
@@ -45,7 +45,7 @@ public class UMLObjectIns extends AbstUMLModelIns {
 
     public Collection<UMLAttributeIns> getPrimitivePropertyCollection() {
         Collection<Object> properties = propertyMap.values();
-        Collection<UMLAttributeIns> primitiveProperties = new HashSet<UMLAttributeIns>();
+        Collection<UMLAttributeIns> primitiveProperties = new HashSet<>();
         for (Object object : properties) {
             if (object instanceof UMLAttributeIns) {
                 primitiveProperties.add((UMLAttributeIns) object);

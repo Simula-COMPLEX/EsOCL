@@ -31,7 +31,7 @@ import java.util.Random;
  */
 public class Utility {
 
-    public static double K = 1;
+    public final static double K = 1;
     /**
      * singleton instance
      */
@@ -43,7 +43,11 @@ public class Utility {
     private Document modelDoc;
     private Document[] profileDocs;
 
-    private static Utility instance() {
+    private Utility() {
+
+    }
+
+    private synchronized static Utility instance() {
 
         if (instance == null) {
             instance = new Utility();
@@ -51,25 +55,15 @@ public class Utility {
         return instance;
     }
 
-    public static void main(String[] args) {
-//		String[] profile = {};
-//		Utility.instance.initialUMLDoc("resources/model/OCLTest.uml",profile);
-//		System.out.println(Utility.instance.getElementID("Customer", "cards"));
-        String str = "34000000";
-        String str1 = "342351";
-        System.out.println(Utility.instance.formatRealValueWithoutZero(str));
-        System.out.println(Utility.instance.formatRealValueWithoutZero(str1));
-    }
-
     public void initialUMLDoc(File inputModelFilePath,
                               String[] inputProfileFilePaths) {
         SAXReader sax = new SAXReader();
         try {
-            this.modelDoc = sax.read(inputModelFilePath);
+            modelDoc = sax.read(inputModelFilePath);
             if (inputProfileFilePaths.length != 0) {
-                this.profileDocs = new Document[inputProfileFilePaths.length];
+                profileDocs = new Document[inputProfileFilePaths.length];
                 for (int i = 0; i < inputProfileFilePaths.length; i++) {
-                    this.profileDocs[i] = sax.read(new File(
+                    profileDocs[i] = sax.read(new File(
                             inputProfileFilePaths[i]));
                 }
             }
@@ -94,14 +88,14 @@ public class Utility {
     }
 
     public double formatRealValueWithoutZero(String afterDecimal) {
-        StringBuffer sBuffer = new StringBuffer(afterDecimal);
+        StringBuilder stringBuilder = new StringBuilder(afterDecimal);
         int length = afterDecimal.length();
         for (int i = length - 1; i >= 0; i--) {
-            if (sBuffer.charAt(i) == '0') sBuffer.deleteCharAt(i);
+            if (stringBuilder.charAt(i) == '0') stringBuilder.deleteCharAt(i);
         }
 
         try {
-            return Double.valueOf(sBuffer.toString());
+            return Double.valueOf(stringBuilder.toString());
         } catch (NumberFormatException e2) {
             return 0.0;
         }
@@ -164,9 +158,7 @@ public class Utility {
             String[] list = comb.getCombList().get(i).split(",");
             Arrange ts = new Arrange();
             ts.perm(list, 0, list.length - 1);
-            for (int j = 0; j < ts.getArrangeList().size(); j++) {
-                arrangeList.add(ts.getArrangeList().get(j));
-            }
+            arrangeList.addAll(ts.getArrangeList());
         }
         return arrangeList;
     }
@@ -207,7 +199,7 @@ public class Utility {
             }
             return LowAndUpperValue;
         } else {
-            for (int i = 0; i < this.profileDocs.length; i++) {
+            for (Document profileDoc : this.profileDocs) {
                 xpath_attribute = "//packagedElement[@xmi:type='uml:Stereotype' and @name='"
                         + className
                         + "']/ownedAttribute[@name='"
@@ -215,8 +207,7 @@ public class Utility {
                         + "']";
                 String xpath_lowValue = xpath_attribute + "/lowerValue";
                 String xpath_upperValue = xpath_attribute + "/upperValue";
-                List<Element> valueNodes = this.profileDocs[i]
-                        .selectNodes(xpath_lowValue + "|" + xpath_upperValue);
+                List<Element> valueNodes = profileDoc.selectNodes(xpath_lowValue + "|" + xpath_upperValue);
                 if (valueNodes.size() != 0) {
                     for (Element element : valueNodes) {
                         if (element.getName().equals("lowerValue"))
@@ -268,5 +259,6 @@ public class Utility {
         }
         return indexArray;
     }
+
 
 }

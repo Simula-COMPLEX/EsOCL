@@ -35,8 +35,6 @@ public class GeneValueScope {
         this.type = type;
     }
 
-    enum EncodedConstraintType {String, Double}
-
     public int getMinValue() {
         return minValue;
     }
@@ -60,4 +58,6 @@ public class GeneValueScope {
     public void setEncodedConstraintType(EncodedConstraintType encodedConstraintType) {
         this.encodedConstraintType = encodedConstraintType;
     }
+
+    enum EncodedConstraintType {String, Double}
 }

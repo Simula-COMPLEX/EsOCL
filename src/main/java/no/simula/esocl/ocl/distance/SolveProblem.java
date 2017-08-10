@@ -26,7 +26,6 @@ import org.apache.log4j.Logger;
 import org.dresdenocl.interpreter.OclInterpreterPlugin;
 import org.dresdenocl.model.IModel;
 import org.dresdenocl.modelinstance.IModelInstance;
-import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
 import org.dresdenocl.pivotmodel.Constraint;
 import org.dresdenocl.standalone.facade.StandaloneFacade;
 import org.dresdenocl.tools.template.exception.TemplateException;
@@ -42,16 +41,14 @@ import java.util.List;
  * @since 2017-07-03
  */
 public class SolveProblem implements Problem {
-    private String UML_JAR = "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
     private static Logger logger = Logger.getLogger(SolveProblem.class);
-
+    private String UML_JAR = "org.eclipse.uml2.uml.resources_3.1.0.v201005031530.jar";
     private IModel model;
 
     private Constraint constraint = null;
 
     private ValueElement4Search[] valueOfConstraints;
 
-    private List<ValueElement4Search> initialVesForSearchList;
 
     private ArrayList<GeneValueScope> geneValueScopeList;
 
@@ -62,28 +59,17 @@ public class SolveProblem implements Problem {
     private UMLModelInsGenerator umlModelInsGenerator;
 
 
-
-    private List<String> solutions = new ArrayList<>();
-    private List<IModelInstanceObject> instancesObjects = new ArrayList<>();
+    private List<String> stringInstances = new ArrayList<>();
+    private List<IModelInstance> instancesObjects = new ArrayList<>();
 
     public SolveProblem(File inputModelPath,
                         File inputOclConstraintsPath) {
-
-        String[] inputProfilePaths = {};
-        Utility.INSTANCE.initialUMLDoc(inputModelPath, inputProfilePaths);
-        for (String inputProfileFilePath : inputProfilePaths) {
-            logger.debug("The profile file path:: " + inputProfileFilePath);
-        }
         try {
 
-            initDresden();
-
-            File UMLRecourse = UMLRecourse();
-            if (UMLRecourse == null || !UMLRecourse.exists()) {
-                logger.error("Please add " + UML_JAR + " into resource");
+            File UMLRecourse = initDresden(inputModelPath);
+            if (UMLRecourse == null) {
                 return;
             }
-
 
             model = StandaloneFacade.INSTANCE.loadUMLModel(
                     inputModelPath, UMLRecourse);
@@ -93,13 +79,7 @@ public class SolveProblem implements Problem {
             constraint = StandaloneFacade.INSTANCE.parseOclConstraints(
                     model, inputOclConstraintsPath).get(0);
 
-
-            vesGenerator = new VESGenerator(constraint);
-            umlModelInsGenerator = new UMLModelInsGenerator(vesGenerator);
-            OCLExpUtility.INSTANCE.setVesGenerator(vesGenerator);
-            new OclInterpreterPlugin();
-
-            OCLExpUtility.INSTANCE.printOclClause4Depth(constraint);
+            init();
 
         } catch (Exception e) {
             logger.error(e);
@@ -109,54 +89,46 @@ public class SolveProblem implements Problem {
 
     public SolveProblem(File inputModelPath, String inputOclConstraintsPath) {
 
-        String[] inputProfilePaths = {};
-        Utility.INSTANCE.initialUMLDoc(inputModelPath, inputProfilePaths);
-        for (String inputProfileFilePath : inputProfilePaths) {
-            logger.debug("The profile file path:: " + inputProfileFilePath);
-        }
+
         try {
 
-            initDresden();
-
-            File UMLRecourse = UMLRecourse();
-            if (UMLRecourse == null || !UMLRecourse.exists()) {
-                logger.error("Please add " + UML_JAR + " into resource");
+            File UMLRecourse = initDresden(inputModelPath);
+            if (UMLRecourse == null) {
                 return;
             }
 
-
             model = StandaloneFacade.INSTANCE.loadUMLModel(
                     inputModelPath, UMLRecourse);
-
 
             constraint = StandaloneFacade.INSTANCE.parseOclConstraints(
                     model, inputOclConstraintsPath).get(0);
 
 
-            vesGenerator = new VESGenerator(this.constraint);
-            umlModelInsGenerator = new UMLModelInsGenerator(vesGenerator);
-            OCLExpUtility.INSTANCE.setVesGenerator(vesGenerator);
-            new OclInterpreterPlugin();
-
-            OCLExpUtility.INSTANCE.printOclClause4Depth(constraint);
-
+            init();
         } catch (Exception e) {
 
             logger.error(e);
         }
     }
 
-
     /**
      * Initial the attribute array and Generate the model instances
      */
-    public void processProblem() {
+
+    public void init() {
+
+        vesGenerator = new VESGenerator(this.constraint);
+        umlModelInsGenerator = new UMLModelInsGenerator(vesGenerator);
+        OCLExpUtility.INSTANCE.setVesGenerator(vesGenerator);
+
+        OCLExpUtility.INSTANCE.printOclClause4Depth(constraint);
+
 
         // obtain the initial attribute array
-        initialVesForSearchList = vesGenerator.buildInitialVes();
+        List<ValueElement4Search> initialVesForSearchList = vesGenerator.buildInitialVes();
 
         // after fixing the association number, we can get the final attribute array
-        valueOfConstraints = getAllAttributeConstraints();
+        valueOfConstraints = getAllAttributeConstraints(initialVesForSearchList);
 
         geneValueScopeList = encodingAndDecoding.encoding(getConstraintElements4Search());
     }
@@ -174,29 +146,30 @@ public class SolveProblem implements Problem {
 
 
         List<UMLObjectIns> objects = umlModelInsGenerator.getUmlObjectInsList();
-        String solution = umlModelInsGenerator.getSolution();
+        String StringInstance = umlModelInsGenerator.getStringInstance();
 
         IModelInstance modelInstance = new RModelIns(model, objects);
         double distance = FitnessCalculator.getFitness(model, constraint, modelInstance);
 
         if (distance != -1) {
-            instancesObjects.addAll(modelInstance.getAllModelInstanceObjects());
-            solutions.add(solution);
+            instancesObjects.add(modelInstance);
+            stringInstances.add(StringInstance);
         }
         return distance;
     }
 
 
-
     /*
      * get all the attributes after the class is instanced based on "classInstanceValue"
      */
-    private ValueElement4Search[] getAllAttributeConstraints() {
-        logger.debug("*******************Build the concreate number of class instance*******************");
+    private ValueElement4Search[] getAllAttributeConstraints(List<ValueElement4Search> initialVesForSearchList) {
+
+        logger.debug("");
+        logger.debug("*******************Build the concrete number of class instance*******************");
 
         for (ValueElement4Search initialVes : initialVesForSearchList) {
-            if (!initialVes.getSourceClass().equals(
-                    initialVes.getDestinationClass()))
+            if (!initialVes.getSourceClass().equals(initialVes.getDestinationClass()))
+
                 logger.debug("the value of Association:: "
                         + initialVes.getSourceClass() + "->"
                         + initialVes.getDestinationClass() + " number: "
@@ -213,7 +186,6 @@ public class SolveProblem implements Problem {
     }
 
 
-
     @Override
     public ArrayList<GeneValueScope> getGeneConstraints() {
 
@@ -227,17 +199,24 @@ public class SolveProblem implements Problem {
     }
 
     @Override
-    public List<String> getSolutions() {
-        return solutions;
+    public List<String> getStringInstances() {
+        return stringInstances;
     }
 
     @Override
-    public List<IModelInstanceObject> getObjects() {
+    public List<IModelInstance> getObjects() {
         return instancesObjects;
     }
 
 
-    private void initDresden() throws TemplateException {
+    private File initDresden(File inputModelPath) throws TemplateException {
+
+        String[] inputProfilePaths = {};
+        Utility.INSTANCE.initialUMLDoc(inputModelPath, inputProfilePaths);
+        for (String inputProfileFilePath : inputProfilePaths) {
+            logger.debug("The profile file path:: " + inputProfileFilePath);
+        }
+
         System.setProperty("DRESDENOCL_LOCATION_LOG4J",
                 new File("log4j.properties").getAbsolutePath());
 
@@ -246,6 +225,16 @@ public class SolveProblem implements Problem {
 
         StandaloneFacade.INSTANCE.initialize();
 
+        new OclInterpreterPlugin();
+
+
+        File UMLRecourse = UMLRecourse();
+        if (UMLRecourse == null || !UMLRecourse.exists()) {
+            logger.error("Please add " + UML_JAR + " into resource");
+            return null;
+        }
+
+        return UMLRecourse;
     }
 
     /**

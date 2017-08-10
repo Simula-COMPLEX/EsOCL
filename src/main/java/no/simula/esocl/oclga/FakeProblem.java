@@ -13,7 +13,7 @@
 package no.simula.esocl.oclga;
 
 import no.simula.esocl.ocl.distance.ValueElement4Search;
-import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
+import org.dresdenocl.modelinstance.IModelInstance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +56,11 @@ public class FakeProblem implements Problem {
     }
 
     @Override
+    public List<String> getStringInstances() {
+        return null;
+    }
+
+    @Override
     public ArrayList<GeneValueScope> getGeneConstraints() {
 
         return null;
@@ -67,13 +72,9 @@ public class FakeProblem implements Problem {
         return null;
     }
 
-    @Override
-    public List<String> getSolutions() {
-        return null;
-    }
 
     @Override
-    public List<IModelInstanceObject> getObjects() {
+    public List<IModelInstance> getObjects() {
         return null;
     }
 

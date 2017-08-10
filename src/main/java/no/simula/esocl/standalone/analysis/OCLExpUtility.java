@@ -14,7 +14,6 @@ package no.simula.esocl.standalone.analysis;
 
 import org.apache.log4j.Logger;
 import org.dresdenocl.essentialocl.expressions.OclExpression;
-import org.dresdenocl.essentialocl.expressions.impl.IntegerLiteralExpImpl;
 import org.dresdenocl.essentialocl.expressions.impl.IteratorExpImpl;
 import org.dresdenocl.essentialocl.expressions.impl.OperationCallExpImpl;
 import org.dresdenocl.essentialocl.expressions.impl.PropertyCallExpImpl;
@@ -34,7 +33,9 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Shaukat Ali
@@ -42,17 +43,16 @@ import java.util.*;
  * @since 2017-07-03
  */
 public class OCLExpUtility {
-    public static String OP_COMPLEX_SELECT_SIZE = "op_complex_select_size";
-    public static String OP_COMPLEX_SELECT_ITERATE = "op_complex_select_iterate";
-    public static String[] OP_BOOLEAN = {"implies", "not", "and", "or", "xor"};
-    public static String[] OP_COMPARE = {"=", "<>", "<", "<=", ">", ">="};
-    public static String[] OP_ITERATE = {"forAll", "exists", "isUnique", "one"};
-    public static String[] OP_CHECK = {"includes", "excludes", "includesAll", "excludesAll", "isEmpty"};
-    public static String[] OP_MISCELLANEOUS = {"oclIsTypeOf", "oclIsKindOf",
-            "oclIsNew", "oclIsUndefined", "oclIsInvalid"};
-    private static String[] OP_BOUND = {"<", "<=", ">", ">="};
-    private static String[] OP_SELECT = {"select", "reject", "collect"};
-    private static Logger logger = Logger.getLogger(OCLExpUtility.class);
+    public final static String OP_COMPLEX_SELECT_SIZE = "op_complex_select_size";
+    public final static String OP_COMPLEX_SELECT_ITERATE = "op_complex_select_iterate";
+    public final static String[] OP_BOOLEAN = {"implies", "not", "and", "or", "xor"};
+    public final static String[] OP_COMPARE = {"=", "<>", "<", "<=", ">", ">="};
+    public final static String[] OP_ITERATE = {"forAll", "exists", "isUnique", "one"};
+    public final static String[] OP_CHECK = {"includes", "excludes", "includesAll", "excludesAll", "isEmpty"};
+    public final static String[] OP_MISCELLANEOUS = {"oclIsTypeOf", "oclIsKindOf", "oclIsNew", "oclIsUndefined", "oclIsInvalid"};
+    private final static Logger logger = Logger.getLogger(OCLExpUtility.class);
+    private final static String[] OP_BOUND = {"<", "<=", ">", ">="};
+    private final static String[] OP_SELECT = {"select", "reject", "collect"};
     /**
      * singleton instance
      */
@@ -61,10 +61,7 @@ public class OCLExpUtility {
      * Returns the single instance of the {@link OCLExpUtility}.
      */
     public static OCLExpUtility INSTANCE = instance();
-    VESGenerator vesGenerator;
-    String[][] typeArray;
-    int[][] comb;
-    Map<OperationCallExpImpl, Integer> oceMap;
+    private VESGenerator vesGenerator;
 
     private static OCLExpUtility instance() {
 
@@ -78,10 +75,6 @@ public class OCLExpUtility {
         this.vesGenerator = vesGenerator;
     }
 
-
-    public String[][] getTypeArray() {
-        return typeArray;
-    }
 
     public Collection<IModelInstanceElement> getResultCollection(OclAny oclAny) {
         return ((OclCollection) oclAny).asOrderedSet()
@@ -99,7 +92,7 @@ public class OCLExpUtility {
             else
                 return 0;
         } else if (imiElement instanceof ModelInstanceEnumerationLiteral) {
-            UML2Enumeration enumType = this.vesGenerator
+            UML2Enumeration enumType = vesGenerator
                     .getEnumeration(((ModelInstanceEnumerationLiteral) imiElement)
                             .getType().getQualifiedName());
             for (EnumerationLiteral el : enumType.getOwnedLiteral()) {
@@ -143,14 +136,6 @@ public class OCLExpUtility {
 
     }
 
-	/*public void printOclClause4Depth(EObject e) {
-        int depth = 0;
-		for (EObject eObject : e.eContents()) {
-			logger.debug(eObject.toString());
-			printChild(eObject, ++depth);
-			depth = 0;
-		}
-	}*/
 
     public void printOclClause4Depth(EObject e) {
         int depth = 0;
@@ -259,92 +244,5 @@ public class OCLExpUtility {
         return propCallList;
     }
 
-    public int buildIndexArray4Bound(Constraint constraint) {
-        this.oceMap = new HashMap<OperationCallExpImpl, Integer>();
-        TreeIterator<EObject> it = constraint.getSpecification().eAllContents();
-        while (it.hasNext()) {
-            EObject e = (EObject) it.next();
-            if (e instanceof OperationCallExpImpl) {
-                OperationCallExpImpl oce = (OperationCallExpImpl) e;
-                if (isBelongToOp(oce.getReferredOperation().getName(),
-                        OP_BOUND)) {
-                    OclExpression rightExp = (OclExpression) oce.eContents()
-                            .get(1);
-                    if (rightExp instanceof IntegerLiteralExpImpl) {
-                        this.oceMap.put(oce, ((IntegerLiteralExpImpl) rightExp)
-                                .getIntegerSymbol());
-                    }
-                }
-            }
-        }
-        this.typeArray = buildBoundTypeArray(this.oceMap.keySet());
-        int[] input = Utility.INSTANCE.genIndexArray(3);
-        this.comb = Utility.INSTANCE.combInArrayDup(input, this.oceMap.size());
-        return this.comb.length;
-    }
 
-    public void generateBoundValue(int iterate_index) {
-        OperationCallExpImpl[] oceArray = new OperationCallExpImpl[this.oceMap
-                .keySet().size()];
-        oceArray = this.oceMap.keySet().toArray(oceArray);
-        for (int i = 0; i < oceArray.length; i++) {
-            OperationCallExpImpl oce = oceArray[i];
-            IntegerLiteralExpImpl rightExp = (IntegerLiteralExpImpl) oce
-                    .eContents().get(1);
-            int index = this.comb[iterate_index][i];
-            switch (index) {
-                case 0:
-                    rightExp.setIntegerSymbol(rightExp.getIntegerSymbol() - 1);
-                    break;
-                case 2:
-                    rightExp.setIntegerSymbol(rightExp.getIntegerSymbol() + 1);
-                    break;
-            }
-        }
-    }
-
-    public void restoreOriginalValue() {
-        Set<OperationCallExpImpl> oceSet = this.oceMap.keySet();
-        for (OperationCallExpImpl oce : oceSet) {
-            int original = this.oceMap.get(oce);
-            IntegerLiteralExpImpl rightExp = (IntegerLiteralExpImpl) oce
-                    .eContents().get(1);
-            rightExp.setIntegerSymbol(original);
-        }
-    }
-
-
-    public String[][] buildBoundTypeArray(Set<OperationCallExpImpl> oceSet) {
-        String[][] typeArray = new String[oceSet.size()][3];
-        OperationCallExpImpl[] oceArray = new OperationCallExpImpl[oceSet
-                .size()];
-        oceArray = oceSet.toArray(oceArray);
-        for (int i = 0; i < oceArray.length; i++) {
-            OperationCallExpImpl oce = oceArray[i];
-            String opName = oce.getReferredOperation().getName();
-            switch (opName) {
-                case "<":
-                    typeArray[i][0] = "valid";
-                    typeArray[i][1] = "invalid";
-                    typeArray[i][2] = "invalid";
-                    break;
-                case "<=":
-                    typeArray[i][0] = "valid";
-                    typeArray[i][1] = "valid";
-                    typeArray[i][2] = "invalid";
-                    break;
-                case ">":
-                    typeArray[i][0] = "invalid";
-                    typeArray[i][1] = "invalid";
-                    typeArray[i][2] = "valid";
-                    break;
-                case ">=":
-                    typeArray[i][0] = "invalid";
-                    typeArray[i][1] = "valid";
-                    typeArray[i][2] = "valid";
-                    break;
-            }
-        }
-        return typeArray;
-    }
 }

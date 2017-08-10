@@ -82,7 +82,7 @@ public class Test2 {
         File constraint = new File("src/main/resources/constraints/ocltest2-5.ocl");
         OCLSolver oclSolver = new OCLSolver();
         try {
-            Result result = oclSolver.solveConstraint(inputModelPath, constraint, new String[]{"OpOEA"}, 5000);
+            Result result = oclSolver.solveConstraint(inputModelPath, constraint, new int[]{OCLSolver.OpOEA, OCLSolver.AVM, OCLSolver.RandomSearch, OCLSolver.SSGA}, 5000);
             oclSolver.printResults(result);
             Assert.assertTrue(result.getResult());
         } catch (Exception e) {

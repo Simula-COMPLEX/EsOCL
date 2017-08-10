@@ -12,7 +12,7 @@
 
 package no.simula.esocl.ocl.distance;
 
-import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
+import org.dresdenocl.modelinstance.IModelInstance;
 
 import java.util.List;
 
@@ -36,25 +36,25 @@ public class Result {
      */
     private String searchAlgorithms;
     /**
-     * Number of iteration used to find solution
+     * Number of iteration used to find stringSolution
      */
     private Integer iterations;
     /**
      * All Solution Object
      */
-    private List<IModelInstanceObject> solutionObjects;
+    private List<IModelInstance> solutionObjects;
     /**
-     * Object with final solution
+     * Object with final stringSolution
      */
-    private IModelInstanceObject finalSolutionObject;
+    private IModelInstance solutionObject;
     /**
      * final Solution variables
      */
-    private String solution;
+    private String stringSolution;
     /**
      * All Solution variables
      */
-    private List<String> solutions;
+    private List<String> stringSolutions;
 
 
     public String getConstraint() {
@@ -89,35 +89,35 @@ public class Result {
         this.iterations = iterations;
     }
 
-    public String getSolution() {
-        return solution;
+    public String getStringSolution() {
+        return stringSolution;
     }
 
-    public void setSolution(String solution) {
-        this.solution = solution;
+    public void setStringSolution(String stringSolution) {
+        this.stringSolution = stringSolution;
     }
 
-    public List<String> getSolutions() {
-        return solutions;
+    public List<String> getStringSolutions() {
+        return stringSolutions;
     }
 
-    public void setSolutions(List<String> solutions) {
-        this.solutions = solutions;
+    public void setStringSolutions(List<String> stringSolutions) {
+        this.stringSolutions = stringSolutions;
     }
 
-    public List<IModelInstanceObject> getSolutionObjects() {
+    public List<IModelInstance> getSolutionObjects() {
         return solutionObjects;
     }
 
-    public void setSolutionObjects(List<IModelInstanceObject> solutionObjects) {
+    public void setSolutionObjects(List<IModelInstance> solutionObjects) {
         this.solutionObjects = solutionObjects;
     }
 
-    public IModelInstanceObject getFinalSolutionObject() {
-        return finalSolutionObject;
+    public IModelInstance getSolutionObject() {
+        return solutionObject;
     }
 
-    public void setFinalSolutionObject(IModelInstanceObject finalSolutionObject) {
-        this.finalSolutionObject = finalSolutionObject;
+    public void setSolutionObject(IModelInstance solutionObject) {
+        this.solutionObject = solutionObject;
     }
 }

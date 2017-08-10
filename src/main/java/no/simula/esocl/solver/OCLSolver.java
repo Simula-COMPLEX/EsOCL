@@ -17,9 +17,12 @@ import no.simula.esocl.ocl.distance.Result;
 import no.simula.esocl.ocl.distance.SearchRunner;
 import no.simula.esocl.ocl.distance.SolveProblem;
 import no.simula.esocl.oclga.*;
+import no.simula.esocl.standalone.analysis.BoundValueOCLExpUtility;
 import no.simula.esocl.standalone.analysis.OCLExpUtility;
-import no.simula.esocl.standalone.analysis.Utility;
 import no.simula.esocl.standalone.modelinstance.RModelInsObject;
+import org.dresdenocl.metamodels.uml2.internal.model.UML2Class;
+import org.dresdenocl.metamodels.uml2.internal.model.UML2Enumeration;
+import org.dresdenocl.metamodels.uml2.internal.model.UML2PrimitiveType;
 import org.dresdenocl.modelinstancetype.exception.PropertyAccessException;
 import org.dresdenocl.modelinstancetype.exception.PropertyNotFoundException;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceElement;
@@ -27,10 +30,10 @@ import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
 import org.dresdenocl.modelinstancetype.types.base.*;
 import org.dresdenocl.pivotmodel.EnumerationLiteral;
 import org.dresdenocl.pivotmodel.Property;
+import org.dresdenocl.pivotmodel.Type;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Shaukat Ali
@@ -56,7 +59,7 @@ public class OCLSolver {
     public OCLSolver() {
 
         OCLExpUtility.INSTANCE = new OCLExpUtility();
-        Utility.INSTANCE = new Utility();
+        BoundValueOCLExpUtility.INSTANCE = new BoundValueOCLExpUtility();
         DisplayResult.boundValueTypes = null;
         DisplayResult.resultList = null;
 
@@ -89,15 +92,15 @@ public class OCLSolver {
      */
 
     public Result solveConstraint(String inputModel, String constraint, int searchAlgorithms[], int iterations) throws Exception {
-
+        Result result = new Result();
         for (int alogokey : searchAlgorithms) {
-            Result result = new OCLSolver().solveConstraint(inputModel, constraint, alogokey, iterations);
+            result = new OCLSolver().solveConstraint(inputModel, constraint, alogokey, iterations);
             if (result.getResult()) {
                 return result;
             }
         }
 
-        return new Result();
+        return result;
 
     }
 
@@ -115,8 +118,8 @@ public class OCLSolver {
     public Result solveConstraint(String inputModel, String constraint, int searchAlgorithm, Integer iterations) throws Exception {
 
 
-        SolveProblem xp = new SolveProblem(new File(inputModel),
-                constraint);
+        SolveProblem xp = new SolveProblem(new File(inputModel), constraint);
+
         return runSearch(xp, searchAlgorithm, iterations);
     }
 
@@ -127,23 +130,22 @@ public class OCLSolver {
 
     public Result solveConstraint(String inputModel, File constraint, int searchAlgorithm[], int iterations) throws Exception {
 
-
+        Result result = new Result();
         for (int alogoKey : searchAlgorithm) {
 
-            Result result = new OCLSolver().solveConstraint(inputModel, constraint, alogoKey, iterations);
+            result = new OCLSolver().solveConstraint(inputModel, constraint, alogoKey, iterations);
             if (result.getResult()) {
                 return result;
             }
         }
 
 
-        return new Result();
+        return result;
 
 
     }
 
     public Result solveConstraint(String inputModel, File constraint, int searchAlgorithm, Integer iterations) throws Exception {
-
 
         SolveProblem problem = new SolveProblem(new File(inputModel), constraint);
 
@@ -189,17 +191,37 @@ public class OCLSolver {
 
         System.out.println();
         System.out.println("Constraint: " + result.getConstraint());
-        System.out.println("Algo: " + result.getSearchAlgorithms());
+        System.out.println("Search Algorithm: " + result.getSearchAlgorithms());
         System.out.println("Result: " + result.getResult());
         System.out.println("Iterations:" + result.getIterations());
 
 
-        System.out.println("\nModelInstance:");
         try {
-            printObject(result.getFinalSolutionObject(), 0);
+            int counter = 1;
+            if (result.getSolutionObject() != null) {
+                for (IModelInstanceObject instanceObject : result.getSolutionObject().getAllModelInstanceObjects()) {
+                    System.out.println("\n****************** ModelInstance: " + counter++ + " ******************");
+
+                    printObject(instanceObject, 0);
+                }
+            }
+
+
         } catch (PropertyAccessException | PropertyNotFoundException e) {
         }
 
+    }
+
+    private int typeCode(Type type) {
+        if (type instanceof UML2PrimitiveType) {
+            return 0;
+        } else if (type instanceof UML2Enumeration) {
+            return 1;
+        } else if (type instanceof UML2Class) {
+            return 2;
+        }
+
+        return 3;
     }
 
     private void printObject(IModelInstanceElement modelInstanceObject, int depth) throws PropertyAccessException, PropertyNotFoundException {
@@ -211,8 +233,16 @@ public class OCLSolver {
 
         System.out.println("\n" + depthPrint(depth) + "Class Name: " + modelInstanceObject.getType().getQualifiedName());
 
+        List<Property> properties = modelInstanceObject.getType().getOwnedProperty();
+        Collections.sort(properties, new Comparator<Property>() {
+            @Override
+            public int compare(Property o1, Property o2) {
+                return Integer.compare(typeCode(o1.getType()), typeCode(o2.getOwningType()));
+            }
+        });
 
-        for (Property property : modelInstanceObject.getType().getOwnedProperty()) {
+
+        for (Property property : properties) {
 
 
             IModelInstanceElement instanceElement = InstanceObject.getProperty(property);
@@ -220,14 +250,14 @@ public class OCLSolver {
 
             if (instanceElement == null) {
 
-                System.out.println(depthPrint(depth) + "Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + InstanceObject.getProperty(property));
+                System.out.println(depthPrint(depth) + "    Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + InstanceObject.getProperty(property));
 
             } else if (instanceElement instanceof JavaModelInstanceString) {
 
 
                 JavaModelInstanceString instanceString =
                         (JavaModelInstanceString) instanceElement;
-                System.out.println(depthPrint(depth) + "Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + instanceString.getString());
+                System.out.println(depthPrint(depth) + "    Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + instanceString.getString());
 
 
             } else if (instanceElement instanceof JavaModelInstanceInteger) {
@@ -241,7 +271,7 @@ public class OCLSolver {
                 } catch (NullPointerException e) {
                 }
 
-                System.out.println(depthPrint(depth) + "Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + attributeValue);
+                System.out.println(depthPrint(depth) + "    Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + attributeValue);
 
 
             } else if (instanceElement instanceof JavaModelInstanceReal) {
@@ -250,7 +280,7 @@ public class OCLSolver {
                         (JavaModelInstanceReal) instanceElement;
 
 
-                System.out.println(depthPrint(depth) + "Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + modelInstanceReal.getDouble());
+                System.out.println(depthPrint(depth) + "    Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + modelInstanceReal.getDouble());
 
 
             } else if (instanceElement instanceof JavaModelInstanceBoolean) {
@@ -259,7 +289,7 @@ public class OCLSolver {
                         (JavaModelInstanceBoolean) instanceElement;
 
 
-                System.out.println(depthPrint(depth) + "Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + javaModelInstanceBoolean.getBoolean());
+                System.out.println(depthPrint(depth) + "    Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName() + " ------  Attribute Value: " + javaModelInstanceBoolean.getBoolean());
 
 
             } else if (instanceElement instanceof ModelInstanceEnumerationLiteral) {
@@ -269,19 +299,17 @@ public class OCLSolver {
 
                 EnumerationLiteral enumerationLiteral = modelInstanceEnumerationLiteral.getLiteral();
 
-                System.out.println(depthPrint(depth) + "Attribute Name: " + property.getQualifiedName() + "  ------  Enumeration: " + property.getType().getQualifiedName() + " ------  Enumeration Literal: " + enumerationLiteral.getQualifiedName());
+                System.out.println(depthPrint(depth) + "    Attribute Name: " + property.getQualifiedName() + "  ------  Enumeration: " + property.getType().getQualifiedName() + " ------  Enumeration Literal: " + enumerationLiteral.getQualifiedName());
 
 
             } else if (instanceElement instanceof JavaModelInstanceCollection) {
 
-                System.out.println(depthPrint(depth) + "Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName());
+                System.out.println(depthPrint(depth) + "    Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName());
 
                 JavaModelInstanceCollection javaModelInstanceCollection = (JavaModelInstanceCollection) InstanceObject.getProperty(property);
 
                 for (Object object : javaModelInstanceCollection.getCollection()) {
                     if (object instanceof IModelInstanceElement) {
-
-
                         printObject((IModelInstanceElement) object, depth + 1);
                     }
                 }
@@ -292,7 +320,7 @@ public class OCLSolver {
 
                 RModelInsObject rModelInsObject = (RModelInsObject) instanceElement;
 
-                System.out.println(depthPrint(depth) + "Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName());
+                System.out.println(depthPrint(depth) + "    Attribute Name: " + property.getQualifiedName() + "  ------  Attribute Type:" + property.getType().getQualifiedName());
                 printObject(rModelInsObject, depth + 1);
 
 

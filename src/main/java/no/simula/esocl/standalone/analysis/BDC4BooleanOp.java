@@ -44,148 +44,167 @@ public class BDC4BooleanOp {
     /**
      * Handle the boolean expression and comparison expression
      *
-     * @param env
+     * @param env Instance Object
      * @param exp boolean expression
-     * @return
+     * @return double
      */
     public double handleBooleanOp(IModelInstanceObject env, OclExpression exp) {
-        // Map the EnviromentVariable into the concrete model instance object
-        this.interpreter.setEnviromentVariable("self", env);
+        // Map the Enviroment Variable into the concrete model instance object
+        interpreter.setEnviromentVariable("self", env);
+
         // this expression may be a property call expression
         if (exp instanceof PropertyCallExpImpl) {
             return simplePropOrMiscOp(env, exp);
-        }
-        // this expression may be a operation call expression
-        else if (exp instanceof OperationCallExpImpl) {
-            OperationCallExpImpl opCallexp = (OperationCallExpImpl) exp;
+        } else if (exp instanceof OperationCallExpImpl) {
+            // this expression may be a operation call expression
+            OperationCallExpImpl operationCallExp = (OperationCallExpImpl) exp;
+
             // obtain the operation name
-            String opName = opCallexp.getReferredOperation().getName();
+            String operationName = operationCallExp.getReferredOperation().getName();
             // handle the MISCELLANEOUS operation
-            if (oclExpUtility.isBelongToOp(opName,
-                    oclExpUtility.OP_MISCELLANEOUS))
+            if (oclExpUtility.isBelongToOp(operationName, OCLExpUtility.OP_MISCELLANEOUS)) {
                 return simplePropOrMiscOp(env, exp);
-            else if (OCLExpUtility.INSTANCE.isBelongToOp(opName,
-                    OCLExpUtility.OP_CHECK)) {
+            } else if (OCLExpUtility.INSTANCE.isBelongToOp(operationName, OCLExpUtility.OP_CHECK)) {
                 // "includes", "excludes", "includesAll","excludesAll", "isEmpty"
-                BDC4CheckOp bdc4CheckOp = new BDC4CheckOp(this.interpreter);
-                return bdc4CheckOp.handleCheckOp(env,
-                        (OperationCallExpImpl) exp);
+                BDC4CheckOp bdc4CheckOp = new BDC4CheckOp(interpreter);
+                return bdc4CheckOp.handleCheckOp(env, (OperationCallExpImpl) exp);
             }
-            EList<EObject> contents = opCallexp.eContents();
-            /**
-             * divide the whole expression into the left and right part according to the operator
-             *
-             * e.g.  A_exp op B_exp
-             */
-            OclExpression A_exp = (OclExpression) contents.get(0);
-            if (opName.equals("not")) {
+
+            EList<EObject> contents = operationCallExp.eContents();
+            //    divide the whole expression into the left and right part according to the operator  e.g.  left op right
+            OclExpression leftExpression = (OclExpression) contents.get(0);
+            OclExpression rightExpression = (OclExpression) contents.get(1);
+
+            if (operationName.equals("not")) {
                 // the not operation does not have two parts, so the A_exp is the only part of not expression
-                return notOp(env, (OperationCallExpImpl) A_exp);
+                return notOp(env, leftExpression);
             }
-            OclExpression B_exp = (OclExpression) contents.get(1);
-            return classifyValue(env, A_exp, B_exp, opName);
+
+
+            return classifyValue(env, leftExpression, rightExpression, operationName);
+
         } else if (exp instanceof IteratorExpImpl) {
+            IteratorExpImpl iteratorExp = (IteratorExpImpl) exp;
             // "forAll", "exists", "isUnique", "one"
-            BDC4IterateOp bdc4IterOp = new BDC4IterateOp(this.interpreter);
-            return bdc4IterOp.handleIteratorOp(env, (IteratorExpImpl) exp);
+            BDC4IterateOp bdc4IterOp = new BDC4IterateOp(interpreter);
+            return bdc4IterOp.handleIteratorOp(env, iteratorExp);
         }
+
         return -1;
     }
 
     /**
      * classify the expression into the Comparison or Boolean type
      *
-     * @param env
-     * @param A_exp  leftpart of operator
-     * @param B_exp  rightpart of operator
-     * @param opName
-     * @return
+     * @param env             Instance Object
+     * @param leftExpression  left operand of operator
+     * @param rightExpression right operand of operator
+     * @param operationName   operation Name
+     * @return double
      */
-    public double classifyValue(IModelInstanceObject env, OclExpression A_exp,
-                                OclExpression B_exp, String opName) {
-        this.interpreter.setEnviromentVariable("self", env);
-        if (oclExpUtility.isBelongToOp(opName, OCLExpUtility.OP_COMPARE)) {
+
+    private double classifyValue(IModelInstanceObject env, OclExpression leftExpression, OclExpression rightExpression,
+                                 String operationName) {
+        interpreter.setEnviromentVariable("self", env);
+
+        if (oclExpUtility.isBelongToOp(operationName, OCLExpUtility.OP_COMPARE)) {
+
             // "=", "<>", "<", "<=", ">", ">="
             BDC4CompareOp bdc4CompOp = new BDC4CompareOp(this.interpreter);
-            return bdc4CompOp.handleCompareOp(env, A_exp, B_exp, opName);
-        } else if (oclExpUtility.isBelongToOp(opName, OCLExpUtility.OP_BOOLEAN)) {
-            this.numOfUndClauses = 0;
+            return bdc4CompOp.handleCompareOp(env, leftExpression, rightExpression, operationName);
+
+        } else if (oclExpUtility.isBelongToOp(operationName, OCLExpUtility.OP_BOOLEAN)) {
+
+            numOfUndClauses = 0;
             // use the interpreter to interpret the two parts
-            OclAny a_result = this.interpreter.doSwitch(A_exp);
-            OclAny b_result = this.interpreter.doSwitch(B_exp);
-            if (a_result.oclIsUndefined().isTrue())
+            OclAny leftExpressionResult = this.interpreter.doSwitch(leftExpression);
+            OclAny rightExpressionResult = this.interpreter.doSwitch(rightExpression);
+
+            if (leftExpressionResult.oclIsUndefined().isTrue()) {
+                numOfUndClauses++;
+            } else if (rightExpressionResult.oclIsUndefined().isTrue()) {
                 this.numOfUndClauses++;
-            else if (b_result.oclIsUndefined().isTrue())
-                this.numOfUndClauses++;
-            // distance calculation for and, or, implies, xor expression
-            switch (opName) {
-                case "and":
-                    return andOp(env, A_exp, B_exp);
-                case "or":
-                    return orOp(env, A_exp, B_exp);
-                case "implies":
-                    return impliesOp(env, A_exp, B_exp);
-                case "xor":
-                    return xorOp(env, A_exp, B_exp);
             }
+
+
+            // distance calculation for and, or, implies, xor expression
+            switch (operationName) {
+                case "and": {
+                    return andOp(env, leftExpression, rightExpression);
+                }
+                case "or": {
+                    return orOp(env, leftExpression, rightExpression);
+                }
+                case "implies": {
+                    return impliesOp(env, leftExpression, rightExpression);
+                }
+                case "xor": {
+                    return xorOp(env, leftExpression, rightExpression);
+                }
+            }
+
         }
         return -1;
     }
 
     private double simplePropOrMiscOp(IModelInstanceObject env, OclExpression exp) {
-        this.interpreter.setEnviromentVariable("self", env);
-        OclAny result = this.interpreter.doSwitch(exp);
+        interpreter.setEnviromentVariable("self", env);
+        OclAny result = interpreter.doSwitch(exp);
 
-        if (result.oclIsUndefined().isTrue())
+        if (result.oclIsUndefined().isTrue()) {
             return Utility.K;
-        else if (((OclBoolean) result).isTrue())
+        } else if (((OclBoolean) result).isTrue()) {
             return 0;
-        else
-            // d(exp) >0 && d(exp) < k
-            return 0.8;
+        }
+        // d(exp) >0 && d(exp) < k
+
+        return 0.8;
     }
 
-    public double notOp(IModelInstanceObject env, OclExpression A_exp) {
-        OclAny A_Result = this.interpreter.doSwitch(A_exp);
+    public double notOp(IModelInstanceObject env, OclExpression leftExpression) {
+        OclAny A_Result = this.interpreter.doSwitch(leftExpression);
+
         if (((OclBoolean) A_Result).isTrue()) {
-            return handleBooleanOp(env, A_exp);
-        } else
-            return 0;
+            return handleBooleanOp(env, leftExpression);
+        }
+
+        return 0;
     }
 
-    double andOp(IModelInstanceObject env, OclExpression A_exp,
-                 OclExpression B_exp) {
-        double A_bdc = handleBooleanOp(env, A_exp);
-        double B_bdc = handleBooleanOp(env, B_exp);
+
+    public double andOp(IModelInstanceObject env, OclExpression leftExpression, OclExpression rightExpression) {
+
+        double A_bdc = handleBooleanOp(env, leftExpression);
+        double B_bdc = handleBooleanOp(env, rightExpression);
+
         return numOfUndClauses + utility.normalize(A_bdc + B_bdc);
     }
 
-    private double orOp(IModelInstanceObject env, OclExpression A_exp,
-                        OclExpression B_exp) {
-        double A_bdc = handleBooleanOp(env, A_exp);
-        double B_bdc = handleBooleanOp(env, B_exp);
+    private double orOp(IModelInstanceObject env, OclExpression leftExpression, OclExpression rightExpression) {
+        double A_bdc = handleBooleanOp(env, leftExpression);
+        double B_bdc = handleBooleanOp(env, rightExpression);
         return numOfUndClauses + utility.normalize(Math.min(A_bdc, B_bdc));
     }
 
-    private double impliesOp(IModelInstanceObject env, OclExpression A_exp,
-                             OclExpression B_exp) {
-        double notA_bdc = notOp(env, A_exp);
-        double B_bdc = handleBooleanOp(env, B_exp);
+    private double impliesOp(IModelInstanceObject env, OclExpression leftExpression, OclExpression rightExpression) {
+
+        double notA_bdc = notOp(env, leftExpression);
+        double B_bdc = handleBooleanOp(env, rightExpression);
         return numOfUndClauses + utility.normalize(Math.min(notA_bdc, B_bdc));
     }
 
-    private double xorOp(IModelInstanceObject env, OclExpression A_exp,
-                         OclExpression B_exp) {
-        double A_bdc = handleBooleanOp(env, A_exp);
-        double notA_bdc = notOp(env, A_exp);
-        double B_bdc = handleBooleanOp(env, B_exp);
-        double notB_bdc = notOp(env, B_exp);
-        double A_and_notB_bdc = numOfUndClauses
-                + utility.normalize(A_bdc + notB_bdc);
-        double notA_and_B_bdc = numOfUndClauses
-                + utility.normalize(notA_bdc + B_bdc);
-        return numOfUndClauses
-                + utility.normalize(Math.min(A_and_notB_bdc, notA_and_B_bdc));
+    private double xorOp(IModelInstanceObject env, OclExpression leftExpression, OclExpression rightExpression) {
+        double A_bdc = handleBooleanOp(env, leftExpression);
+        double notA_bdc = notOp(env, leftExpression);
+
+        double B_bdc = handleBooleanOp(env, rightExpression);
+        double notB_bdc = notOp(env, rightExpression);
+
+        double A_and_notB_bdc = numOfUndClauses + utility.normalize(A_bdc + notB_bdc);
+
+        double notA_and_B_bdc = numOfUndClauses + utility.normalize(notA_bdc + B_bdc);
+
+        return numOfUndClauses + utility.normalize(Math.min(A_and_notB_bdc, notA_and_B_bdc));
     }
 
 }

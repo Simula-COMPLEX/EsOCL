@@ -43,14 +43,13 @@ public class UMLModelInsGenerator {
     /**
      * this list contains the class instance
      */
-    private List<UMLObjectIns> umlObjectInsList;
+    private List<UMLObjectIns> umlObjectInsList = new ArrayList<>();
 
     private VESGenerator vesGenerator;
-    private StringBuilder solution = new StringBuilder();
+    private StringBuilder stringInstances = new StringBuilder();
 
     public UMLModelInsGenerator(VESGenerator vesGenerator) {
         this.vesGenerator = vesGenerator;
-        this.umlObjectInsList = new ArrayList<>();
 
     }
 
@@ -65,14 +64,17 @@ public class UMLModelInsGenerator {
      * @param solutions the search engine transfer the value string to calculate the fitness
      */
     public void reAssignedUMLObjects(String[] solutions) {
-        solution = new StringBuilder();
+        stringInstances = new StringBuilder();
         // the order of value is consistent with the attributeInsList
+        logger.debug("");
         logger.debug("******************* Building the class Instance (" + i++ + ")*******************");
 
 
-        for (int i = 0; i < this.attributeInsList.size(); i++) {
+        for (int i = 0; i < attributeInsList.size(); i++) {
 
-            Type type = this.attributeInsList.get(i).getType();
+            StringBuilder solution = new StringBuilder();
+
+            Type type = attributeInsList.get(i).getType();
 
             if (type instanceof UML2PrimitiveType) {
 
@@ -80,24 +82,28 @@ public class UMLModelInsGenerator {
                         .getName();
 
                 switch (typeValue) {
-                    case "Integer":
-                        this.attributeInsList.get(i).setValue(
+                    case "Integer": {
+                        attributeInsList.get(i).setValue(
                                 "" + Double.valueOf(solutions[i]).intValue());
                         break;
-                    case "Boolean":
+                    }
+                    case "Boolean": {
                         double temp = Double.valueOf(solutions[i]);
                         if ((temp - 1.0) == 0) {
-                            this.attributeInsList.get(i).setValue("true");
+                            attributeInsList.get(i).setValue("true");
                         } else {
-                            this.attributeInsList.get(i).setValue("false");
+                            attributeInsList.get(i).setValue("false");
                         }
                         break;
-                    case "String":
-                        this.attributeInsList.get(i).setValue(solutions[i]);
+                    }
+                    case "String": {
+                        attributeInsList.get(i).setValue(solutions[i]);
                         break;
-                    case "Real":
-                        this.attributeInsList.get(i).setValue(solutions[i]);
+                    }
+                    case "Real": {
+                        attributeInsList.get(i).setValue(solutions[i]);
                         break;
+                    }
                 }
 
 
@@ -105,59 +111,67 @@ public class UMLModelInsGenerator {
                 UML2Enumeration enumType = (UML2Enumeration) type;
 
                 String literalName = enumType.getOwnedLiteral()
-
                         .get(Double.valueOf(solutions[i]).intValue()).getName();
 
-                this.attributeInsList.get(i).setValue(literalName);
+                attributeInsList.get(i).setValue(literalName);
             }
 
             solution.append("Attribute: ");
-            solution.append(this.attributeInsList.get(i).getQualifiedName());
+            solution.append(attributeInsList.get(i).getQualifiedName());
             solution.append(" = ");
-            solution.append(this.attributeInsList.get(i).getValue());
+            solution.append(attributeInsList.get(i).getValue());
+
+            logger.debug(solution.toString());
+
+            stringInstances.append(solution);
             solution.append(" , ");
 
-            logger.debug("Attribute name: "
-                    + this.attributeInsList.get(i).getName()
-                    + "  --------  Assigned Value: " + this.attributeInsList.get(i).getValue());
+
         }
 
     }
 
     public ValueElement4Search[] getVes4InsNumberArray() {
-        // this list is build with the number of instance value
-        List<ValueElement4Search> ves4InsNumberList = new ArrayList<ValueElement4Search>();
-        Constraint constraint = this.vesGenerator.getConstraint();
-        UML2Class contextCLass = (UML2Class) constraint.getConstrainedElement()
-                .get(0);
+        Constraint constraint = vesGenerator.getConstraint();
+        UML2Class contextCLass = (UML2Class) constraint.getConstrainedElement().get(0);
         String contextClassName = contextCLass.getQualifiedName();
-        List<ValueElement4Search> vesList = this.vesGenerator
-                .getIniVesGroupByClassMap().get(contextClassName);
-        UMLObjectIns uoi = buildUMLObjectFromVesList(vesList, contextClassName);
-        logger.debug("Build the class instance:: ClassName= "
-                + uoi.getQualifiedName() + " Attrs: " + uoi.getAttributeNames());
-        this.umlObjectInsList.add(uoi);
-        logger.debug("*******************Generate the ves array from the this.umlObjectInsList*******************");
-        for (UMLObjectIns umlObject : this.umlObjectInsList) {
-            List<ValueElement4Search> initialVes4SameClassList = this.vesGenerator
-                    .getVesList4Class(umlObject.getQualifiedName());
+
+        // this list is build with the number of instance value
+        List<ValueElement4Search> ves4InsNumberList = new ArrayList<>();
+
+        List<ValueElement4Search> vesList = vesGenerator.getValueElement4SearchByClass().get(contextClassName);
+
+
+        UMLObjectIns umlObjectIns = buildUMLObjectFromVesList(vesList, contextClassName);
+        umlObjectInsList.add(umlObjectIns);
+
+        logger.debug("Build the class instance::" +
+                " ClassName= " + umlObjectIns.getQualifiedName()
+                + " with Attributes: " + umlObjectIns.getAttributeNames());
+
+
+        logger.debug("*******************Generate the ves array from the umlObjectInsList*******************");
+
+        for (UMLObjectIns umlObject : umlObjectInsList) {
+            List<ValueElement4Search> initialVes4SameClassList = vesGenerator.getValueElement4SearchByClass(umlObject.getQualifiedName());
             if (initialVes4SameClassList != null) {
                 Collection<UMLAttributeIns> nonAssAttrs = umlObject
                         .getPrimitivePropertyCollection();
-                this.attributeInsList.addAll(nonAssAttrs);
+                attributeInsList.addAll(nonAssAttrs);
                 for (UMLAttributeIns unapi : nonAssAttrs) {
-                    ValueElement4Search initialVes = this.vesGenerator.getVes(
+                    ValueElement4Search initialVes = vesGenerator.getValueElement4Search(
                             initialVes4SameClassList, unapi.getQualifiedName());
                     ValueElement4Search newVes = initialVes.createNewInstance();
                     ves4InsNumberList.add(newVes);
                 }
             }
         }
-        ValueElement4Search[] ves4InsNumberArray = new ValueElement4Search[ves4InsNumberList
-                .size()];
+        ValueElement4Search[] ves4InsNumberArray = new ValueElement4Search[ves4InsNumberList.size()];
+
         ves4InsNumberArray = ves4InsNumberList.toArray(ves4InsNumberArray);
-        logger.debug("Generate the number of nonAss Ves: "
-                + ves4InsNumberArray.length + "/n");
+
+        logger.debug("Generate the number of nonAss Ves: " + ves4InsNumberArray.length + "/n");
+
         return ves4InsNumberArray;
     }
 
@@ -208,8 +222,8 @@ public class UMLModelInsGenerator {
                 if (ves.getValue() != null) {
                     numberOfAssClassIns = Integer.valueOf(ves.getValue());
                 }
-                List<ValueElement4Search> assVes4SameClassList = this.vesGenerator
-                        .getVesList4Class(ves.getDestinationClass());
+                List<ValueElement4Search> assVes4SameClassList = vesGenerator
+                        .getValueElement4SearchByClass(ves.getDestinationClass());
                 for (int i = 0; i < numberOfAssClassIns; i++) {
                     UMLObjectIns assUoi = null;
                     if (assVes4SameClassList == null) {
@@ -223,7 +237,7 @@ public class UMLModelInsGenerator {
                         logger.debug("Build the class instance:: ClassName= "
                                 + assUoi.getQualifiedName() + " Attrs: "
                                 + assUoi.getAttributeNames() + "/n");
-                        this.umlObjectInsList.add(assUoi);
+                        umlObjectInsList.add(assUoi);
                         assUoiList.add(assUoi);
                     }
                 }
@@ -235,21 +249,21 @@ public class UMLModelInsGenerator {
     }
 
     /**
-     * find the list of UMLObjectIns from the this.umlObjectInsList based on the class name
+     * find the list of UMLObjectIns from the umlObjectInsList based on the class name
      *
      * @param className
      * @return
      */
     public List<UMLObjectIns> getUMLObjects(String className) {
         List<UMLObjectIns> identifiedObjects = new ArrayList<UMLObjectIns>();
-        for (UMLObjectIns uoi : this.umlObjectInsList) {
+        for (UMLObjectIns uoi : umlObjectInsList) {
             if (uoi.getQualifiedName().equals(className))
                 identifiedObjects.add(uoi);
         }
         return identifiedObjects;
     }
 
-    public String getSolution() {
-        return solution.toString();
+    public String getStringInstance() {
+        return stringInstances.toString();
     }
 }
