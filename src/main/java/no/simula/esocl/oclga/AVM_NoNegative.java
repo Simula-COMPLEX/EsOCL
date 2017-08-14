@@ -28,8 +28,8 @@ public class AVM_NoNegative extends Search {
         best.evaluate();
         this.increaseIteration();
 
-        if (best.getFitness_value() == 0d)
-            return best.getProblem().decoding(best.getV());
+        if (best.getFitnessValue() == 0d)
+            return best.getProblem().decoding(best.getValues());
 
         //init first generation
         while (!this.isStoppingCriterionFulfilled()) {
@@ -37,22 +37,22 @@ public class AVM_NoNegative extends Search {
             current.evaluate();
             this.increaseIteration();
 
-            if (current.getFitness_value() == 0d)
-                return current.getProblem().decoding(current.getV());
+            if (current.getFitnessValue() == 0d)
+                return current.getProblem().decoding(current.getValues());
 
             applyAVMSearch(current);
 
-            if (current.getFitness_value() == 0d)
-                return current.getProblem().decoding(current.getV());
+            if (current.getFitnessValue() == 0d)
+                return current.getProblem().decoding(current.getValues());
 
-            if (current.getFitness_value() < best.getFitness_value()) {
+            if (current.getFitnessValue() < best.getFitnessValue()) {
                 best.copyDataFrom(current);
                 reportImprovement();
             }
         }
 
-        fitness = best.getFitness_value();
-        return best.getProblem().decoding(best.getV());
+        fitness = best.getFitnessValue();
+        return best.getProblem().decoding(best.getValues());
     }
 
     private void applyAVMSearch(Individual ind) {
@@ -63,15 +63,15 @@ public class AVM_NoNegative extends Search {
 
         while (!this.isStoppingCriterionFulfilled()) {
             loop_on_variables:
-            for (int i = 0; i < ind.getV().length; i++) {
-                int index = (last_improvement_index + 1 + i) % ind.getV().length;
+            for (int i = 0; i < ind.getValues().length; i++) {
+                int index = (last_improvement_index + 1 + i) % ind.getValues().length;
 
                 //----------------------------------------------
                 if (cons.get(index).getType() == Problem.CATEGORICAL_TYPE) {
                     //try all the other values
-                    System.out.println("CATEGORICAL_TYPE" + ind.getV()[index]);
-                    int current_value = ind.getV()[index];
-                    double current_fitness = ind.getFitness_value();
+                    System.out.println("CATEGORICAL_TYPE" + ind.getValues()[index]);
+                    int current_value = ind.getValues()[index];
+                    double current_fitness = ind.getFitnessValue();
 
                     boolean improved = false;
 
@@ -82,22 +82,22 @@ public class AVM_NoNegative extends Search {
                         if (value == current_value)
                             continue;
 
-                        ind.getV()[index] = value;
+                        ind.getValues()[index] = value;
 
                         ind.evaluate();
                         this.increaseIteration();
 
-                        if (ind.getFitness_value() == 0d)
+                        if (ind.getFitnessValue() == 0d)
                             return;
 
                         //is it better?
-                        if (ind.getFitness_value() < current_fitness) {
+                        if (ind.getFitnessValue() < current_fitness) {
                             improved = true;
                             break loop_on_values;
                         } else {
                             //undo the change
-                            ind.setFitness_value(current_fitness);
-                            ind.getV()[index] = current_value;
+                            ind.setFitnessValue(current_fitness);
+                            ind.getValues()[index] = current_value;
                         }
                     }
 
@@ -118,34 +118,34 @@ public class AVM_NoNegative extends Search {
 
                         for (int d : directions) {
                             //exploratory search
-                            double current_fitness = ind.getFitness_value();
+                            double current_fitness = ind.getFitnessValue();
 
-                            int valueTmp = ind.getV()[index] + d;
+                            int valueTmp = ind.getValues()[index] + d;
 
                             if (valueTmp > cons.get(index).getMinValue() &&
                                     valueTmp < cons.get(index).getMaxValue()) {
-                                ind.getV()[index] = valueTmp;
-                                ind.setFitness_value(current_fitness);
+                                ind.getValues()[index] = valueTmp;
+                                ind.setFitnessValue(current_fitness);
                             }
 
                             ind.evaluate();
                             this.increaseIteration();
 
-                            if (ind.getFitness_value() == 0d)
+                            if (ind.getFitnessValue() == 0d)
                                 return;
 
                             //is it better?
-                            if (ind.getFitness_value() < current_fitness) {
-                                current_fitness = ind.getFitness_value();
+                            if (ind.getFitnessValue() < current_fitness) {
+                                current_fitness = ind.getFitnessValue();
                                 improved = true;
                             } else {
                                 //undo change
-                                int valueTmp4 = ind.getV()[index] - d;
+                                int valueTmp4 = ind.getValues()[index] - d;
 
                                 if (valueTmp4 > cons.get(index).getMinValue() &&
                                         valueTmp4 < cons.get(index).getMaxValue()) {
-                                    ind.getV()[index] = valueTmp4;
-                                    ind.setFitness_value(current_fitness);
+                                    ind.getValues()[index] = valueTmp4;
+                                    ind.setFitnessValue(current_fitness);
                                 }
                             }
 
@@ -155,33 +155,33 @@ public class AVM_NoNegative extends Search {
                                 int delta = 2;
 
                                 while (!this.isStoppingCriterionFulfilled()) {
-                                    current_fitness = ind.getFitness_value();
+                                    current_fitness = ind.getFitnessValue();
 
-                                    int valueTmp1 = ind.getV()[index] + (d * delta);
+                                    int valueTmp1 = ind.getValues()[index] + (d * delta);
 
                                     if (valueTmp1 > cons.get(index).getMinValue() &&
                                             valueTmp1 < cons.get(index).getMaxValue()) {
-                                        ind.getV()[index] = ind.getV()[index] + (d * delta);
-                                        System.out.println("@@@@@@@@@@@@@@@" + ind.getV()[index]);
+                                        ind.getValues()[index] = ind.getValues()[index] + (d * delta);
+                                        System.out.println("@@@@@@@@@@@@@@@" + ind.getValues()[index]);
                                     }
                                     ind.evaluate();
                                     this.increaseIteration();
 
-                                    if (ind.getFitness_value() == 0d)
+                                    if (ind.getFitnessValue() == 0d)
                                         return;
 
                                     //is it better?
-                                    if (ind.getFitness_value() < current_fitness) {
+                                    if (ind.getFitnessValue() < current_fitness) {
                                         delta = delta * 2;
                                     } else {
                                         //undo change
-                                        int valueTmp3 = ind.getV()[index] - (d * delta);
+                                        int valueTmp3 = ind.getValues()[index] - (d * delta);
 
                                         System.out.println("!!!!!!!!!!!!!!" + valueTmp3);
                                         if (valueTmp3 > cons.get(index).getMinValue() &&
                                                 valueTmp3 < cons.get(index).getMaxValue()) {
-                                            ind.getV()[index] = valueTmp3;
-                                            ind.setFitness_value(current_fitness);
+                                            ind.getValues()[index] = valueTmp3;
+                                            ind.setFitnessValue(current_fitness);
                                             break;
                                         }
                                         break;

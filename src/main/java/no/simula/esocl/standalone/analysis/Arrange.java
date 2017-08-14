@@ -13,6 +13,7 @@
 package no.simula.esocl.standalone.analysis;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Shaukat Ali
@@ -21,12 +22,6 @@ import java.util.ArrayList;
  */
 public class Arrange {
 
-    private int total = 0;
-    private ArrayList<String> arrangeList = new ArrayList<String>();
-
-    public Arrange() {
-    }
-
 
     private void swap(String list[], int k, int i) {
         String c3 = list[k];
@@ -34,9 +29,10 @@ public class Arrange {
         list[i] = c3;
     }
 
-    public void perm(String list[], int k, int m) {
+    public List<String> perm(String list[], int k, int m) {
+        List<String> arrangeList = new ArrayList<>();
         if (k > m) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i <= m; i++) {
                 sb.append(list[i]).append(",");
             }
@@ -44,22 +40,16 @@ public class Arrange {
                 sb.setLength(sb.length() - 1);
             }
             arrangeList.add(sb.toString());
-            total++;
+
         } else {
             for (int i = k; i <= m; i++) {
                 swap(list, k, i);
-                perm(list, k + 1, m);
+                arrangeList.addAll(perm(list, k + 1, m));
                 swap(list, k, i);
             }
         }
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public ArrayList<String> getArrangeList() {
         return arrangeList;
     }
+
 
 }

@@ -26,8 +26,8 @@ public class Individual implements Comparable<Individual> {
      * Array is used to store the value of the constraints, this value is generated according to the array valueofconstraints[][]
      * This array is also used to represent the chromosome
      */
-    private int[] v;
-    private double fitness_value;
+    private int[] values;
+    private double fitnessValue;
     private Problem problem;
 
     public Individual(Problem p) {
@@ -39,20 +39,20 @@ public class Individual implements Comparable<Individual> {
      * Invoke the RandomGenerator function to generate the corresponding number
      */
     public static Individual getRandomIndividual(Problem p) {
-        Individual ind = new Individual(p);
-        randomGenerateValue(ind);
-        ind.evaluate();
-        return ind;
+        Individual individual = new Individual(p);
+        randomGenerateValue(individual);
+        individual.evaluate();
+        return individual;
     }
 
 
     private static void randomGenerateValue(Individual ind) {
         //compute the length of individual
-        ind.v = new int[ind.problem.getGeneConstraints().size()];
+        ind.values = new int[ind.problem.getGeneConstraints().size()];
 
         for (int i = 0; i < ind.problem.getGeneConstraints().size(); i++) {
             GeneValueScope geneValue = ind.problem.getGeneConstraints().get(i);
-            ind.v[i] = randomGenerateValue(geneValue);
+            ind.values[i] = randomGenerateValue(geneValue);
         }
 
     }
@@ -77,12 +77,12 @@ public class Individual implements Comparable<Individual> {
     }
 
     public int compareTo(Individual other) {
-        return Double.compare(this.fitness_value, other.fitness_value);
+        return Double.compare(this.fitnessValue, other.fitnessValue);
     }
 
     public void evaluate() {
 
-        fitness_value = problem.getFitness(problem.decoding(this.v));
+        fitnessValue = problem.getFitness(problem.decoding(this.values));
     }
 
     public ArrayList<GeneValueScope> getEecodedConstraints() {
@@ -93,26 +93,26 @@ public class Individual implements Comparable<Individual> {
     public void copyDataFrom(Individual other) {
         this.problem = other.problem;
 
-        System.arraycopy(other.v, 0, this.v, 0, v.length);
+        System.arraycopy(other.values, 0, this.values, 0, values.length);
 
-        this.fitness_value = other.fitness_value;
+        this.fitnessValue = other.fitnessValue;
     }
 
 
-    public int[] getV() {
-        return v;
+    public int[] getValues() {
+        return values;
     }
 
-    public void setV(int[] v) {
-        this.v = v;
+    public void setValues(int[] values) {
+        this.values = values;
     }
 
-    public double getFitness_value() {
-        return fitness_value;
+    public double getFitnessValue() {
+        return fitnessValue;
     }
 
-    public void setFitness_value(double fitness_value) {
-        this.fitness_value = fitness_value;
+    public void setFitnessValue(double fitnessValue) {
+        this.fitnessValue = fitnessValue;
     }
 
     public Problem getProblem() {

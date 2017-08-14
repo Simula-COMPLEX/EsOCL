@@ -42,4 +42,4 @@ public class EsOCL {
 
 
 ## License
-EsOCL  is released under the [Eclipse Public License - v 1.0]()
+EsOCL  is released under the [Eclipse Public License - v 1.0](https://github.com/Simula-TaoGroup/EsOCL/blob/master/LICENSE)

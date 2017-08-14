@@ -59,13 +59,13 @@ public class SSGA extends Search {
             population[i] = Individual.getRandomIndividual(problem);
             this.increaseIteration();
 
-            if (population[i].getFitness_value() < best) {
-                best = population[i].getFitness_value();
+            if (population[i].getFitnessValue() < best) {
+                best = population[i].getFitnessValue();
                 reportImprovement();
 
                 if (best == 0d) {
                     fitness = best;
-                    return population[i].getProblem().decoding(population[i].getV());
+                    return population[i].getProblem().decoding(population[i].getValues());
                 }
             }
         }
@@ -94,31 +94,31 @@ public class SSGA extends Search {
 
             //	System.out.println("**************** Father: "+ father );
 
-            for (int i = 0; i < father.getV().length; i++) {
-                //System.out.print(", "+father.getV()[i]);
+            for (int i = 0; i < father.getValues().length; i++) {
+                //System.out.print(", "+father.getValues()[i]);
             }
 
             //	System.out.println("**************** Mother: "+ mother );
-            for (int i = 0; i < father.getV().length; i++) {
-                //System.out.print(", "+mother.getV()[i]);
+            for (int i = 0; i < father.getValues().length; i++) {
+                //System.out.print(", "+mother.getValues()[i]);
             }
 
             Individual[] offspring = xover(father, mother);
 
             mutateAndEvaluateOffspring(offspring[0]);
-            if (offspring[0].getFitness_value() == 0d) {
-                fitness = offspring[0].getFitness_value();
-                return offspring[0].getProblem().decoding(offspring[0].getV());
+            if (offspring[0].getFitnessValue() == 0d) {
+                fitness = offspring[0].getFitnessValue();
+                return offspring[0].getProblem().decoding(offspring[0].getValues());
             }
 
             mutateAndEvaluateOffspring(offspring[1]);
-            if (offspring[1].getFitness_value() == 0d) {
-                fitness = offspring[0].getFitness_value();
-                return offspring[1].getProblem().decoding(offspring[1].getV());
+            if (offspring[1].getFitnessValue() == 0d) {
+                fitness = offspring[0].getFitnessValue();
+                return offspring[1].getProblem().decoding(offspring[1].getValues());
             }
 
-            double off_min = Math.min(offspring[0].getFitness_value(), offspring[1].getFitness_value());
-            double par_min = Math.min(father.getFitness_value(), mother.getFitness_value());
+            double off_min = Math.min(offspring[0].getFitnessValue(), offspring[1].getFitnessValue());
+            double par_min = Math.min(father.getFitnessValue(), mother.getFitnessValue());
 
             //accept new offspring if one of them is better/equal than  the best parent
             if (off_min <= par_min) {
@@ -132,40 +132,40 @@ public class SSGA extends Search {
             }
         }
 
-        fitness = population[0].getFitness_value();
+        fitness = population[0].getFitnessValue();
 
         //return the best, ie minimal similarity
         Arrays.sort(population);
-        return population[0].getProblem().decoding(population[0].getV());
+        return population[0].getProblem().decoding(population[0].getValues());
     }
 
     public void mutateAndEvaluateOffspring(Individual ind) {
         ArrayList<GeneValueScope> cons = ind.getEecodedConstraints();
 
-        final double p = 1d / (double) ind.getV().length;
+        final double p = 1d / (double) ind.getValues().length;
 
-        for (int i = 0; i < ind.getV().length; i++) {
+        for (int i = 0; i < ind.getValues().length; i++) {
             if (p >= RandomGenerator.getGenerator().nextDouble()) {
                 final int min = cons.get(i).getMinValue();
                 final int max = cons.get(i).getMaxValue();
                 final int dif = max - min;
 
                 if (cons.get(i).getType() == Problem.CATEGORICAL_TYPE) {
-                    ind.getV()[i] = min + RandomGenerator.getGenerator().nextInt(dif + 1);
+                    ind.getValues()[i] = min + RandomGenerator.getGenerator().nextInt(dif + 1);
                 } else {
                     final double step = (double) dif / 100d; // 1%
                     int sign = RandomGenerator.getGenerator().nextBoolean() ? -1 : 1;
 
                     final int delta = sign * (1 + (int) (step * RandomGenerator.getGenerator().nextDouble()));
 
-                    int k = ind.getV()[i] + delta;
+                    int k = ind.getValues()[i] + delta;
 
                     if (k > max)
                         k = max;
                     if (k < min)
                         k = min;
 
-                    ind.getV()[i] = k;
+                    ind.getValues()[i] = k;
                 }
             }
         }
@@ -177,30 +177,30 @@ public class SSGA extends Search {
     protected Individual[] xover(Individual a, Individual b) {
         Individual[] offspring = new Individual[]{new Individual(a.getProblem()), new Individual(b.getProblem())};
 
-        offspring[0].setV(new int[a.getV().length]);
-        offspring[1].setV(new int[b.getV().length]);
+        offspring[0].setValues(new int[a.getValues().length]);
+        offspring[1].setValues(new int[b.getValues().length]);
 
         //k is the splitting point. it cannot be the first, because otherwise the offspring
         //d be copies of the parents
         int k;
 
         //shall we apply xover?
-        //	System.out.print("************"+offspring[0].getV().length);
+        //	System.out.print("************"+offspring[0].getValues().length);
 
         if (RandomGenerator.getGenerator().nextDouble() < xover_rate)
-            k = 1 + RandomGenerator.getGenerator().nextInt(offspring[0].getV().length);
+            k = 1 + RandomGenerator.getGenerator().nextInt(offspring[0].getValues().length);
         else
-            k = offspring[0].getV().length; // that means no splitting point
+            k = offspring[0].getValues().length; // that means no splitting point
 
         for (int i = 0; i < k; i++) {
-            offspring[0].getV()[i] = a.getV()[i];
-            offspring[1].getV()[i] = b.getV()[i];
+            offspring[0].getValues()[i] = a.getValues()[i];
+            offspring[1].getValues()[i] = b.getValues()[i];
         }
 
-        for (int i = k; i < offspring[0].getV().length; i++) {
+        for (int i = k; i < offspring[0].getValues().length; i++) {
             //note the inverted order
-            offspring[0].getV()[i] = b.getV()[i];
-            offspring[1].getV()[i] = a.getV()[i];
+            offspring[0].getValues()[i] = b.getValues()[i];
+            offspring[1].getValues()[i] = a.getValues()[i];
         }
 
 

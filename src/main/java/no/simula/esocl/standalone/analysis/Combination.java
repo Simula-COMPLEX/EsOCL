@@ -14,6 +14,7 @@ package no.simula.esocl.standalone.analysis;
 
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.List;
 
 /**
  * @author Shaukat Ali
@@ -31,9 +32,9 @@ public class Combination {
             System.out.println(comb.getCombList().get(i));
             String[] list = comb.getCombList().get(i).split(",");
             Arrange ts = new Arrange();
-            ts.perm(list, 0, list.length - 1);
-            for (int j = 0; j < ts.getArrangeList().size(); j++) {
-                System.out.println("/u0009" + ts.getArrangeList().get(j));
+            List<String> arrangeList = ts.perm(list, 0, list.length - 1);
+            for (String anArrangeList : arrangeList) {
+                System.out.println("/u0009" + anArrangeList);
             }
         }
     }

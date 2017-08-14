@@ -136,6 +136,7 @@ public class BDC4CompareOp {
         return compareOp4Numeric(leftResult, rightResult, opName);
     }
 
+
     private double handleCollectionEquality(IModelInstanceObject env, OclAny left, OclAny right, String opName) {
         interpreter.setEnviromentVariable("self", env);
 
@@ -261,63 +262,49 @@ public class BDC4CompareOp {
         return -1;
     }
 
-
     public Double compareOp4Numeric(double leftResult, double rightResult, String opName) {
         // calculate the distance of comparison expression
         double diversity = leftResult - rightResult;
         switch (opName) {
-            case "=": {
-                if (diversity == 0) {
+            case "=":
+                if (diversity == 0)
                     return 0.0;
-                } else {
+                else
                     return utility.formatValue(Utility.K
                             * utility.normalize(Math.abs(diversity)));
-                }
-            }
-            case "<>": {
-                if (diversity == 0) {
+            case "<>":
+                if (diversity != 0)
                     return 0.0;
-                } else {
+                else return utility.formatValue(Utility.K
+                        * utility.normalize(1 + Math.abs(diversity)));
+            case "<":
+                if (diversity < 0)
+                    return 0.0;
+                else
                     return utility.formatValue(Utility.K
                             * utility.normalize(1 + Math.abs(diversity)));
-                }
-            }
-            case "<": {
-                if (diversity == 0) {
+            case "<=":
+                if (diversity <= 0)
                     return 0.0;
-                } else {
+                else
                     return utility.formatValue(Utility.K
                             * utility.normalize(1 + Math.abs(diversity)));
-                }
-            }
-            case "<=": {
-                if (diversity == 0) {
+            case ">":
+                if (diversity > 0)
                     return 0.0;
-                } else {
+                else
                     return utility.formatValue(Utility.K
                             * utility.normalize(1 + Math.abs(diversity)));
-                }
-            }
-            case ">": {
-                if (diversity == 0) {
+            case ">=":
+                if (diversity >= 0)
                     return 0.0;
-                } else {
+                else
                     return utility.formatValue(Utility.K
                             * utility.normalize(1 + Math.abs(diversity)));
-
-                }
-            }
-            case ">=": {
-                if (diversity == 0) {
-                    return 0.0;
-                } else {
-                    return utility.formatValue(Utility.K
-                            * utility.normalize(1 + Math.abs(diversity)));
-                }
-            }
             default:
                 return -1.0;
         }
     }
+
 
 }

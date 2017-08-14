@@ -153,12 +153,11 @@ public class Utility {
         if (!isArrange) {
             return comb.getCombList();
         }
-        ArrayList<String> arrangeList = new ArrayList<String>();
+        ArrayList<String> arrangeList = new ArrayList<>();
         for (int i = 0; i < comb.getCombList().size(); i++) {
             String[] list = comb.getCombList().get(i).split(",");
             Arrange ts = new Arrange();
-            ts.perm(list, 0, list.length - 1);
-            arrangeList.addAll(ts.getArrangeList());
+            arrangeList.addAll(ts.perm(list, 0, list.length - 1));
         }
         return arrangeList;
     }

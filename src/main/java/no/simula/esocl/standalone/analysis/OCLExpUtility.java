@@ -198,8 +198,9 @@ public class OCLExpUtility {
 
     public boolean isBelongToOp(String opName, String[] ops) {
         for (String op : ops) {
-            if (op.equals(opName))
+            if (op.equals(opName)) {
                 return true;
+            }
         }
         return false;
     }

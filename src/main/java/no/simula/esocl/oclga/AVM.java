@@ -28,8 +28,8 @@ public class AVM extends Search {
         best.evaluate();
         this.increaseIteration();
 
-        if (best.getFitness_value() == 0d)
-            return best.getProblem().decoding(removeNegativeValue(best).getV());
+        if (best.getFitnessValue() == 0d)
+            return best.getProblem().decoding(removeNegativeValue(best).getValues());
 
         //init first generation
         while (!this.isStoppingCriterionFulfilled()) {
@@ -37,33 +37,33 @@ public class AVM extends Search {
             current.evaluate();
             this.increaseIteration();
 
-            if (current.getFitness_value() == 0d)
-                return current.getProblem().decoding(removeNegativeValue(current).getV());
+            if (current.getFitnessValue() == 0d)
+                return current.getProblem().decoding(removeNegativeValue(current).getValues());
 
             applyAVMSearch(current);
 
-            if (current.getFitness_value() == 0d)
-                return current.getProblem().decoding(removeNegativeValue(current).getV());
+            if (current.getFitnessValue() == 0d)
+                return current.getProblem().decoding(removeNegativeValue(current).getValues());
 
-            if (current.getFitness_value() < best.getFitness_value()) {
+            if (current.getFitnessValue() < best.getFitnessValue()) {
                 best.copyDataFrom(current);
                 reportImprovement();
             }
         }
-        fitness = best.getFitness_value();
+        fitness = best.getFitnessValue();
 
-        return best.getProblem().decoding(removeNegativeValue(best).getV());
+        return best.getProblem().decoding(removeNegativeValue(best).getValues());
     }
 
     private Individual removeNegativeValue(Individual best) {
         ArrayList<GeneValueScope> cons =
                 best.getEecodedConstraints();
 
-        for (int i = 0; i < best.getV().length; i++) {
-            if (best.getV()[i] < cons.get(i).getMinValue())
-                best.getV()[i] = cons.get(i).getMinValue();
-            else if (best.getV()[i] > cons.get(i).getMaxValue())
-                best.getV()[i] = cons.get(i).getMaxValue();
+        for (int i = 0; i < best.getValues().length; i++) {
+            if (best.getValues()[i] < cons.get(i).getMinValue())
+                best.getValues()[i] = cons.get(i).getMinValue();
+            else if (best.getValues()[i] > cons.get(i).getMaxValue())
+                best.getValues()[i] = cons.get(i).getMaxValue();
         }
 
         return best;
@@ -77,15 +77,15 @@ public class AVM extends Search {
 
         while (!this.isStoppingCriterionFulfilled()) {
             loop_on_variables:
-            for (int i = 0; i < ind.getV().length; i++) {
-                int index = (last_improvement_index + 1 + i) % ind.getV().length;
+            for (int i = 0; i < ind.getValues().length; i++) {
+                int index = (last_improvement_index + 1 + i) % ind.getValues().length;
 
                 //----------------------------------------------
                 if (cons.get(index).getType() == Problem.CATEGORICAL_TYPE) {
                     //try all the other values
 
-                    int current_value = ind.getV()[index];
-                    double current_fitness = ind.getFitness_value();
+                    int current_value = ind.getValues()[index];
+                    double current_fitness = ind.getFitnessValue();
 
                     boolean improved = false;
 
@@ -96,22 +96,22 @@ public class AVM extends Search {
                         if (value == current_value)
                             continue;
 
-                        ind.getV()[index] = value;
+                        ind.getValues()[index] = value;
 
                         ind.evaluate();
                         this.increaseIteration();
 
-                        if (ind.getFitness_value() == 0d)
+                        if (ind.getFitnessValue() == 0d)
                             return;
 
                         //is it better?
-                        if (ind.getFitness_value() < current_fitness) {
+                        if (ind.getFitnessValue() < current_fitness) {
                             improved = true;
                             break loop_on_values;
                         } else {
                             //undo the change
-                            ind.setFitness_value(current_fitness);
-                            ind.getV()[index] = current_value;
+                            ind.setFitnessValue(current_fitness);
+                            ind.getValues()[index] = current_value;
                         }
                     }
 
@@ -132,24 +132,24 @@ public class AVM extends Search {
 
                         for (int d : directions) {
                             //exploratory search
-                            double current_fitness = ind.getFitness_value();
+                            double current_fitness = ind.getFitnessValue();
 
-                            ind.getV()[index] = ind.getV()[index] + d;
+                            ind.getValues()[index] = ind.getValues()[index] + d;
 
                             ind.evaluate();
                             this.increaseIteration();
 
-                            if (ind.getFitness_value() == 0d)
+                            if (ind.getFitnessValue() == 0d)
                                 return;
 
                             //is it better?
-                            if (ind.getFitness_value() < current_fitness) {
-                                current_fitness = ind.getFitness_value();
+                            if (ind.getFitnessValue() < current_fitness) {
+                                current_fitness = ind.getFitnessValue();
                                 improved = true;
                             } else {
                                 //undo change
-                                ind.getV()[index] = ind.getV()[index] - d;
-                                ind.setFitness_value(current_fitness);
+                                ind.getValues()[index] = ind.getValues()[index] - d;
+                                ind.setFitnessValue(current_fitness);
                             }
 
                             if (improved) {
@@ -158,24 +158,24 @@ public class AVM extends Search {
                                 int delta = 2;
 
                                 while (!this.isStoppingCriterionFulfilled()) {
-                                    current_fitness = ind.getFitness_value();
+                                    current_fitness = ind.getFitnessValue();
 
-                                    ind.getV()[index] = ind.getV()[index] + (d * delta);
+                                    ind.getValues()[index] = ind.getValues()[index] + (d * delta);
 
                                     ind.evaluate();
                                     this.increaseIteration();
 
-                                    if (ind.getFitness_value() == 0d)
+                                    if (ind.getFitnessValue() == 0d)
                                         return;
 
                                     //is it better?
-                                    if (ind.getFitness_value() < current_fitness) {
+                                    if (ind.getFitnessValue() < current_fitness) {
                                         delta = delta * 2;
                                     } else {
                                         //undo change
-                                        ind.getV()[index] = ind.getV()[index] - (d * delta);
+                                        ind.getValues()[index] = ind.getValues()[index] - (d * delta);
 
-                                        ind.setFitness_value(current_fitness);
+                                        ind.setFitnessValue(current_fitness);
                                         break;
                                     }
                                 }
