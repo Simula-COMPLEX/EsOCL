@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_CeeSAfw6EeKxN6kBBAjIxQ" name="OCLTest">
+  <packageImport xmi:id="_CeeSAvw6EeKxN6kBBAjIxQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_CeeSA_w6EeKxN6kBBAjIxQ" name="Customer">
+    <generalization xmi:id="_CeeSBPw6EeKxN6kBBAjIxQ" general="_CeeSLvw6EeKxN6kBBAjIxQ"/>
+    <ownedAttribute xmi:id="_CeeSBfw6EeKxN6kBBAjIxQ" name="amount" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CeeSBvw6EeKxN6kBBAjIxQ" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CeeSB_w6EeKxN6kBBAjIxQ" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_CeeSCPw6EeKxN6kBBAjIxQ" name="cards" visibility="private" type="_CeeSDvw6EeKxN6kBBAjIxQ" association="_CeeSF_w6EeKxN6kBBAjIxQ">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CeeSCfw6EeKxN6kBBAjIxQ" value="4"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CeeSCvw6EeKxN6kBBAjIxQ" value="4"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_CeeSC_w6EeKxN6kBBAjIxQ" name="age" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_CeeSDPw6EeKxN6kBBAjIxQ" name="isMale" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_CeeSDfw6EeKxN6kBBAjIxQ" name="name" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_CeeSDvw6EeKxN6kBBAjIxQ" name="CustomerCard">
+    <ownedAttribute xmi:id="_CeeSD_w6EeKxN6kBBAjIxQ" name="color" visibility="private" type="_CeeSFPw6EeKxN6kBBAjIxQ"/>
+    <ownedAttribute xmi:id="_CeeSEPw6EeKxN6kBBAjIxQ" name="owner" visibility="private" type="_CeeSA_w6EeKxN6kBBAjIxQ" association="_CeeSF_w6EeKxN6kBBAjIxQ">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CeeSEfw6EeKxN6kBBAjIxQ" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CeeSEvw6EeKxN6kBBAjIxQ" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_CeeSE_w6EeKxN6kBBAjIxQ" name="valid" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_CeeSFPw6EeKxN6kBBAjIxQ" name="Color">
+    <ownedLiteral xmi:id="_CeeSFfw6EeKxN6kBBAjIxQ" name="red" classifier="_CeeSFPw6EeKxN6kBBAjIxQ"/>
+    <ownedLiteral xmi:id="_CeeSFvw6EeKxN6kBBAjIxQ" name="gold" classifier="_CeeSFPw6EeKxN6kBBAjIxQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_CeeSF_w6EeKxN6kBBAjIxQ" memberEnd="_CeeSEPw6EeKxN6kBBAjIxQ _CeeSCPw6EeKxN6kBBAjIxQ"/>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_CeeSGPw6EeKxN6kBBAjIxQ" name="CustomerInstance" classifier="_CeeSA_w6EeKxN6kBBAjIxQ">
+    <eAnnotations xmi:id="_CeeSGfw6EeKxN6kBBAjIxQ" source="http://www.eclipse.org/uml2/2.0.0/UML"/>
+    <slot xmi:id="_CeeSGvw6EeKxN6kBBAjIxQ" definingFeature="_CeeSBfw6EeKxN6kBBAjIxQ">
+      <value xmi:type="uml:InstanceValue" xmi:id="_CeeSG_w6EeKxN6kBBAjIxQ"/>
+    </slot>
+    <slot xmi:id="_CeeSHPw6EeKxN6kBBAjIxQ" definingFeature="_CeeSDfw6EeKxN6kBBAjIxQ">
+      <value xmi:type="uml:OpaqueExpression" xmi:id="_CeeSHfw6EeKxN6kBBAjIxQ">
+        <language></language>
+        <body>ss</body>
+      </value>
+    </slot>
+    <slot xmi:id="_CeeSHvw6EeKxN6kBBAjIxQ" definingFeature="_CeeSC_w6EeKxN6kBBAjIxQ">
+      <value xmi:type="uml:LiteralInteger" xmi:id="_CeeSH_w6EeKxN6kBBAjIxQ" value="12"/>
+    </slot>
+    <slot xmi:id="_CeeSIPw6EeKxN6kBBAjIxQ" definingFeature="_CeeSDPw6EeKxN6kBBAjIxQ">
+      <value xmi:type="uml:LiteralBoolean" xmi:id="_CeeSIfw6EeKxN6kBBAjIxQ" value="true"/>
+    </slot>
+    <slot xmi:id="_CeeSIvw6EeKxN6kBBAjIxQ" definingFeature="_CeeSCPw6EeKxN6kBBAjIxQ">
+      <value xmi:type="uml:InstanceValue" xmi:id="_CeeSI_w6EeKxN6kBBAjIxQ" instance="_CeeSJfw6EeKxN6kBBAjIxQ"/>
+      <value xmi:type="uml:InstanceValue" xmi:id="_CeeSJPw6EeKxN6kBBAjIxQ" instance="_CeeSKvw6EeKxN6kBBAjIxQ"/>
+    </slot>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_CeeSJfw6EeKxN6kBBAjIxQ" name="CustomerCardInstance" classifier="_CeeSDvw6EeKxN6kBBAjIxQ">
+    <slot xmi:id="_CeeSJvw6EeKxN6kBBAjIxQ" definingFeature="_CeeSD_w6EeKxN6kBBAjIxQ">
+      <value xmi:type="uml:InstanceValue" xmi:id="_CeeSJ_w6EeKxN6kBBAjIxQ" instance="_CeeSK_w6EeKxN6kBBAjIxQ"/>
+    </slot>
+    <slot xmi:id="_CeeSKPw6EeKxN6kBBAjIxQ" definingFeature="_CeeSEPw6EeKxN6kBBAjIxQ">
+      <value xmi:type="uml:InstanceValue" xmi:id="_CeeSKfw6EeKxN6kBBAjIxQ" instance="_CeeSGPw6EeKxN6kBBAjIxQ"/>
+    </slot>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_CeeSKvw6EeKxN6kBBAjIxQ" name="CustomerCardInstance2" classifier="_CeeSDvw6EeKxN6kBBAjIxQ"/>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_CeeSK_w6EeKxN6kBBAjIxQ" name="ColorInstance" classifier="_CeeSFPw6EeKxN6kBBAjIxQ">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_CeeSLPw6EeKxN6kBBAjIxQ">
+      <language></language>
+      <body>red</body>
+    </specification>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_CeeSLfw6EeKxN6kBBAjIxQ" name="Class1Instance"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_CeeSLvw6EeKxN6kBBAjIxQ" name="Person">
+    <ownedAttribute xmi:id="_CeeSL_w6EeKxN6kBBAjIxQ" name="id" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+  </packagedElement>
+  <profileApplication xmi:id="_CeeSMPw6EeKxN6kBBAjIxQ">
+    <eAnnotations xmi:id="_CeeSMfw6EeKxN6kBBAjIxQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+    </eAnnotations>
+    <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+  </profileApplication>
+</uml:Package>

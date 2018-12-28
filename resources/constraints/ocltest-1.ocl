@@ -1,0 +1,4 @@
+package Test
+context Saturn
+inv initial: (self.systemUnit.NumberOfActiveCalls  > 1 and  self.systemUnit.NumberOfActiveCalls  <= 3 ) and self.media.synchronizationMismatch.unit = TimeUnitKind::s and (self.media.synchronizationMismatch.value  > 0 and self.media.synchronizationMismatch.value  <= 4) 
+endpackage

@@ -1,0 +1,4 @@
+package Test
+context Saturn
+inv initial: (self.systemUnit.NumberOfActiveCalls  > 1 and  self.systemUnit.NumberOfActiveCalls  <= 3 ) and (self.media.audio.audioFrameLoss.value >= 0 and self.media.audio.audioFrameLoss.value <= 3) and self.conference.PresentationMode = Mode::Off and self.conference.call->select(call | call.incomingPresentationChannel.Protocol <> VideoProtocol::Off)->size()=2 and self.conference.call->select(call | call.outgoingPresentationChannel.Protocol <> VideoProtocol::Off)->size()=2
+endpackage

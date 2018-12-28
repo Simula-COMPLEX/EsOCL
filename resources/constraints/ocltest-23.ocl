@@ -1,0 +1,4 @@
+package Test
+context Saturn
+inv initial: self.conference.PresentationMode = Mode::Sending
+endpackage

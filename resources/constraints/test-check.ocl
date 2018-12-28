@@ -1,0 +1,10 @@
+package tudresden::ocl20::pivot::examples::royalsandloyals
+
+-- Invariant 1:
+context Customer
+
+-- inv ofAge: self.cards->collect(c:CustomerCard|c.valid)->includesAll(Set{true})
+inv ofAge: self.cards->collect(c:CustomerCard|c.valid)->includes(true)
+-- inv ofAge: self.cards->collect(c:CustomerCard|c.valid)->isEmpty()
+
+endpackage

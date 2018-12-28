@@ -1,0 +1,24 @@
+package OCLTest
+
+-- Invariant 1:
+context Customer
+
+-- inv ofAge: self.amount <= 23.12
+
+-- inv ofAge: self.bossName->forAll(a|a='LL')
+
+inv ofAge: self.cards->select(color=Color::red)->forAll(c|true)
+
+-- inv ofAge: Set{1,2}=Set{2,3}
+
+-- inv ofAge: Tuple{firstName = 'John', age= 29}.age > 20
+
+-- inv ofAge: not (self.isMale = false)
+
+-- inv ofAge: self.cards->size() = 2 
+
+-- inv ofAge: self.age <= 23
+
+-- inv ofAge: self.id = 'abcd'
+
+endpackage

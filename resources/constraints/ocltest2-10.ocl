@@ -1,0 +1,4 @@
+package Test2
+context A
+inv initial: self.b->collect(b|b.x)->excludes(0)
+endpackage

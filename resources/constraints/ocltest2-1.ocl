@@ -1,0 +1,4 @@
+package Test2
+context A
+inv initial: self.b->forAll(b|(b.x > 0 and b.x < 4) and (b.x > 1 and b.x < 4))
+endpackage

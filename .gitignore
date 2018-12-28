@@ -1,5 +1,2 @@
-/out/
-/templates/
-*.impl
-/.idea/
-/target/
+/bin
+/.settings
